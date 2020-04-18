@@ -5,9 +5,9 @@
 <div class="section no-pad-bot" id="index-banner">
     <div class="container">
         <br><br>
-        <h1 class="header center light-blue-text">আমার বাজার</h1>
+        <h1 class="header center light-blue-text">{{__('welcome.Amar Bazar')}}</h1>
         <div class="row center">
-            <h5 class="header col s12 light">একসাথে সবকিছু</h5>
+            <h5 class="header col s12 light">{{__('welcome.Everything together')}}</h5>
         </div>
     </div>
 </div>
@@ -22,44 +22,42 @@
                 <table class="responsive-table">
                     <thead>
                         <tr>
-                            <th>পন্যের নাম</th>
-                            <th>পরিমাণ</th>
-                            <th>দর</th>
-                            <th>দাম</th>
+                            <th>{{__('cart.Product Name')}}</th>
+                            <th>{{__('cart.Quantity')}}</th>
+                            <th>{{__('cart.Unit price')}}</th>
+                            <th>{{__('cart.Sub Total')}}</th>
                         </tr>
                     </thead>
 
                     <tbody>
                         <tr>
                             <td>আম</td>
-                            <td>২০কেজি</td>
-                            <td>১৫০টাকা</td>
-                            <td>৩০০০টাকা</td>
+                            <td>২০{{__('cart.Kg')}}</td>
+                            <td>১৫০{{__('cart.Taka')}}</td>
+                            <td>৩০০০{{__('cart.Taka')}}</td>
                         </tr>
                         <tr>
                             <td>আম</td>
-                            <td>২০কেজি</td>
-                            <td>১৫০টাকা</td>
-                            <td>৩০০০টাকা</td>
+                            <td>২০{{__('cart.Kg')}}</td>
+                            <td>১৫০{{__('cart.Taka')}}</td>
+                            <td>৩০০০{{__('cart.Taka')}}</td>
                         </tr>
                         <tr>
                             <td>আম</td>
-                            <td>২০কেজি</td>
-                            <td>১৫০টাকা</td>
-                            <td>৩০০০টাকা</td>
+                            <td>২০{{__('cart.Kg')}}</td>
+                            <td>১৫০{{__('cart.Taka')}}</td>
+                            <td>৩০০০{{__('cart.Taka')}}</td>
                         </tr>
                     </tbody>
                 </table>
-                <p class="center">মোটঃ ৯০০০টাকা</p>
+                <p class="center">{{__('cart.Total')}} ৯০০০ {{__('cart.Taka')}}</p>
             </div>
             <div class="col s12">
-                <button class="btn light-blue right waves-effect waves-light">কনফার্ম করুন</button>
+                <button class="btn light-blue right waves-effect waves-light">{{__('cart.Confirm')}}</button>
             </div>
         </div>
 
     </div>
     <br><br>
 </div>
-
-
 @endsection
