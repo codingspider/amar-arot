@@ -12,9 +12,11 @@
 // Register service worker.
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
-    navigator.serviceWorker.register('./service-worker.js')
+    console.log('service worker load fired');
+    navigator.serviceWorker.register('./../../service-worker.js')
         .then((reg) => {
           console.log('Service worker registered.', reg);
         });
   });
 }
+
