@@ -39,29 +39,19 @@
     <li>
         <div class="divider"></div>
     </li>
-    <li class="lang">
-        <a href="{{url('/locale/bn')}}">বাংলা</a>
-        <a href="{{url('/locale/en')}}">English</a>
-        <!-- <select class="icons white-text">
-            <option value="" data-icon="{{asset('content')}}/img/bn.png"></option>
-            <option value="" data-icon="{{asset('content')}}/img/en.png"></option>
-        </select> -->
-        <label>Language</label>
-        </div>
+    @if(App::getLocale() == 'en')
+    <li>
+        <a class="waves-effect white-text" href="{{url('/locale/bn')}}">
+            <i class="material-icons white-text">airplanemode_active</i>
+            বাংলা
+        </a>
     </li>
+    @else
+    <li>
+        <a class="waves-effect white-text" href="{{url('/locale/en')}}">
+            <i class="material-icons white-text">airplanemode_active</i>
+            English
+        </a>
+    </li>
+    @endif
 </ul>
-
-<style>
-    .lang .select-wrapper input{
-        color: white !important;
-        font-size: smaller;
-    }
-
-    .lang .select-wrapper ul li{
-        font-size: smaller;
-    }
-
-    .lang{
-        padding: 0px 30px !important;
-    }
-</style>
