@@ -33,3 +33,7 @@ Route::get('orders', function () {
 Route::get('details', function () {
     return view('orders.show');
 });
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
