@@ -12,6 +12,14 @@
 */
 // All rout is for test Purpose
 
+
+Route::get('locale/{locale}', function ($locale) {
+    session()->put('locale',$locale);
+    return redirect()->back();
+});
+// Route::get('lang/{locale}','localization@view')->name('lang');
+
+
 Route::get('/', function () {
     return view('welcome');
 });

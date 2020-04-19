@@ -40,10 +40,12 @@
         <div class="divider"></div>
     </li>
     <li class="lang">
-        <select class="icons white-text">
-            <option value="" data-icon="{{asset('content')}}/img/bn.png">বাংলা</option>
-            <option value="" data-icon="{{asset('content')}}/img/en.png">English</option>
-        </select>
+        <a href="{{url('/locale/bn')}}">বাংলা</a>
+        <a href="{{url('/locale/en')}}">English</a>
+        <!-- <select class="icons white-text">
+            <option value="" data-icon="{{asset('content')}}/img/bn.png"></option>
+            <option value="" data-icon="{{asset('content')}}/img/en.png"></option>
+        </select> -->
         <label>Language</label>
         </div>
     </li>

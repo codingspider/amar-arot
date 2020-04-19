@@ -66,7 +66,7 @@ self.addEventListener('activate', (evt) => {
 
 
 self.addEventListener('fetch', (event) => {
-  // Do not cache read.php dynamically. Network first for read.php and then save into cache with the updated version. 
+  // Do not cache read.php dynamically. Network first for read.php and then save into cache with the updated version.
     if(event.request.url.includes('read.php')){
         // console.log('for read page only');
         event.respondWith(
@@ -85,7 +85,7 @@ self.addEventListener('fetch', (event) => {
                 //   console.log('fetch from cache',event.request.url);
                   return caches.match(event.request);
                 })
-        )   
+        )
         return;
     }
     //for page other than read.php
@@ -100,7 +100,7 @@ self.addEventListener('fetch', (event) => {
                   console.log('fetch even handling:',event.request,responseClone.url);
                   cache.put(event.request, responseClone);
                 });
-        
+
                 return response;
               });
             }).catch(() => {
