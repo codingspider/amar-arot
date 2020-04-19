@@ -5,5 +5,8 @@ return [
     'Orders' => 'Orders',
     'Install' => 'Install',
     'Refresh' => 'Refresh',
+    'Manage_role' => 'Manage Role',
+    'Manage_user' => 'Manage User',
+    'Manage_product' => 'Manage Product',
 ];
 ?>

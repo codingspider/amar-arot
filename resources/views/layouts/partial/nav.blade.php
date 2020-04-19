@@ -33,12 +33,26 @@
     </li>
     <li id="butInstall" hidden><a class="waves-effect white-text"><i
                 class="material-icons white-text">arrow_downward</i>{{__('nav.Install')}}</a></li>
+
     <li id="butRefresh"><a class="waves-effect white-text"><i
                 class="material-icons white-text">refresh</i>{{__('nav.Refresh')}}</a>
     </li>
+    <li id="butRefresh"><a href="{{ route('users.index') }}" class="waves-effect white-text"><i
+                class="material-icons white-text">people</i>{{__('nav.Manage_user')}}</a>
+    </li>
+    <li id="butRefresh"><a  href="{{ route('roles.index') }}" class="waves-effect white-text"><i
+                class="material-icons white-text">device_hub</i>{{__('nav.Manage_role')}}</a>
+    </li>
+    <li id="butRefresh"><a  href="{{ route('products.index') }}" class="waves-effect white-text"><i
+                class="material-icons white-text">local_offer</i>{{__('nav.Manage_product')}}</a>
+    </li>
+
+
     <li>
         <div class="divider"></div>
     </li>
+     
+
     @if(App::getLocale() == 'en')
     <li>
         <a class="waves-effect white-text" href="{{url('/locale/bn')}}">
@@ -54,4 +68,17 @@
         </a>
     </li>
     @endif
+    <li>
+         <a class="dropdown-item" href="{{ route('logout') }}"
+        onclick="event.preventDefault();
+                        document.getElementById('logout-form').submit();">
+        {{ __('Logout') }}
+    </a>
+
+
+    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+        @csrf
+    </form>
+    </li>
 </ul>
+

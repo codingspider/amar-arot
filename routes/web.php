@@ -45,3 +45,12 @@ Route::get('details', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::group(['middleware' => ['auth']], function() {
+    Route::resource('roles','RoleController');
+    Route::resource('users','UserController');
+    Route::get('users/delete/{id}','UserController@destroy');
+    Route::post('users/update','UserController@update');
+    Route::resource('products','ProductController');
+    Route::get('roles/delete/{id}','RoleController@destroy' );
+});
