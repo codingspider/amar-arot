@@ -1,5 +1,5 @@
 <nav class="light-blue lighten-1" role="navigation">
-    <div class="nav-wrapper container"><a id="logo-container" href="{{url('purchases')}}" class="brand-logo">আমার বাজার</a>
+    <div class="nav-wrapper container"><a id="logo-container" href="{{url('purchases')}}" class="brand-logo">{{__('welcome.Amar Bazar')}}</a>
         <a href="#" data-target="slide-out" class="sidenav-trigger show-on-medium-and-up right"><i
                 class="material-icons">menu</i></a>
     </div>
@@ -15,21 +15,20 @@
             <a href="#email"><span class="white-text email">jdandturk@gmail.com</span></a>
         </div>
     </li>
-    <li><a class="white-text waves-effect" href="#!"><i class="material-icons white-text">account_circle</i>প্রোফাইল</a>
+    <li><a class="white-text waves-effect" href="#!"><i class="material-icons white-text">account_circle</i>{{__('nav.Profile')}}</a>
     </li>
     <li>
         <div class="divider"></div>
     </li>
     <!-- <li><a href="#!">Second Link</a></li> -->
-    <li><a class="waves-effect white-text" href="{{url('sales')}}"><i class="material-icons white-text">add_box</i>বিক্রয়</a>
+    <li><a class="waves-effect white-text" href="{{url('sales')}}"><i class="material-icons white-text">add_box</i>{{__('nav.Sale')}}</a>
     </li>
-    <li><a class="waves-effect white-text" href="{{url('orders')}}"><i class="material-icons white-text">add_box</i>অর্ডার
-            সমূহ</a></li>
+    <li><a class="waves-effect white-text" href="{{url('orders')}}"><i class="material-icons white-text">add_box</i>{{__('nav.Orders')}}</a></li>
     <li>
         <div class="divider"></div>
     </li>
     <li id="butInstall" hidden><a class="waves-effect white-text"><i
-                class="material-icons white-text">arrow_downward</i>ইন্সটল</a></li>
-    <li id="butRefresh"><a class="waves-effect white-text"><i class="material-icons white-text">refresh</i>রিফ্রেশ</a>
+                class="material-icons white-text">arrow_downward</i>{{__('nav.Install')}}</a></li>
+    <li id="butRefresh"><a class="waves-effect white-text"><i class="material-icons white-text">refresh</i>{{__('nav.Refresh')}}</a>
     </li>
 </ul>
