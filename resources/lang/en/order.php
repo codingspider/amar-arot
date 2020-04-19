@@ -13,6 +13,7 @@ return [
     'Delivered'=>'Delivered',
     'Sales Orders'=>'Sales Orders',
     'Purchase Orders'=>'Purchase Orders',
+    'Your orders'=>'Your Orders',
     'Shipment'=>'Shipment',
     'Your order details'=>'Your Order Details',
     'Address'=>'Address:',
