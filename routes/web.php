@@ -12,8 +12,7 @@
 */
 // All rout is for test Purpose
 
-Route::get('/{lang}', function ($lang) {
-    App::setlocale($lang);
+Route::get('/', function () {
     return view('welcome');
 });
 Route::get('login', function () {
