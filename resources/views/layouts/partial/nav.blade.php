@@ -52,6 +52,11 @@
 <style>
     .lang .select-wrapper input{
         color: white !important;
+        font-size: smaller;
+    }
+
+    .lang .select-wrapper ul li{
+        font-size: smaller;
     }
 
     .lang{
