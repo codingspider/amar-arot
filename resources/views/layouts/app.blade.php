@@ -37,7 +37,7 @@
     <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script src="{{asset('content')}}/js/materialize.js"></script>
     <script src="{{asset('content')}}/js/install.js"></script>
-    <script src="{{asset('content')}}/js/init.js"></script>
+    <script src="{{asset('content')}}/js/init.js?v=1"></script>
 
 </body>
 
