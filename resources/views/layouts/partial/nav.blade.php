@@ -69,9 +69,9 @@
     </li>
     @endif
     <li>
-         <a class="dropdown-item" href="{{ route('logout') }}"
-        onclick="event.preventDefault();
-                        document.getElementById('logout-form').submit();">
+         <a class="waves-effect white-text" href="{{ route('logout') }}"
+        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+        <i class="material-icons white-text">keyboard_return</i>
         {{ __('Logout') }}
     </a>
 
