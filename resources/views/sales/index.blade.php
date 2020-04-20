@@ -121,29 +121,33 @@
         <form class="col s12">
             <div class="row">
                 <div class="input-field col s12">
-                    <input id="first_name" type="text" class="validate">
-                    <label for="first_name">{{__('product.Product Name')}}</label>
+                    <input id="en_name" type="text" name="name_en" class="validate">
+                    <label for="en_name">{{__('product.Product Name en')}}</label>
                 </div>
                 <div class="input-field col s12">
-                    <input id="last_name" type="text" class="validate">
+                    <input id="bn_name" type="text" name="name_bn" class="validate">
+                    <label for="bn_name">{{__('product.Product Name bn')}}</label>
+                </div>
+                <div class="input-field col s12">
+                    <input id="last_name" type="number" name="selling_price" step="0.01" class="validate">
                     <label for="last_name">{{__('product.Selling Price')}}</label>
                 </div>
                 <div class="input-field col s12">
-                    <input id="last_nam" type="text" class="validate">
+                    <input id="last_nam" type="number" name="stock" step="0.01" class="validate">
                     <label for="last_nam">{{__('product.Stock')}}</label>
                 </div>
                 <div class="input-field col s12">
-                    <input id="last_na" type="text" class="validate">
+                    <input id="last_na" type="number" name="shipping" step="0.01" class="validate">
                     <label for="last_na">{{__('product.Transportation Cost')}}</label>
                 </div>
                 <div class="input-field col s12">
-                    <input id="last_n" type="text" class="validate">
+                    <input id="last_n" type="text" name="minimum_sale_amount" step="0.01" class="validate">
                     <label for="last_n">{{__('product.Minimum Sales amount')}}</label>
                 </div>
                 <div class="file-field col s12 input-field">
                     <div class="btn light-blue">
                         <span>{{__('product.Photo')}}</span>
-                        <input type="file">
+                        <input type="file" name="image">
                     </div>
                     <div class="file-path-wrapper">
                         <input class="file-path validate" type="text">
