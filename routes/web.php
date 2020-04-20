@@ -53,5 +53,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::post('users/update','UserController@update');
     Route::post('products/update','ProductController@update');
     Route::resource('products','ProductController');
+    Route::resource('catagories','CatagoryController');
+    Route::resource('measurments','MeasurmentController');
     Route::get('roles/delete/{id}','RoleController@destroy' );
 });

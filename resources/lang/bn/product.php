@@ -20,6 +20,15 @@ return [
     'Your Products'=>'আপনার পন্য সমূহ',
     'Add New Products'=>'নতুন পণ্য যোগ করুন',
     'Edit'=>'পরিবর্তন করুন',
+    'Catagory'=>'ক্যাটাগরি সমূহ',
+    'Catagory_create'=>'নতুন ক্যাটাগরি',
+    'catagory_name_en'=>'ক্যাটাগরি নাম (ইংরেজি)',
+    'catagory_name_bn'=>'ক্যাটাগরি নাম (বাংলা)',
+    'catagory_name_main'=>'মূল ক্যাটাগরি পছন্দ করুন',
+    'measurment'=>'পরিমাপক',
+    'measurment_create'=>'নতুন পরিমাপক',
+    'measurment_name_en'=>'পরিমাপক নাম (ইংরেজি)',
+    'measurment_name_bn'=>'পরিমাপক নাম (বাংলা)',
 
 ];
 ?>

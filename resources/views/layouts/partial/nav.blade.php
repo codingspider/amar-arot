@@ -12,8 +12,8 @@
                 <img src="{{asset('content')}}/img/cover.jpg">
             </div>
             <a href="#user"><img class="circle" src="{{asset('content')}}/img/profile.png"></a>
-            <a href="#name"><span class="white-text name">John Doe</span></a>
-            <a href="#email"><span class="white-text email">jdandturk@gmail.com</span></a>
+            <a href="#name"><span class="white-text name">{{Auth::user()->name}}</span></a>
+            <a href="#email"><span class="white-text email">{{Auth::user()->email}}</span></a>
         </div>
     </li>
     <li><a class="white-text waves-effect" href="#!"><i
@@ -46,6 +46,12 @@
     <li id="butRefresh"><a  href="{{ route('products.index') }}" class="waves-effect white-text"><i
                 class="material-icons white-text">local_offer</i>{{__('nav.Manage_product')}}</a>
     </li>
+    <li id="butRefresh"><a  href="{{ route('catagories.index') }}" class="waves-effect white-text"><i
+                class="material-icons white-text">palette</i>{{__('nav.catagory')}}</a>
+    </li>
+    <li id="butRefresh"><a  href="{{ route('measurments.index') }}" class="waves-effect white-text"><i
+                class="material-icons white-text">palette</i>{{__('nav.measurments')}}</a>
+    </li>
 
 
     <li>
@@ -72,7 +78,7 @@
          <a class="waves-effect white-text" href="{{ route('logout') }}"
         onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
         <i class="material-icons white-text">keyboard_return</i>
-        {{ __('Logout') }}
+        {{__('nav.logout')}}
     </a>
 
 

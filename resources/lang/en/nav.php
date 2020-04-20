@@ -8,5 +8,8 @@ return [
     'Manage_role' => 'Manage Role',
     'Manage_user' => 'Manage User',
     'Manage_product' => 'Manage Product',
+    'catagory' => 'Manage Catagory',
+    'measurments' => 'Manage Measurments',
+    'logout' => 'Logout',
 ];
 ?>
