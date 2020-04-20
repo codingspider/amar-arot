@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Model\Products;
+use Illuminate\Http\Request;
+use Intervention\Image\Facades\Image;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Validator;
 
 
 class ProductController extends Controller
@@ -43,17 +46,59 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        request()->validate([
-            'name' => 'required',
-            'detail' => 'required',
-        ]);
+        $rules = array(
+            'name'=>'required',
+            // 'catagory_id'=>'required',
+            // 'price'=>'required',
+            // 'stock_qty'=>'required',
+            // 'description'=>'required',
+            // 'short_description'=>'required',
+            // 'name_bn'=>'required',
+            'images' => 'image|required|mimes:jpeg,png,jpg,gif,svg|max:3000'
+        );
 
-
-        Products::create($request->all());
-
-
-        return redirect()->route('products.index')
-                        ->with('success','Product created successfully.');
+        if($request->has('images')){
+          
+            $originalImage= $request->file('images');
+            $thumbnailImage = Image::make($originalImage);
+            $thumbnailPath = public_path().'/uploads/';
+            $originalPath = public_path().'/images/';
+            $thumbnailImage->save($originalPath.time().$originalImage->getClientOriginalName());
+            $thumbnailImage->save($thumbnailPath.time().$originalImage->getClientOriginalName());
+            $thumbnailImage->resize(150,150);
+            $image_name=time().$originalImage->getClientOriginalName();
+        }
+        
+        $validator = Validator::make($request->all(), $rules);
+         if ($validator->fails()) {
+             Session::flash('alert-warning', 'Please check the input fields. ');
+             return back();
+            } else {
+                
+                $data = array(
+                
+                    "name"=> $request->name,
+                    "name_bn"=> $request->name_bn,
+                    "price"=> $request->price,
+                    "stock_qty"=> $request->stock_qty,
+                    "rating"=> $request->rating,
+                    "rating_by"=> $request->rating_by,
+                    "sale_price"=> $request->sale_price,
+                    "product_code"=> $request->product_code,
+                    "variation_type"=>  $request->variation_type,
+                    "description_bn"=> $request->description_bn,
+                    "short_description"=> $request->short_description,
+                    "description"=> $request->description,
+                    "short_description_bn"=> $request->short_description_bn,
+                    "measurment_unit_id"=> $request->mesurment_id,
+                    "catagory_id"=> $request->cat_id,
+                    "seller_id"=> $request->seller_id,
+                    "image"=>  $image_name
+                );
+                $posts = Products::create($data);
+                Session::flash('alert-success', 'Post has been added successfully');
+                return back();
+        }
     }
 
 
@@ -77,6 +122,11 @@ class ProductController extends Controller
      */
     public function edit(Products $product)
     {
+        // dd($product); 
+        
+        // $product = Products::where('id',$product);
+
+        // dd($product); 
         return view('products.edit',compact('product'));
     }
 
@@ -88,19 +138,65 @@ class ProductController extends Controller
      * @param  \App\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Products $product)
+    public function update(Request $request)
     {
-         request()->validate([
-            'name' => 'required',
-            'detail' => 'required',
-        ]);
+        // dd($request);
+             $rules = array(
+            'name'=>'required',
+            // 'catagory_id'=>'required',
+            // 'price'=>'required',
+            // 'stock_qty'=>'required',
+            // 'description'=>'required',
+            // 'short_description'=>'required',
+            // 'name_bn'=>'required',
+            // 'images' => 'image|required|mimes:jpeg,png,jpg,gif,svg|max:3000'
+        );
 
+        if($request->has('images')){
+          
+            $originalImage= $request->file('images');
+            $thumbnailImage = Image::make($originalImage);
+            $thumbnailPath = public_path().'/uploads/';
+            $originalPath = public_path().'/images/';
+            $thumbnailImage->save($originalPath.time().$originalImage->getClientOriginalName());
+            $thumbnailImage->save($thumbnailPath.time().$originalImage->getClientOriginalName());
+            $thumbnailImage->resize(150,150);
+            $image_name=time().$originalImage->getClientOriginalName();
 
-        $product->update($request->all());
+             $posts = Products::where('id', $request->id)->update([
+                 'image' => $image_name
+             ]);
+        }
+        
+        $validator = Validator::make($request->all(), $rules);
+         if ($validator->fails()) {
+             Session::flash('alert-warning', 'Please check the input fields. ');
+             return back();
+            } else {
 
-
-        return redirect()->route('products.index')
-                        ->with('success','Product updated successfully');
+                $posts = Products::where('id', $request->id)->update(
+                    [
+                    "name"=> $request->name,
+                    "name_bn"=> $request->name_bn,
+                    "price"=> $request->price,
+                    "stock_qty"=> $request->stock_qty,
+                    "rating"=> $request->rating,
+                    "rating_by"=> $request->rating_by,
+                    "sale_price"=> $request->sale_price,
+                    "product_code"=> $request->product_code,
+                    "variation_type"=>  $request->variation_type,
+                    "description_bn"=> $request->description_bn,
+                    "short_description"=> $request->short_description,
+                    "description"=> $request->description,
+                    "short_description_bn"=> $request->short_description_bn,
+                    "measurment_unit_id"=> 1,
+                    "catagory_id"=> 2,
+                    "seller_id"=> 3,
+                    ]
+                );
+                Session::flash('alert-success', 'Post has been added successfully');
+                return back();
+        }
     }
 
 
