@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Model\Catagory;
+use App\Model\MeasurmentUnit;
 use App\Model\Products;
 use Illuminate\Http\Request;
 use Intervention\Image\Facades\Image;
@@ -34,7 +36,9 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('products.create');
+        $measurement = MeasurmentUnit::all(); 
+        $category = Catagory::all();
+        return view('products.create', compact('measurement', 'category'));
     }
 
 
@@ -126,11 +130,12 @@ class ProductController extends Controller
     public function edit(Products $product)
     {
         // dd($product); 
-
+        $measurement = MeasurmentUnit::all(); 
+        $category = Catagory::all();
         // $product = Products::where('id',$product);
 
         // dd($product); 
-        return view('products.edit', compact('product'));
+        return view('products.edit', compact('product', 'measurement', 'category'));
     }
 
 

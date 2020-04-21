@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Model\Catagory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class CatagoryController extends Controller
 {
@@ -21,10 +22,11 @@ class CatagoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $catagories = Catagory::paginate(5);
-        return view('catagories.index', compact('catagories'));
+         return view('catagories.index', compact('catagories'))
+            ->with('i', ($request->input('page', 1) - 1) * 5);
     }
 
     /**
@@ -34,7 +36,8 @@ class CatagoryController extends Controller
      */
     public function create()
     {
-        return view('catagories.create');
+        $data = Catagory::all();
+        return view('catagories.create', compact('data'));
     }
 
     /**
@@ -45,7 +48,23 @@ class CatagoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // dd($request); 
+
+        $this->validate($request, [
+            'name' => 'required',
+            'name_bn' => 'required',
+        ]);
+
+
+        $role = Catagory::create([
+            'name' => $request->input('name'),
+            'name_bn' => $request->input('name_bn'),
+            'main_catagory_id' => $request->input('main_catagory_id'),
+            
+            ]);
+
+        return redirect()->route('catagories.index')
+                        ->with('success','Category created successfully');
     }
 
     /**
@@ -56,7 +75,9 @@ class CatagoryController extends Controller
      */
     public function show($id)
     {
-        //
+        $data = Catagory::find($id);
+
+        return view('catagories.show', compact('data'));
     }
 
     /**
@@ -67,7 +88,10 @@ class CatagoryController extends Controller
      */
     public function edit($id)
     {
-        //
+         $data = Catagory::find($id);
+         $category = Catagory::all();
+
+        return view('catagories.edit', compact('data','category'));
     }
 
     /**
@@ -77,9 +101,24 @@ class CatagoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+         $id = $request->id; 
+         $this->validate($request, [
+            'name' => 'required',
+            'name_bn' => 'required',
+        ]);
+
+
+        $role = Catagory::where('id', $id)->update([
+            'name' => $request->input('name'),
+            'name_bn' => $request->input('name_bn'),
+            'main_catagory_id' => $request->input('main_catagory_id'),
+            
+            ]);
+
+        return redirect()->route('catagories.index')
+                        ->with('success','Category updated successfully');
     }
 
     /**
@@ -90,6 +129,8 @@ class CatagoryController extends Controller
      */
     public function destroy($id)
     {
-        //
+        DB::table("catagories")->where('id',$id)->delete();
+        return redirect()->route('catagories.index')
+                        ->with('success','Category deleted successfully');
     }
 }
