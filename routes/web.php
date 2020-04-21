@@ -51,9 +51,11 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('users','UserController');
     Route::get('users/delete/{id}','UserController@destroy');
     Route::post('users/update','UserController@update');
+    Route::post('catagories/update','CatagoryController@update');
     Route::post('products/update','ProductController@update');
     Route::resource('products','ProductController');
     Route::resource('catagories','CatagoryController');
     Route::resource('measurments','MeasurmentController');
+    Route::post('measurments/update','MeasurmentController@update');
     Route::get('roles/delete/{id}','RoleController@destroy' );
 });

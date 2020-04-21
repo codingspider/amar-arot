@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Model\MeasurmentUnit;
 use Illuminate\Http\Request;
+use App\Model\MeasurmentUnit;
+use Illuminate\Support\Facades\DB;
 
 class MeasurmentController extends Controller
 {
@@ -12,10 +13,11 @@ class MeasurmentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $measurments = MeasurmentUnit::paginate(5);
-        return view('measurments.index', compact('measurments'));
+        $measurments = MeasurmentUnit::paginate(10);
+         return view('measurments.index', compact('measurments'))
+            ->with('i', ($request->input('page', 1) - 1) * 5);
     }
 
     /**
@@ -36,7 +38,20 @@ class MeasurmentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required',
+            'name_bn' => 'required',
+        ]);
+
+
+        $role = MeasurmentUnit::create([
+            'name' => $request->input('name'),
+            'name_bn' => $request->input('name_bn'),
+            
+            ]);
+
+        return redirect()->route('measurments.index')
+                        ->with('success','Measurment unit created successfully');
     }
 
     /**
@@ -47,7 +62,7 @@ class MeasurmentController extends Controller
      */
     public function show($id)
     {
-        //
+        // $data 
     }
 
     /**
@@ -58,7 +73,9 @@ class MeasurmentController extends Controller
      */
     public function edit($id)
     {
-        //
+        $data = MeasurmentUnit::find($id);
+
+        return view('measurments.edit', compact('data'));
     }
 
     /**
@@ -68,9 +85,23 @@ class MeasurmentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $id = $request->id; 
+        $this->validate($request, [
+            'name' => 'required',
+            'name_bn' => 'required',
+        ]);
+
+
+        $role = MeasurmentUnit::where('id', $id)->update([
+            'name' => $request->input('name'),
+            'name_bn' => $request->input('name_bn'),
+            
+            ]);
+
+        return redirect()->route('measurments.index')
+                        ->with('success','Measurment unit updated successfully');
     }
 
     /**
@@ -81,6 +112,8 @@ class MeasurmentController extends Controller
      */
     public function destroy($id)
     {
-        //
+         DB::table("measurment_units")->where('id',$id)->delete();
+        return redirect()->route('measurments.index')
+                        ->with('success','Measurement deleted successfully');
     }
 }

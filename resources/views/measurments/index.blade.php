@@ -39,7 +39,7 @@
 	        <td>{{ $measurment->detail }}</td>
 	        <td>
                 <form action="{{ route('measurments.destroy',$measurment->id) }}" method="POST">
-                    <a class="btn btn-info" href="{{ route('measurments.show',$measurment->id) }}">Show</a>
+                   
                     @can('measurment-edit')
                     <a class="btn btn-primary" href="{{ route('measurments.edit',$measurment->id) }}">Edit</a>
                     @endcan

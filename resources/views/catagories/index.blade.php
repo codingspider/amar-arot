@@ -39,12 +39,9 @@
 	        <td>{{ $catagory->detail }}</td>
 	        <td>
                 <form action="{{ route('catagories.destroy',$catagory->id) }}" method="POST">
-                    <a class="btn btn-info" href="{{ route('catagories.show',$catagory->id) }}">Show</a>
                     @can('catagory-edit')
                     <a class="btn btn-primary" href="{{ route('catagories.edit',$catagory->id) }}">Edit</a>
                     @endcan
-
-
                     @csrf
                     @method('DELETE')
                     @can('catagory-delete')
