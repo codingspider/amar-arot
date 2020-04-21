@@ -20,10 +20,10 @@
     <div class="row">
         <div class="col-lg-12 margin-tb">
             <div class="pull-left">
-                <h4>Edit Role</h4>
+                <h4>{{__('role.role')}} {{__('role.edit')}}</h4>
             </div>
             <div class="pull-right">
-                <a class="btn btn-primary" href="{{ route('roles.index') }}"> Back</a>
+                <a class="btn btn-primary" href="{{ route('roles.index') }}"> {{__('role.back')}}</a>
             </div>
         </div>
     </div>
@@ -34,7 +34,7 @@
             <div class="row">
                 <div class="input-field col s12">
                     <input placeholder="Placeholder" name="name" type="text" value="{{ $role->name }}" class="validate">
-                    <label for="role_name">Role Name</label>
+                    <label for="role_name">{{__('role.name')}}</label>
                 </div>
                 @foreach($permission as $value)
                 <div class="input-field col s12 m3">
