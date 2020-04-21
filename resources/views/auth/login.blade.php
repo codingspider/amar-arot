@@ -20,7 +20,7 @@
                 <div class="card">
                     <div class="card-content black-text">
                         <div class="row">
-          
+
 
 
                         <form class="col s12" method="POST" action="{{ route('login') }}">
@@ -73,9 +73,12 @@
                                 <a class="btn btn-link" href="{{ route('password.request') }}">
                                     Forgot Your Password?
                                 </a>
+                                <a class="btn btn-link" href="{{ route('register') }}">
+                                    New User
+                                </a>
                             </div>
                         </div>
-       
+
                     </form>
                         </div>
                     </div>
