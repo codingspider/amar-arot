@@ -16,7 +16,7 @@
             <a href="#email"><span class="white-text email">{{Auth::user()->email}}</span></a>
         </div>
     </li>
-    <li><a class="white-text waves-effect" href="#!"><i
+    <li><a class="white-text waves-effect" href="{{route('profiles.show',Auth::user()->id)}}"><i
                 class="material-icons white-text">account_circle</i>{{__('nav.Profile')}}</a>
     </li>
     <li>
@@ -66,7 +66,7 @@
     <li>
         <div class="divider"></div>
     </li>
-     
+
 
     @if(App::getLocale() == 'en')
     <li>

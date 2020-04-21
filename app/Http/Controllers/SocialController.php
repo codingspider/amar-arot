@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Model\Social;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
@@ -26,7 +27,10 @@ class SocialController extends Controller
      */
     public function index()
     {
-        $data = Social::all();
+        $data =  DB::table('socials')
+        ->join('users', 'socials.updated_by', '=', 'users.id')
+        ->select('socials.*', 'users.*')
+        ->get();
 
         return view('setting.social_index', compact('data'));
     }
@@ -145,6 +149,10 @@ class SocialController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $data = Social::find($id);
+
+        $data->delete();
+
+        return back()->with('success', 'Post has been deleted.');
     }
 }

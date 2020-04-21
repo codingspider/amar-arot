@@ -2,6 +2,18 @@
 
 @section('contents')
     <div class="container">
+        <div class="row">
+        <div class="col s12">
+            <div class="pull-left">
+                <h2>Role Management</h2>
+            </div>
+            <div class="pull-right">
+                @can('role-create')
+                <a class="btn btn-success" href="{{ route('socials.create') }}"> Create Social links</a>
+                @endcan
+            </div>
+        </div>
+    </div>
 <table>
         <thead>
           <tr>
@@ -19,7 +31,7 @@
                     <td>{{ $item->title }}</td>
                     <td>{{ $item->title_bn }}</td>
                     <td>{{ $item->links }}</td>
-                    <td>{{ $item->updated_by }}</td>
+                    <td>{{ $item->name }}</td>
                     <td>
                         <form action="{{ route('socials.destroy', $item->id) }}" method="POST">
                     @csrf

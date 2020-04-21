@@ -58,4 +58,5 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('settings', 'SettingController');
     Route::resource('headers', 'HeaderController');
     Route::resource('socials', 'SocialController');
+    Route::resource('profiles', 'ProfileController');
 });
