@@ -11,19 +11,19 @@ use Hash;
 
 class UserController extends Controller
 {
-    
-function __construct()
+
+    function __construct()
     {
-         $this->middleware('permission:user-list|user-create|user-edit|user-delete', ['only' => ['index','show']]);
-         $this->middleware('permission:user-create', ['only' => ['create','store']]);
-         $this->middleware('permission:user-edit', ['only' => ['edit','update']]);
-         $this->middleware('permission:user-delete', ['only' => ['destroy']]);
+        $this->middleware('permission:user-list|user-create|user-edit|user-delete', ['only' => ['index', 'show']]);
+        $this->middleware('permission:user-create', ['only' => ['create', 'store']]);
+        $this->middleware('permission:user-edit', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:user-delete', ['only' => ['destroy']]);
     }
 
     public function index(Request $request)
     {
-        $data = User::orderBy('id','DESC')->paginate(5);
-        return view('users.index',compact('data'))
+        $data = User::orderBy('id', 'DESC')->paginate(5);
+        return view('users.index', compact('data'))
             ->with('i', ($request->input('page', 1) - 1) * 5);
     }
 
@@ -38,7 +38,7 @@ function __construct()
         $roles = Role::all();
 
 
-        return view('users.create',compact('roles'));
+        return view('users.create', compact('roles'));
     }
 
 
@@ -50,7 +50,7 @@ function __construct()
      */
     public function store(Request $request)
     {
-        // dd($request); 
+        // dd($request);
 
         $this->validate($request, [
             'name' => 'required',
@@ -70,7 +70,7 @@ function __construct()
 
 
         return redirect()->route('users.index')
-                        ->with('success','User created successfully');
+            ->with('success', 'User created successfully');
     }
 
 
@@ -80,10 +80,9 @@ function __construct()
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(User $user)
     {
-        $user = User::find($id);
-        return view('users.show',compact('user'));
+        return view('users.show', compact('user'));
     }
 
 
@@ -93,14 +92,11 @@ function __construct()
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(User $user)
     {
-        $user = User::find($id);
         $roles = Role::all();
-        $userRole = $user->roles->pluck('name','name')->all();
-
-
-        return view('users.edit',compact('user','roles','userRole'));
+        $userRole = $user->roles->pluck('name', 'name')->all();
+        return view('users.edit', compact('user', 'roles', 'userRole'));
     }
 
 
@@ -111,30 +107,18 @@ function __construct()
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(Request $request, User $user)
     {
-        $id = $request->id; 
-        $user = User::find($id); 
-
         $this->validate($request, [
             'name' => 'required',
-            'email' => 'required|email|unique:users,email,' .$user->id.',id',
             'roles' => 'required'
         ]);
-
-       
         $input = $request->all();
-
-        $user = User::find($id);
         $user->update($input);
-        DB::table('model_has_roles')->where('model_id', $id)->delete();
-
-
+        DB::table('model_has_roles')->where('model_id', $user->id)->delete();
         $user->assignRole($request->input('roles'));
-
-
         return redirect()->route('users.index')
-                        ->with('success','User updated successfully');
+            ->with('success', 'User updated successfully');
     }
 
 
@@ -144,11 +128,10 @@ function __construct()
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(User $user)
     {
-        // dd($id); 
-        User::find($id)->delete();
-
-        return back()->with('success','User deleted successfully');
+        dd($user);
+        $user->delete();
+        return back()->with('success', 'User deleted successfully');
     }
 }

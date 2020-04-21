@@ -31,21 +31,21 @@
         <form class="col s12" action="{{ route('roles.update', $role->id)}}" method="POST">
             {{ csrf_field() }}
             {{ method_field('PATCH') }}
-
             <div class="row">
                 <div class="input-field col s12">
                     <input placeholder="Placeholder" name="name" type="text" value="{{ $role->name }}" class="validate">
                     <label for="role_name">Role Name</label>
                 </div>
-
                 @foreach($permission as $value)
                 <div class="input-field col s12 m3">
                     <label>
-                        <input class="filled-in" name="permission[]" value="{{$value->id}}" type="checkbox" />
+                        <input class="filled-in" name="permission[]" value="{{$value->id}}" type="checkbox"
+                            @if(in_array($value->id, $rolePermissions)) checked @endif/>
                         <span>{{ $value->name }}</span>
                     </label>
                 </div>
                 @endforeach
+
                 <br>
 
             </div>
