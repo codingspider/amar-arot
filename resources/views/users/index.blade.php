@@ -5,10 +5,10 @@
     <div class="row">
         <div class="col s12">
             <div class="pull-left">
-                <h2>Users Management</h2>
+                <h2>{{__('user.users')}}</h2>
             </div>
             <div class="pull-right">
-                <a class="btn btn-success" href="{{ route('users.create') }}"> Create New User</a>
+                <a class="btn btn-success" href="{{ route('users.create') }}">{{__('user.new_user')}}</a>
             </div>
         </div>
     </div>
@@ -16,11 +16,11 @@
     <table>
         <thead>
             <tr>
-                <th>No</th>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Roles</th>
-                <th width="300px">Action</th>
+                <th>{{__('user.no')}}</th>
+                <th>{{__('user.name')}}</th>
+                <th>{{__('user.email')}}</th>
+                <th>{{__('user.role')}}</th>
+                <th width="300px">{{__('user.action')}}</th>
             </tr>
         </thead>
 
@@ -33,7 +33,7 @@
                 <td>
                     @if(!empty($user->getRoleNames()))
                     @foreach($user->getRoleNames() as $v)
-                    <label class="badge badge-success">{{ $v }}</label>
+                    <label class="badge badge-success black-text">{{ $v }}</label>,
                     @endforeach
                     @endif
                 </td>
@@ -41,10 +41,13 @@
                     <form action="{{ route('users.destroy', $user->id) }}" method="POST">
                         @csrf
                         @method('DELETE')
-                        <a class="btn btn-primary" href="{{ route('users.show',$user->id) }}">Show</a>
-                        <a class="btn btn-primary" href="{{ route('users.edit',$user->id) }}">Edit</a>
-
-                        <a class="btn waves-effect waves-light red lighten-2" type="submit">Delete</a>
+                        <a class="btn btn-primary" href="{{ route('users.show',$user->id) }}">{{__('user.show_user')}}</a>
+                        @can('user-edit')
+                        <a class="btn btn-primary" href="{{ route('users.edit',$user->id) }}">{{__('user.edit_user')}}</a>
+                        @endcan
+                        @can('user-delete')
+                        <a class="btn waves-effect waves-light red lighten-2" type="submit">{{__('user.delete_user')}}</a>
+                        @endcan
                     </form>
                 </td>
             </tr>

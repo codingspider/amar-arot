@@ -50,7 +50,7 @@
                 class="material-icons white-text">palette</i>{{__('nav.catagory')}}</a>
     </li>
     <li id="butRefresh"><a  href="{{ route('measurments.index') }}" class="waves-effect white-text"><i
-                class="material-icons white-text">palette</i>{{__('nav.measurments')}}</a>
+                class="material-icons white-text">opacity</i>{{__('nav.measurments')}}</a>
     </li>
 
 
