@@ -55,4 +55,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('catagories','CatagoryController');
     Route::resource('measurments','MeasurmentController');
     Route::post('measurments/update','MeasurmentController@update');
+    Route::resource('settings', 'SettingController');
+    Route::resource('headers', 'HeaderController');
+    Route::resource('socials', 'SocialController');
 });

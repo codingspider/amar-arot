@@ -49,6 +49,15 @@
     <li id="butRefresh"><a  href="{{ route('catagories.index') }}" class="waves-effect white-text"><i
                 class="material-icons white-text">palette</i>{{__('nav.catagory')}}</a>
     </li>
+    <li id="butRefresh"><a  href="{{ route('settings.create') }}" class="waves-effect white-text"><i
+                class="material-icons white-text">build</i>{{__('setting.setting_create')}}</a>
+    </li>
+    <li id="butRefresh"><a  href="{{ route('headers.create') }}" class="waves-effect white-text"><i
+                class="material-icons white-text">format_align_justify</i>{{__('setting.header_create')}}</a>
+    </li>
+    <li id="butRefresh"><a  href="{{ route('socials.index') }}" class="waves-effect white-text"><i
+                class="material-icons white-text">device_hub</i>{{__('setting.social_create')}}</a>
+    </li>
     <li id="butRefresh"><a  href="{{ route('measurments.index') }}" class="waves-effect white-text"><i
                 class="material-icons white-text">palette</i>{{__('nav.measurments')}}</a>
     </li>

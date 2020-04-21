@@ -32,7 +32,19 @@ class PermissionTableSeeder extends Seeder
            'measurment-list',
            'measurment-create',
            'measurment-edit',
-           'measurment-delete'
+           'measurment-delete',
+           'social-list',
+           'social-create',
+           'social-edit',
+           'social-delete',
+           'setting-list',
+           'setting-create',
+           'setting-edit',
+           'setting-delete',
+           'header-list',
+           'header-create',
+           'header-edit',
+           'header-delete'
         ];
 
 
