@@ -74,33 +74,17 @@ class ProfileController extends Controller
     {
 
         $this->validate($request, [
-            'address_line_1' => 'required|max:255',
-            'district_id' => 'required',
-            'type' => 'required',
+            'name' => 'required|max:30',
+            'name_bn' => 'required',
+            'phone' => 'required',
         ]);
-
-        foreach ($request->district_id as $key => $value) {
-            $addresses[$key] = [
-                "user_id" => Auth::user()->id,
-                "address_line_1" => $request->address_line_1[$key],
-                "district_id" => $request->district_id[$key],
-                "address_line_2" => $request->address_line_2[$key],
-                "type" => $request->type[$key],
-                "status" => 1,
-            ];
-        }
 
         DB::table('users')
             ->where('id', $profile->id)
             ->update(["name" => $request->name, "name_bn" => $request->name_bn, "website" => $request->website, "facebook" => $request->facebook, "phone" => $request->phone,]);
 
 
-        DB::table('addresses')->where('user_id', $profile->id)->update(['status'=> 0]);
 
-        foreach ($addresses as $address) {
-
-            DB::table('addresses')->insert($address);
-        }
         return back();
     }
 
