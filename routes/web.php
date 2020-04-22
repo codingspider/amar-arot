@@ -62,4 +62,8 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('edit-address/{id}','ProfileController@editAddress');
     Route::get('active-address/{id}','ProfileController@activeAddress');
     Route::get('delete-address/{id}','ProfileController@deleteAddress');
+    Route::resource('settings', 'SettingController');
+    Route::resource('headers', 'HeaderController');
+    Route::resource('socials', 'SocialController');
+    Route::resource('profiles', 'ProfileController');
 });
