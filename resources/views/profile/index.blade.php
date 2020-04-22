@@ -65,6 +65,7 @@
     </div>
     <div class="row">
         <div class="col s6 m6">
+
             <div class="row">
                 <div class="col s12">
                     <div class="card">
@@ -72,6 +73,8 @@
                             <h6>Billing Address <span><a href="{{url('add-address/billing')}}" class="btn btn-link">Add
                                         New</a></span></h6>
                         </div>
+                        @if(isset($billing))
+
                         <div class="card-content">
                             <div class="row">
                                 <div class="col s12">
@@ -86,6 +89,8 @@
                         <div class="card-action">
                             <a href="{{url('edit-address/'.$billing->id)}}" class="btn btn-link">Edit</a>
                         </div>
+                        @endif
+
                     </div>
                 </div>
             </div>
@@ -133,6 +138,8 @@
                             <h6>Shipping Address <span><a href="{{url('add-address/shipping')}}"
                                         class="btn btn-link">Add New</a></span></h6>
                         </div>
+                        @if(isset($shipping))
+
                         <div class="card-content">
                             <div class="row">
                                 <div class="col s12">
@@ -146,6 +153,7 @@
                         <div class="card-action">
                             <a href="{{url('edit-address/'.$shipping->id)}}" class="btn btn-link">Edit</a>
                         </div>
+                        @endif
                     </div>
                 </div>
             </div>
