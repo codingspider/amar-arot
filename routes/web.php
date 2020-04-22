@@ -12,15 +12,17 @@
 */
 // All rout is for test Purpose
 
+use Illuminate\Support\Facades\DB;
 
 Route::get('locale/{locale}', function ($locale) {
-    session()->put('locale',$locale);
+    session()->put('locale', $locale);
     return redirect()->back();
 });
 // Route::get('lang/{locale}','localization@view')->name('lang');
 
 
 Route::get('/', function () {
+
     return view('welcome');
 });
 Route::get('login', function () {
@@ -46,15 +48,24 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::group(['middleware' => ['auth']], function() {
-    Route::resource('roles','RoleController');
-    Route::resource('users','UserController');
-    Route::post('catagories/update','CatagoryController@update');
-    Route::post('products/update','ProductController@update');
-    Route::resource('products','ProductController');
-    Route::resource('catagories','CatagoryController');
-    Route::resource('measurments','MeasurmentController');
-    Route::post('measurments/update','MeasurmentController@update');
-    Route::resource('profiles','ProfileController');
-
+Route::group(['middleware' => ['auth']], function () {
+    Route::resource('roles', 'RoleController');
+    Route::resource('users', 'UserController');
+    Route::post('catagories/update', 'CatagoryController@update');
+    Route::post('products/update', 'ProductController@update');
+    Route::resource('products', 'ProductController');
+    Route::resource('catagories', 'CatagoryController');
+    Route::resource('measurments', 'MeasurmentController');
+    Route::post('measurments/update', 'MeasurmentController@update');
+    Route::resource('profiles', 'ProfileController');
+    Route::get('add-address/{type}', 'ProfileController@addAddress');
+    Route::post('store-address', 'ProfileController@storeAddress');
+    Route::post('update-address', 'ProfileController@updateAddress');
+    Route::get('edit-address/{id}', 'ProfileController@editAddress');
+    Route::get('active-address/{id}', 'ProfileController@activeAddress');
+    Route::get('delete-address/{id}', 'ProfileController@deleteAddress');
+    Route::resource('settings', 'SettingController');
+    Route::resource('headers', 'HeaderController');
+    Route::resource('socials', 'SocialController');
+    Route::resource('profiles', 'ProfileController');
 });

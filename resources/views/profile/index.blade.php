@@ -16,26 +16,11 @@
             @endif
         </div>
     </div>
-    <!-- <div class="row mt-5">
-        <div class="col-lg-12 margin-tb">
-            <div class="pull-right">
-                <a class="btn btn-primary" href="{{ route('home') }}"> Back</a>
-            </div>
-        </div>
-    </div> -->
+
 
     <div class="row">
         <div class="col s12 m12">
             <div class="card">
-                <div class="card-image">
-                    {{--@if($profile->image)
-                    <img src="{{$profile->image}}">
-                    @else
-                    <img src="https://materializecss.com/images/sample-1.jpg" alt="">
-                    @endif
-
-                    <span class="card-title">{{ $profile->name }}</span>--}}
-                </div>
                 <div class="card-content text-center">
                     <table>
                         <thead>
@@ -69,27 +54,6 @@
                                 <th>:</th>
                                 <th>{{ $profile->phone }}</th>
                             </tr>
-                            @foreach($addresses as $address)
-                            <tr>
-                                <th colspan="3">@if($address->type == "0")Billing @endif   @if($address->type == "1")Shipping @endif</th>
-                            </tr>
-                            <tr>
-                                <th>Address Line 1</th>
-                                <th>:</th>
-                                <th>{{$address->address_line_1}}</th>
-                            </tr>
-                            <tr>
-                                <th>Address Line 2</th>
-                                <th>:</th>
-                                <th>{{$address->address_line_2}}</th>
-                            </tr>
-                            <tr>
-                                <th>District</th>
-                                <th>:</th>
-                                <th>{{$address->name}}</th>
-                            </tr>
-                            @endforeach
-
                         </thead>
                     </table>
                 </div>
@@ -97,6 +61,130 @@
                     <a href="{{route('profiles.edit',$profile->id)}}" class="btn btn-link">Edit</a>
                 </div>
             </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col s6 m6">
+
+            <div class="row">
+                <div class="col s12">
+                    <div class="card">
+                        <div class="card-action">
+                            <h6>Billing Address <span><a href="{{url('add-address/billing')}}" class="btn btn-link">Add
+                                        New</a></span></h6>
+                        </div>
+                        @if(isset($billing))
+
+                        <div class="card-content">
+                            <div class="row">
+                                <div class="col s12">
+                                    <h6>Address Line 1:{{$billing->address_line_1}}</h6>
+                                    <h6>@if(isset($billing->address_line_2))Address Line 2: {{$billing->address_line_2}}
+                                        @endif
+                                    </h6>
+                                    <h6>District: {{$billing->name}}</h6>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-action">
+                            <a href="{{url('edit-address/'.$billing->id)}}" class="btn btn-link">Edit</a>
+                        </div>
+                        @endif
+
+                    </div>
+                </div>
+            </div>
+
+
+            @foreach($billing_histories as $billing_history)
+            <div class="row">
+                <div class="col s12">
+                    <div class="card">
+                        <div class="card-action">
+                            <h6>Billing Address <span><a href="{{url('active-address/'.$billing_history->id)}}"
+                                        class="btn btn-link">Active</a> <a
+                                        href="{{url('delete-address/'.$billing_history->id)}}"
+                                        class="btn btn-danger">Delete</a>
+                                </span></h6>
+
+                        </div>
+                        <div class="card-content">
+                            <div class="row">
+                                <div class="col s12">
+                                    <h6>Address Line 1:{{$billing_history->address_line_1}}</h6>
+                                    <h6>@if(isset($billing_history->address_line_2))Address Line 2:
+                                        {{$billing_history->address_line_2}}
+                                        @endif
+                                    </h6>
+                                    <h6>District: {{$billing_history->name}}</h6>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-action">
+                            <a href="{{url('edit-address/'.$billing_history->id)}}" class="btn btn-link">Edit</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            @endforeach
+        </div>
+        <div class="col s6 m6">
+            <div class="row">
+                <div class="col s12">
+                    <div class="card">
+                        <div class="card-action">
+                            <h6>Shipping Address <span><a href="{{url('add-address/shipping')}}"
+                                        class="btn btn-link">Add New</a></span></h6>
+                        </div>
+                        @if(isset($shipping))
+
+                        <div class="card-content">
+                            <div class="row">
+                                <div class="col s12">
+                                    <h6>Address Line 1:{{$shipping->address_line_1}}</h6>
+                                    <h6>@if(isset($shipping->address_line_2))Address Line 2:
+                                        {{$shipping->address_line_2}} @endif</h6>
+                                    <h6>District:{{$shipping->name}}</h6>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-action">
+                            <a href="{{url('edit-address/'.$shipping->id)}}" class="btn btn-link">Edit</a>
+                        </div>
+                        @endif
+                    </div>
+                </div>
+            </div>
+            @foreach($shipping_histories as $shipping_history)
+            <div class="row">
+                <div class="col s12">
+                    <div class="card">
+                        <div class="card-action">
+                            <h6>Shipping Address <span><a href="{{url('active-address/'.$shipping_history->id)}}"
+                                        class="btn btn-link">Active</a> <a
+                                        href="{{url('delete-address/'.$shipping_history->id)}}"
+                                        class="btn btn-danger">Delete</a>
+                                </span></h6>
+                        </div>
+                        <div class="card-content">
+                            <div class="row">
+                                <div class="col s12">
+                                    <h6>Address Line 1:{{$shipping_history->address_line_1}}</h6>
+                                    <h6>@if(isset($shipping_history->address_line_2))Address Line 2:
+                                        {{$shipping_history->address_line_2}} @endif</h6>
+                                    <h6>District:{{$shipping_history->name}}</h6>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-action">
+                            <a href="{{url('edit-address/'.$shipping_history->id)}}" class="btn btn-link">Edit</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @endforeach
         </div>
     </div>
 </div>

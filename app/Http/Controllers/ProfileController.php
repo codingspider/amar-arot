@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Model\Address;
+use App\Model\District;
 use Illuminate\Http\Request;
 use App\User;
 use Illuminate\Support\Facades\Auth;
@@ -14,6 +16,13 @@ class ProfileController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    function __construct()
+    {
+        $this->middleware('permission:profile-list|profile-create|profile-edit|profile-delete', ['only' => ['index', 'show']]);
+        $this->middleware('permission:profile-create', ['only' => ['create', 'store']]);
+        $this->middleware('permission:profile-edit', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:profile-delete', ['only' => ['destroy']]);
+    }
     public function index()
     {
     }
@@ -46,8 +55,16 @@ class ProfileController extends Controller
      */
     public function show(User $profile)
     {
-        $addresses = DB::table('addresses')->join('districts','districts.id','addresses.district_id')->where('user_id', $profile->id)->where('status', 1)->get();
-        return view('profile.index', compact('profile','addresses','districts'));
+        $billing = Address::join('districts', 'districts.id', 'addresses.district_id')->where('user_id', Auth::user()->id)->where('type', "0")->where('status', "1")->select('addresses.id', 'addresses.address_line_1', 'addresses.address_line_2', 'addresses.type', 'districts.name')->first();
+
+        $shipping = Address::join('districts', 'districts.id', 'addresses.district_id')->where('user_id', Auth::user()->id)->where('type', "1")->where('status', "1")->select('addresses.id', 'addresses.address_line_1', 'addresses.address_line_2', 'addresses.type', 'districts.name')->first();
+
+        $billing_histories = Address::join('districts', 'districts.id', 'addresses.district_id')->where('user_id', Auth::user()->id)->where('type', "0")->where('status', "0")->select('addresses.id', 'addresses.address_line_1', 'addresses.address_line_2', 'addresses.type', 'districts.name')->get();
+
+        $shipping_histories = Address::join('districts', 'districts.id', 'addresses.district_id')->where('user_id', Auth::user()->id)->where('type', "1")->where('status', "0")->select('addresses.id', 'addresses.address_line_1', 'addresses.address_line_2', 'addresses.type', 'districts.name')->get();
+
+        // return $billing_histories;
+        return view('profile.index', compact('profile', 'billing', 'shipping', 'billing_histories', 'shipping_histories'));
     }
 
     /**
@@ -58,9 +75,7 @@ class ProfileController extends Controller
      */
     public function edit(User $profile)
     {
-        $addresses = DB::table('addresses')->where('user_id', $profile->id)->where('status', 1)->get();
-        $districts = DB::table('districts')->get();
-        return view('profile.edit', compact('profile', 'addresses', 'districts'));
+        return view('profile.edit', compact('profile'));
     }
 
     /**
@@ -74,34 +89,15 @@ class ProfileController extends Controller
     {
 
         $this->validate($request, [
-            'address_line_1' => 'required|max:255',
-            'district_id' => 'required',
-            'type' => 'required',
+            'name' => 'required|max:30',
+            'name_bn' => 'required',
+            'phone' => 'required',
         ]);
-
-        foreach ($request->district_id as $key => $value) {
-            $addresses[$key] = [
-                "user_id" => Auth::user()->id,
-                "address_line_1" => $request->address_line_1[$key],
-                "district_id" => $request->district_id[$key],
-                "address_line_2" => $request->address_line_2[$key],
-                "type" => $request->type[$key],
-                "status" => 1,
-            ];
-        }
 
         DB::table('users')
             ->where('id', $profile->id)
             ->update(["name" => $request->name, "name_bn" => $request->name_bn, "website" => $request->website, "facebook" => $request->facebook, "phone" => $request->phone,]);
-
-
-        DB::table('addresses')->where('user_id', $profile->id)->update(['status'=> 0]);
-
-        foreach ($addresses as $address) {
-
-            DB::table('addresses')->insert($address);
-        }
-        return back();
+        return redirect(route('profiles.show', Auth::user()->id));
     }
 
     /**
@@ -113,5 +109,71 @@ class ProfileController extends Controller
     public function destroy($id)
     {
         //
+    }
+    public function addAddress($type)
+    {
+        $districts = District::all();
+        return view('addresses.create', compact('type', 'districts'));
+    }
+    public function storeAddress(Request $request)
+    {
+        $this->validate($request, [
+            'address_line_1' => 'required|max:255',
+            'address_line_2' => 'max:255',
+            'type' => 'required',
+            'district_id' => 'required',
+        ]);
+        if ($request->type == 'billing') {
+            $type = $request->type = '0';
+        } else {
+            $type = $request->type = '1';
+        }
+        $address = [
+            "address_line_1" => $request->address_line_1,
+            "address_line_2" => $request->address_line_2,
+            "district_id" => $request->district_id,
+            "status" => "1",
+            "type" => $type,
+            "user_id" => Auth::user()->id,
+        ];
+        Address::where('user_id', Auth::user()->id)->where('type', $type)->update(['status' => '0']);
+        Address::create($address);
+
+        return redirect(route('profiles.show', Auth::user()->id));
+    }
+
+    public function editAddress($id)
+    {
+        $address = Address::find($id);
+        $districts = District::all();
+
+        return view('addresses.edit', compact('address', 'districts'));
+    }
+
+    public function updateAddress(Request $request)
+    {
+        $this->validate($request, [
+            'address_line_1' => 'required|max:255',
+            'address_line_2' => 'max:255',
+            'type' => 'required',
+            'district_id' => 'required',
+        ]);
+
+        $address = $request->except('_token', 'type');
+        Address::where('id', $request->id)->update($address);
+        return redirect(route('profiles.show', Auth::user()->id));
+    }
+    public function activeAddress($id)
+    {
+        $type = Address::where('id', $id)->select('type')->first();
+        Address::where('user_id', Auth::user()->id)->where('status', '1')->where('type', $type->type)->update(['status' => '0']);
+        Address::where('id', $id)->update(['status' => '1']);
+        return back();
+    }
+
+    public function deleteAddress($id)
+    {
+        Address::where('id', $id)->delete();
+        return back();
     }
 }
