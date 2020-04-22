@@ -25,6 +25,7 @@ class CreateSettingsTable extends Migration
             $table->string('contact_email')->nullable();
             $table->string('contact_phone')->nullable();
             $table->string('about')->nullable();
+            $table->string('image')->nullable();
             $table->integer('updated_by')->nullable();
             $table->timestamps();
         });
