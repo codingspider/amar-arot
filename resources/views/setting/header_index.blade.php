@@ -5,11 +5,11 @@
         <div class="row">
         <div class="col s12">
             <div class="pull-left">
-                <h2>Social Links </h2>
+                <h2>Header Links </h2>
             </div>
             <div class="pull-right">
                 @can('role-create')
-                <a class="btn btn-success" href="{{ route('socials.create') }}"> Create Social links</a>
+                <a class="btn btn-success" href="{{ route('headers.create') }}"> Create Header links</a>
                 @endcan
             </div>
         </div>

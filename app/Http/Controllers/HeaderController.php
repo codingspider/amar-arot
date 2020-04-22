@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Model\Header;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class HeaderController extends Controller
 {
@@ -13,7 +17,12 @@ class HeaderController extends Controller
      */
     public function index()
     {
-        //
+        $data =  DB::table('headers')
+        ->join('users', 'headers.updated_by', '=', 'users.id')
+        ->select('headers.*', 'users.*')
+        ->get();
+
+        return view('setting.header_index', compact('data'));
     }
 
     /**
@@ -23,7 +32,7 @@ class HeaderController extends Controller
      */
     public function create()
     {
-        //
+        return view('setting.create_header');
     }
 
     /**
@@ -34,7 +43,40 @@ class HeaderController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if($request->ajax())
+     {
+      $rules = array(
+       'name.*'  => 'required',
+       'name_bn.*'  => 'required',
+       'links.*'  => 'required',
+      );
+      $error = Validator::make($request->all(), $rules);
+      if($error->fails())
+      {
+       return response()->json([
+        'error'  => $error->errors()->all()
+       ]);
+      }
+
+      $name = $request->name;
+      $name_bn = $request->name_bn;
+      $links = $request->links;
+      for($count = 0; $count < count($name); $count++)
+      {
+       $data = array(
+        'title' => $name[$count],
+        'title_bn'  => $name_bn[$count],
+        'links'  => $links[$count],
+        'updated_by'  => Auth::id()
+       );
+       $insert_data[] = $data; 
+      }
+
+      Header::insert($insert_data);
+      return response()->json([
+       'success'  => 'Data Added successfully.'
+      ]);
+     }
     }
 
     /**

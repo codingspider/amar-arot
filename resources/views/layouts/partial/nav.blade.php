@@ -52,7 +52,7 @@
     <li id="butRefresh"><a  href="{{ route('settings.create') }}" class="waves-effect white-text"><i
                 class="material-icons white-text">build</i>{{__('setting.setting_create')}}</a>
     </li>
-    <li id="butRefresh"><a  href="{{ route('headers.create') }}" class="waves-effect white-text"><i
+    <li id="butRefresh"><a  href="{{ route('headers.index') }}" class="waves-effect white-text"><i
                 class="material-icons white-text">format_align_justify</i>{{__('setting.header_create')}}</a>
     </li>
     <li id="butRefresh"><a  href="{{ route('socials.index') }}" class="waves-effect white-text"><i
