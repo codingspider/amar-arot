@@ -37,7 +37,7 @@
                     @csrf
                     @method('DELETE')
                     @can('social-edit')
-                    <a class="btn btn-primary" href="{{ route('socials.edit',$item->id) }}">Edit</a>
+                    <a class="btn btn-primary" href="{{ route('headers.edit',$item->id) }}">Edit</a>
                     @endcan
                     @can('social-delete')
                     <button class="btn waves-effect waves-light red lighten-2" type="submit" >Delete</button>

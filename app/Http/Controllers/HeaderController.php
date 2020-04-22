@@ -98,7 +98,8 @@ class HeaderController extends Controller
      */
     public function edit($id)
     {
-        //
+       $data = Header::find($id);
+        return view('setting.header_edit', compact('data')); 
     }
 
     /**
@@ -110,7 +111,23 @@ class HeaderController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+      
+         $data =  $request->validate([
+            'title' => 'required',
+            'ttile_bn' => 'required',
+            'links' => 'required',
+           ]);
+
+        //    dd($data);
+      $result =  Header::where('id', $id)->update([
+            'title' => $request->title,
+            'title_bn' => $request->ttile_bn,
+            'links' => $request->links,
+        ]);
+
+        // dd($result); 
+
+         return back()->with('success', 'Post has been updated! ');
     }
 
     /**
