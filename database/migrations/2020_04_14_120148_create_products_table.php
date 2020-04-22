@@ -19,8 +19,8 @@ class CreateProductsTable extends Migration
             $table->string('name_bn')->nullable();
             $table->float('price');
             $table->float('stock_qty');
-            $table->float('rating');
-            $table->bigInteger('rating_by');
+            $table->float('rating')->nullable();
+            $table->bigInteger('rating_by')->nullable();
             $table->float('sale_price')->nullable();
             $table->string('product_code');
             $table->string('variation_type')->comment('size, color');

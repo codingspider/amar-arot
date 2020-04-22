@@ -25,24 +25,24 @@ Route::get('/', function () {
 
     return view('welcome');
 });
-Route::get('login', function () {
-    return view('auth.login');
-});
-Route::get('purchases', function () {
-    return view('purchases.index');
-});
-Route::get('cart', function () {
-    return view('carts.show');
-});
-Route::get('sales', function () {
-    return view('sales.index');
-});
-Route::get('orders', function () {
-    return view('orders.index');
-});
-Route::get('details', function () {
-    return view('orders.show');
-});
+// Route::get('login', function () {
+//     return view('auth.login');
+// });
+// Route::get('purchases', function () {
+//     return view('purchases.index');
+// });
+// Route::get('cart', function () {
+//     return view('carts.show');
+// });
+// Route::get('sales', function () {
+//     return view('sales.index');
+// });
+// Route::get('orders', function () {
+//     return view('orders.index');
+// });
+// Route::get('details', function () {
+//     return view('orders.show');
+// });
 
 Auth::routes();
 
@@ -68,4 +68,5 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('headers', 'HeaderController');
     Route::resource('socials', 'SocialController');
     Route::resource('profiles', 'ProfileController');
+    Route::resource('sales', 'SalerProductController');
 });
