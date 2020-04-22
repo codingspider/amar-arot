@@ -22,12 +22,12 @@ class CreateProductsTable extends Migration
             $table->float('rating')->nullable();
             $table->bigInteger('rating_by')->nullable();
             $table->float('sale_price')->nullable();
-            $table->string('product_code');
-            $table->string('variation_type')->comment('size, color');
-            $table->string('image');
-            $table->text('description');
+            $table->string('product_code')->nullable();
+            $table->string('variation_type')->nullable()->comment('size, color');
+            $table->string('image')->nullable();
+            $table->text('description')->nullable();
             $table->text('description_bn')->nullable();
-            $table->string('short_description');
+            $table->string('short_description')->nullable();
             $table->string('short_description_bn')->nullable();
             $table->bigInteger('catagory_id');
             $table->bigInteger('measurment_unit_id');

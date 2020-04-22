@@ -7,6 +7,7 @@ use App\Model\MeasurmentUnit;
 use App\Model\Catagory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Intervention\Image\Facades\Image;
 
 class SalerProductController extends Controller
 {
@@ -17,10 +18,10 @@ class SalerProductController extends Controller
      */
     public function index()
     {
-        $produts = Products::where('seller_id', Auth::user()->id)->get();
+        $products = Products::leftjoin('users', 'users.id', 'products.seller_id')->leftjoin('addresses', 'addresses.user_id', 'products.seller_id')->leftjoin('districts', 'districts.id', 'addresses.district_id')->where('seller_id', Auth::user()->id)->select('products.*', 'users.name as seller_name', 'users.phone', 'districts.name as location')->get();
         $measurements = MeasurmentUnit::all();
         $categories = Catagory::all();
-        return view('sales.index',compact('measurements','categories'));
+        return view('sales.index', compact('measurements', 'categories', 'products'));
     }
 
     /**
@@ -40,7 +41,35 @@ class SalerProductController extends Controller
      */
     public function store(Request $request)
     {
-        return $request;
+        $this->validate($request, [
+            "name"                 => 'required|max:100',
+            "name_bn"              => 'max:100',
+            "price"                => 'required|regex:/^\d+(\.\d{1,2})?$/',
+            "sale_price"           => 'max:8',
+            "stock_qty"            => 'required|regex:/^\d+(\.\d{1,2})?$/',
+            "short_description"    => 'max:100',
+            "description"          => 'max:255',
+            "short_description_bn" => 'max:100',
+            "description_bn"       => 'max:255',
+            "measurment_unit_id"   => 'required',
+            "catagory_id"          => 'required',
+        ]);
+        $input = $request->except('_token', 'image');
+        $input['seller_id'] = Auth::user()->id;
+
+        $produt = Products::create($input);
+        if ($produt && $request->has('image')) {
+            $originalImage  = $request->file('image');
+            $thumbnailImage = Image::make($originalImage);
+            $thumbnailPath  = public_path() . '/uploads/';
+            $originalPath   = public_path() . '/images/';
+            $image_name     = time() . $originalImage->getClientOriginalName();
+            $thumbnailImage->save($originalPath . $image_name);
+            $thumbnailImage->resize(150, 150)->save($thumbnailPath . $image_name);
+            $produt->image = $image_name;
+            $produt->save();
+        }
+        return back();
     }
 
     /**
@@ -51,7 +80,6 @@ class SalerProductController extends Controller
      */
     public function show($id)
     {
-        //
     }
 
     /**
@@ -60,9 +88,11 @@ class SalerProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Products $sale)
     {
-        //
+        $measurements = MeasurmentUnit::all();
+        $categories = Catagory::all();
+        return view('sales.edit',compact('sale','measurements','categories'));
     }
 
     /**
@@ -72,9 +102,25 @@ class SalerProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Products $sale)
     {
-        //
+        $this->validate($request, [
+            "name"                 => 'required|max:100',
+            "name_bn"              => 'max:100',
+            "price"                => 'required|regex:/^\d+(\.\d{1,2})?$/',
+            "sale_price"           => 'max:8',
+            "stock_qty"            => 'required|regex:/^\d+(\.\d{1,2})?$/',
+            "short_description"    => 'max:100',
+            "description"          => 'max:255',
+            "short_description_bn" => 'max:100',
+            "description_bn"       => 'max:255',
+            "measurment_unit_id"   => 'required',
+            "catagory_id"          => 'required',
+        ]);
+        $input = $request->except('_token','_method');
+        $input['seller_id'] = Auth::user()->id;
+        $sale->update($input);
+        return redirect(route('sales.index'));
     }
 
     /**
@@ -83,8 +129,9 @@ class SalerProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Products $sale)
     {
-        //
+        $sale->delete();
+        return redirect(route('sales.index'));
     }
 }
