@@ -56,5 +56,10 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('measurments','MeasurmentController');
     Route::post('measurments/update','MeasurmentController@update');
     Route::resource('profiles','ProfileController');
-
+    Route::get('add-address/{type}','ProfileController@addAddress');
+    Route::post('store-address','ProfileController@storeAddress');
+    Route::post('update-address','ProfileController@updateAddress');
+    Route::get('edit-address/{id}','ProfileController@editAddress');
+    Route::get('active-address/{id}','ProfileController@activeAddress');
+    Route::get('delete-address/{id}','ProfileController@deleteAddress');
 });

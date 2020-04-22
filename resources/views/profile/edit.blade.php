@@ -28,8 +28,6 @@
         <div class="col s12 m12">
             <div class="card">
                 <div class="card-image">
-
-                    <!-- <span class="card-title">{{ $profile->name }}</span> -->
                 </div>
                 <form action="{{ route('profiles.update',$profile->id ) }}" method="POST">
                     <div class="card-content text-center">
