@@ -37,32 +37,33 @@
     <li id="butRefresh"><a class="waves-effect white-text"><i
                 class="material-icons white-text">refresh</i>{{__('nav.Refresh')}}</a>
     </li>
+    @can('user-list')
+
     <li id="butRefresh"><a href="{{ route('users.index') }}" class="waves-effect white-text"><i
                 class="material-icons white-text">people</i>{{__('nav.Manage_user')}}</a>
     </li>
-    <li id="butRefresh"><a  href="{{ route('roles.index') }}" class="waves-effect white-text"><i
+    <li id="butRefresh"><a href="{{ route('roles.index') }}" class="waves-effect white-text"><i
                 class="material-icons white-text">device_hub</i>{{__('nav.Manage_role')}}</a>
     </li>
-    <li id="butRefresh"><a  href="{{ route('products.index') }}" class="waves-effect white-text"><i
+    <li id="butRefresh"><a href="{{ route('products.index') }}" class="waves-effect white-text"><i
                 class="material-icons white-text">local_offer</i>{{__('nav.Manage_product')}}</a>
     </li>
-    <li id="butRefresh"><a  href="{{ route('catagories.index') }}" class="waves-effect white-text"><i
+    <li id="butRefresh"><a href="{{ route('catagories.index') }}" class="waves-effect white-text"><i
                 class="material-icons white-text">palette</i>{{__('nav.catagory')}}</a>
     </li>
-    <li id="butRefresh"><a  href="{{ route('settings.create') }}" class="waves-effect white-text"><i
+    <li id="butRefresh"><a href="{{ route('settings.create') }}" class="waves-effect white-text"><i
                 class="material-icons white-text">build</i>{{__('setting.setting_create')}}</a>
     </li>
-    <li id="butRefresh"><a  href="{{ route('headers.index') }}" class="waves-effect white-text"><i
+    <li id="butRefresh"><a href="{{ route('headers.index') }}" class="waves-effect white-text"><i
                 class="material-icons white-text">format_align_justify</i>{{__('setting.header_create')}}</a>
     </li>
-    <li id="butRefresh"><a  href="{{ route('socials.index') }}" class="waves-effect white-text"><i
+    <li id="butRefresh"><a href="{{ route('socials.index') }}" class="waves-effect white-text"><i
                 class="material-icons white-text">device_hub</i>{{__('setting.social_create')}}</a>
     </li>
-    <li id="butRefresh"><a  href="{{ route('measurments.index') }}" class="waves-effect white-text"><i
+    <li id="butRefresh"><a href="{{ route('measurments.index') }}" class="waves-effect white-text"><i
                 class="material-icons white-text">palette</i>{{__('nav.measurments')}}</a>
     </li>
-
-
+    @endcan
     <li>
         <div class="divider"></div>
     </li>
@@ -84,16 +85,15 @@
     </li>
     @endif
     <li>
-         <a class="waves-effect white-text" href="{{ route('logout') }}"
-        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-        <i class="material-icons white-text">keyboard_return</i>
-        {{__('nav.logout')}}
-    </a>
+        <a class="waves-effect white-text" href="{{ route('logout') }}"
+            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+            <i class="material-icons white-text">keyboard_return</i>
+            {{__('nav.logout')}}
+        </a>
 
 
-    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-        @csrf
-    </form>
+        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+            @csrf
+        </form>
     </li>
 </ul>
-
