@@ -55,6 +55,13 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('catagories','CatagoryController');
     Route::resource('measurments','MeasurmentController');
     Route::post('measurments/update','MeasurmentController@update');
+    Route::resource('profiles','ProfileController');
+    Route::get('add-address/{type}','ProfileController@addAddress');
+    Route::post('store-address','ProfileController@storeAddress');
+    Route::post('update-address','ProfileController@updateAddress');
+    Route::get('edit-address/{id}','ProfileController@editAddress');
+    Route::get('active-address/{id}','ProfileController@activeAddress');
+    Route::get('delete-address/{id}','ProfileController@deleteAddress');
     Route::resource('settings', 'SettingController');
     Route::resource('headers', 'HeaderController');
     Route::resource('socials', 'SocialController');
