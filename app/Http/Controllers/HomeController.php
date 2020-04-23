@@ -47,6 +47,21 @@ class HomeController extends Controller
             $products = $products->where('addresses.status', '1')->where('addresses.type', '1');
         }
         $products = $products->select('products.*', 'users.name as seller_name', 'users.phone', 'districts.name as location')
-            ->get();
+        ->orWhere('products.name', 'like', '%' . $request->search . '%')
+        ->orWhere('products.name_bn', 'like', '%' . $request->search . '%')
+        ->orWhere('products.price', 'like', '%' . $request->search . '%')
+        ->orWhere('products.product_code', 'like', '%' . $request->search . '%')
+        ->orWhere('products.description', 'like', '%' . $request->search . '%')
+        ->orWhere('products.description_bn', 'like', '%' . $request->search . '%')
+        ->orWhere('products.short_description', 'like', '%' . $request->search . '%')
+        ->orWhere('products.short_description_bn', 'like', '%' . $request->search . '%')
+        ->orWhere('users.name', 'like', '%' . $request->search . '%')
+        ->orWhere('districts.name', 'like', '%' . $request->search . '%')
+        ->get();
+
+        return view('search',compact('products'));
+
+
+
     }
 }

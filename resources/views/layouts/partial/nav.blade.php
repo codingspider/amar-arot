@@ -69,16 +69,16 @@
     </li>
 
 
-    @if(App::getLocale() == 'en')
+    @if(App::getLocale() == 'en-US')
     <li>
-        <a class="waves-effect white-text" href="{{url('/locale/bn')}}">
+        <a class="waves-effect white-text" href="{{url('/locale/bn-BD')}}">
             <i class="material-icons white-text">airplanemode_active</i>
             বাংলা
         </a>
     </li>
     @else
     <li>
-        <a class="waves-effect white-text" href="{{url('/locale/en')}}">
+        <a class="waves-effect white-text" href="{{url('/locale/en-US')}}">
             <i class="material-icons white-text">airplanemode_active</i>
             English
         </a>
