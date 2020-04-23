@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -38,6 +38,7 @@
     <script src="{{asset('content')}}/js/materialize.js"></script>
     <script src="{{asset('content')}}/js/install.js"></script>
     <script src="{{asset('content')}}/js/init.js?v=1"></script>
+    @yield('script')
 
 </body>
 

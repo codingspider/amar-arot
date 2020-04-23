@@ -30,12 +30,8 @@
     <div class="section">
 
         <div class="row">
-            @foreach($categories as $category)
-            <div class="col s12 m12">
-                <h2 class="center-align">{{ $category->name}}</h2>
-            </div>
+            @if(count($products)>0)
             @foreach($products as $product)
-            @if($product->catagory_id == $category->id)
             <div class="col s12 m3">
                 <div class="card">
                     <div class="card-image waves-effect waves-block waves-light">
@@ -59,9 +55,14 @@
                     </div>
                 </div>
             </div>
+            @endforeach
+            @else
+            <div class="col s12 m12">
+                <div class="card">
+                   <h2 class="center-align">No Product Found</h2>
+                </div>
+            </div>
             @endif
-            @endforeach
-            @endforeach
         </div>
 
     </div>
@@ -73,7 +74,6 @@
     </a>
 </div>
 @endsection
-
 @section('script')
 <script>
     const searchForm = document.querySelector("#search-form");
