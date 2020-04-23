@@ -3,7 +3,7 @@
 use App\Model\Catagory;
 use Illuminate\Database\Seeder;
 
-class CatagoryTableSeeder extends Seeder
+class CategoryTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -26,7 +26,28 @@ class CatagoryTableSeeder extends Seeder
                 'name_bn' => 'তাজা সবজি',
                 'created_at' => '2020-01-01 00:00:00',
                 'updated_at' => '2020-01-01 00:00:00'
-            ]
+            ],
+            [
+                'id' => '3',
+                'name' => 'Fresh Fish',
+                'name_bn' => 'তাজা মাছ',
+                'created_at' => '2020-01-01 00:00:00',
+                'updated_at' => '2020-01-01 00:00:00'
+            ],
+            [
+                'id' => '4',
+                'name' => 'Meat',
+                'name_bn' => 'মাংস',
+                'created_at' => '2020-01-01 00:00:00',
+                'updated_at' => '2020-01-01 00:00:00'
+            ],
+            [
+                'id' => '5',
+                'name' => 'Biscuits',
+                'name_bn' => 'বিস্কুট',
+                'created_at' => '2020-01-01 00:00:00',
+                'updated_at' => '2020-01-01 00:00:00'
+            ],
         ];
 
         foreach ($categories as $category) {
