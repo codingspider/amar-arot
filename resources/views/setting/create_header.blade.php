@@ -24,7 +24,7 @@
                     <td></td>
                     <td>
                 @csrf
-                <input type="submit" name="save" id="save" class="btn btn-primary" value="Save" />
+                <input type="submit" name="save" id="save" class="btn btn-primary" value="{{ __('role.save') }}" />
         </td>
     </tr>
     </tfoot>

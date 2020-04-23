@@ -23,22 +23,22 @@
     @method("PUT")
       <div class="row">
         <div class="input-field col s6">
-        <input placeholder="Placeholder" id="first_name" type="text" name="title" value="{{ $data->title }}" class="validate">
-          <label for="first_name">Title </label>
+        <input id="first_name" type="text" name="title" value="{{ $data->title }}" class="validate">
+          <label for="first_name">{{__('setting.title')}} </label>
         </div>
        
         <div class="input-field col s6">
-          <input placeholder="Placeholder" id="first_name" name="ttile_bn" value="{{ $data->title_bn }}" type="text" class="validate">
-          <label for="first_name">Title Bangla </label>
+          <input id="first" name="ttile_bn" value="{{ $data->title_bn }}" type="text" class="validate">
+          <label for="first">{{__('setting.title_bn')}}</label>
         </div>
        
         <div class="input-field col s6">
           <input id="last_name" type="text" name="links" value="{{ $data->links }}" class="validate">
-          <label for="last_name">Links  </label>
+          <label for="last_name">{{__('setting.link')}}  </label>
         </div>
     </div>
             <div class="input-field col s6">
-             <button type="submit" class="waves-effect waves-light btn"><i class="material-icons right">cloud</i>button</button>
+             <button type="submit" class="waves-effect waves-light btn">{{ __('role.save') }}</button>
             </div>
 
 
