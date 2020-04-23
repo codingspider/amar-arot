@@ -4,7 +4,7 @@
 <br>
 <div class="container">
     @if($errors->any())
-    {{ implode('', $errors->all(':message')) }}
+    {!! implode('<br>', $errors->all(':message')) !!}
     @endif
     <div class="row">
         <form class="col s12" action="{{ route('settings.store')}}" method="POST" enctype="multipart/form-data">

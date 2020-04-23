@@ -19,8 +19,15 @@ return [
     'contact_email' => 'ইমেইল',
     'contact_phone' => 'ফোন',
     'about' => 'সম্পর্কে',
-    'updated_by' =>'Updated By',
-    'logo' =>'ছবি'
+    'updated_by' =>'সম্পাদক',
+    'logo' =>'ছবি',
+    'header_new' =>'নতুন লিংক',
+    'title' =>'টাইটেল',
+    'title_bn' =>'টাইটেল (বাংলা)',
+    'link' =>'লিংক',
+    'action' =>'একশন',
+    'edit' =>'সম্পাদনা',
+    'delete' =>'মুছে ফেলুন',
    
 
 ];
