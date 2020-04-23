@@ -12,18 +12,18 @@
                 <img src="{{asset('content')}}/img/cover.jpg">
             </div>
             <a href="#user"><img class="circle" src="{{asset('content')}}/img/profile.png"></a>
-            <a href="#name"><span class="white-text name">{{Auth::user()->name}}</span></a>
-            <a href="#email"><span class="white-text email">{{Auth::user()->email}}</span></a>
+            <a href="#name"><span class="white-text name">@if(Auth::check()){{Auth::user()->name}}@endif</span></a>
+            <a href="#email"><span class="white-text email">@if(Auth::check()){{Auth::user()->email}}@endif</span></a>
         </div>
     </li>
-    <li><a class="white-text waves-effect" href="{{route('profiles.show',Auth::user()->id)}}"><i
-                class="material-icons white-text">account_circle</i>{{__('nav.Profile')}}</a>
+    <li><a class="white-text waves-effect" href="@if(Auth::check()){{route('profiles.show',Auth::user()->id)}}@endif"><i
+        class="material-icons white-text">account_circle</i>{{__('nav.Profile')}}</a>
     </li>
     <li>
         <div class="divider"></div>
     </li>
     <!-- <li><a href="#!">Second Link</a></li> -->
-    <li><a class="waves-effect white-text" href="{{url('sales')}}"><i
+    <li><a class="waves-effect white-text" href="{{route('sales.index')}}"><i
                 class="material-icons white-text">add_box</i>{{__('nav.Sale')}}</a>
     </li>
     <li><a class="waves-effect white-text" href="{{url('orders')}}"><i
