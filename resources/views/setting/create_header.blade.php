@@ -10,10 +10,10 @@
         <table class="striped" id="user_table">
     <thead>
     <tr>
-        <th width="35%">Name</th>
-        <th width="35%">Name Bangla </th>
-        <th width="35%">Links  </th>
-        <th width="30%">Action</th>
+        <th width="35%">{{__('setting.title')}}</th>
+        <th width="35%">{{__('setting.title_bn')}}</th>
+        <th width="35%">{{__('setting.link')}}</th>
+        <th width="30%">{{__('setting.action')}}</th>
     </tr>
     </thead>
     <tbody>
