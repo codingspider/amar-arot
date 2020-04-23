@@ -1,5 +1,6 @@
 <?php
 
+use App\Model\MeasurmentUnit;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -15,5 +16,7 @@ class DatabaseSeeder extends Seeder
         $this->call(PermissionTableSeeder::class);
         $this->call(DistrictTableSeeder::class);
         $this->call(RoleTableSeeder::class);
+        $this->call(CatagoryTableSeeder::class);
+        $this->call(MeasurmentUnitTableSeeder::class);
     }
 }
