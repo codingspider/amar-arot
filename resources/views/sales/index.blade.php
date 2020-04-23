@@ -22,19 +22,19 @@
             <div class="col s12 m3">
                 <div class="card">
                     <div class="card-image waves-effect waves-block waves-light">
-                        <img class="activator" src="{{asset('images/'.$product->image)}}">
+                        <img class="activator" src="{{asset('uploads/'.$product->image)}}">
                     </div>
                     <div class="card-content">
                         <span class="card-title activator grey-text text-darken-4">{{$product->name}}<i
                                 class="material-icons right">more_vert</i></span>
-                        <p><a href="{{route('sales.edit',$product->id)}}"
+                        <span><a href="{{route('sales.edit',$product->id)}}"
                                 class="btn light-blue">{{__('product.Edit')}}</a>
                             <form action="{{route('sales.destroy',$product->id)}}" method="POST">
                                 @csrf
                                 @method('DELETE')
-                                <input type="submit" class="btn light-blue" value="{{__('DEL')}}">
+                                <input type="submit" class="btn light-blue" value="{{__('DELETE')}}">
                             </form>
-                        </p>
+                        </span>
 
                     </div>
                     <div class="card-reveal">

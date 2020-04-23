@@ -22,7 +22,6 @@ Route::get('locale/{locale}', function ($locale) {
 
 
 Route::get('/', function () {
-
     return view('welcome');
 });
 // Route::get('login', function () {

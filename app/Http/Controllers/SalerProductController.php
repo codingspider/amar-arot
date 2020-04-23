@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Model\Address;
 use App\Model\Products;
 use App\Model\MeasurmentUnit;
 use App\Model\Catagory;
@@ -18,7 +19,15 @@ class SalerProductController extends Controller
      */
     public function index()
     {
-        $products = Products::leftjoin('users', 'users.id', 'products.seller_id')->leftjoin('addresses', 'addresses.user_id', 'products.seller_id')->leftjoin('districts', 'districts.id', 'addresses.district_id')->where('seller_id', Auth::user()->id)->select('products.*', 'users.name as seller_name', 'users.phone', 'districts.name as location')->get();
+        $products = Products::leftjoin('users', 'users.id', 'products.seller_id')
+            ->leftjoin('addresses', 'addresses.user_id', 'products.seller_id')
+            ->leftjoin('districts', 'districts.id', 'addresses.district_id')
+            ->where('seller_id', Auth::user()->id);
+        if (Address::where('addresses.status', '1')->where('addresses.type', '1')->count() > 0) {
+            $products = $products->where('addresses.status', '1')->where('addresses.type', '1');
+        }
+        $products = $products->select('products.*', 'users.name as seller_name', 'users.phone', 'districts.name as location')->get();
+
         $measurements = MeasurmentUnit::all();
         $categories = Catagory::all();
         return view('sales.index', compact('measurements', 'categories', 'products'));
@@ -65,7 +74,7 @@ class SalerProductController extends Controller
             $originalPath   = public_path() . '/images/';
             $image_name     = time() . $originalImage->getClientOriginalName();
             $thumbnailImage->save($originalPath . $image_name);
-            $thumbnailImage->resize(150, 150)->save($thumbnailPath . $image_name);
+            $thumbnailImage->resize(400, 400)->save($thumbnailPath . $image_name);
             $produt->image = $image_name;
             $produt->save();
         }
@@ -92,7 +101,7 @@ class SalerProductController extends Controller
     {
         $measurements = MeasurmentUnit::all();
         $categories = Catagory::all();
-        return view('sales.edit',compact('sale','measurements','categories'));
+        return view('sales.edit', compact('sale', 'measurements', 'categories'));
     }
 
     /**
@@ -117,7 +126,7 @@ class SalerProductController extends Controller
             "measurment_unit_id"   => 'required',
             "catagory_id"          => 'required',
         ]);
-        $input = $request->except('_token','_method');
+        $input = $request->except('_token', '_method');
         $input['seller_id'] = Auth::user()->id;
         $sale->update($input);
         return redirect(route('sales.index'));
