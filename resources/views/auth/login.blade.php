@@ -23,63 +23,51 @@
 
 
 
-                        <form class="col s12" method="POST" action="{{ route('login') }}">
-                        {{ csrf_field() }}
-
-                        <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                            <label for="email" class="col-md-4 control-label">E-Mail Address</label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required autofocus>
-
-                                @if ($errors->has('email'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                            <label for="password" class="col-md-4 control-label">Password</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control" name="password" required>
-
-                                @if ($errors->has('password'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('password') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-md-6 col-md-offset-4">
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> Remember Me
-                                    </label>
+                            <form class="col s12" method="POST" action="{{ route('login') }}">
+                                {{ csrf_field() }}
+                                <a class="btn right" href="{{ route('register') }}">
+                                    {{__('login.Registration')}}
+                                </a>
+                                <div class="row">
+                                    <div class="input-field col s12">
+                                        <input id="first_name" type="email" class="validate" name="email"
+                                            value="{{ old('email') }}">
+                                        <label for="first_name">{{__('login.Email')}}</label>
+                                        <span class="helper-text" data-error="Please Enter Valid Email Address"
+                                            data-success="">
+                                            {{ $errors->has('email') ? $errors->first('email') : '' }}
+                                        </span>
+                                    </div>
+                                    <div class="input-field col s12">
+                                        <input id="password" type="password" name="password" class="validate">
+                                        <label for="password">{{__('login.Password')}}</label>
+                                        @if($errors->has('password'))
+                                        <span class="helper-text">
+                                            {{ $errors->first('password') }}
+                                        </span>
+                                        @endif
+                                    </div>
+                                    <div class="input-field col s12">
+                                        <label>
+                                            <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}>
+                                            <span>{{__('login.remember')}}</span>
+                                        </label>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
 
-                        <div class="form-group">
-                            <div class="col-md-8 col-md-offset-4">
-                                <button type="submit" class="btn btn-primary">
-                                    Login
-                                </button>
 
-                                <a class="btn btn-link" href="{{ route('password.request') }}">
-                                    Forgot Your Password?
-                                </a>
-                                <a class="btn btn-link" href="{{ route('register') }}">
-                                    New User
-                                </a>
-                            </div>
-                        </div>
+                                <div class="row">
+                                    <div class="col s12 center">
+                                        <br>
+                                        <button type="submit" class="btn btn-small">
+                                            {{__('login.Login')}}
+                                        </button>
 
-                    </form>
+                                        <a class="btn btn-flat btn-small" href="{{ route('password.request') }}">
+                                            {{__('login.forgot')}}
+                                        </a>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
