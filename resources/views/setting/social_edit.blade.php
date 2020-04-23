@@ -22,23 +22,23 @@
     @csrf 
     @method("PUT")
       <div class="row">
-        <div class="input-field col s6">
-        <input placeholder="Placeholder" id="first_name" type="text" name="title" value="{{ $data->title }}" class="validate">
-          <label for="first_name">Title </label>
+        <div class="input-field col s12 m6">
+        <input id="first_name" type="text" name="title" value="{{ $data->title }}" class="validate">
+          <label for="first_name">{{__('setting.title')}} </label>
         </div>
        
-        <div class="input-field col s6">
-          <input placeholder="Placeholder" id="first_name" name="ttile_bn" value="{{ $data->title_bn }}" type="text" class="validate">
-          <label for="first_name">Title Bangla </label>
+        <div class="input-field col s12 m6">
+          <input id="name" name="ttile_bn" value="{{ $data->title_bn }}" type="text" class="validate">
+          <label for="name">{{__('setting.title_bn')}} </label>
         </div>
        
-        <div class="input-field col s6">
+        <div class="input-field col s12">
           <input id="last_name" type="text" name="links" value="{{ $data->links }}" class="validate">
-          <label for="last_name">Links  </label>
+          <label for="last_name">{{__('setting.link')}}  </label>
         </div>
     </div>
             <div class="input-field col s6">
-             <button type="submit" class="waves-effect waves-light btn"><i class="material-icons right">cloud</i>button</button>
+             <button type="submit" class="waves-effect waves-light btn">{{ __('role.save') }}</button>
             </div>
 
 
