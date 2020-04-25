@@ -66,7 +66,11 @@
                             </div>
                         </div></td>
                         <td class="col-sm-2 col-md-2" style="text-align: center">
-                        <input type="email" class="form-control" id="exampleInputEmail1" value="{{ $item->qty }}">
+                         <select class="quantity" data-id="{{ $item->rowId }}" data-productQuantity="{{ $item->model->quantity }}">
+                                @for ($i = 1; $i < 5 + 1 ; $i++)
+                                    <option {{ $item->qty == $i ? 'selected' : '' }}>{{ $i }}</option>
+                                @endfor
+                            </select>
                         </td>
                         <td class="col-sm-2 col-md-2 text-center"><strong>৳ {{ $item->price  }}</strong></td>
                         <td class="col-sm-2 col-md-2 text-center"><strong>৳ {{ $item->price * $item->qty }}</strong></td>
@@ -86,11 +90,18 @@
                     @endforeach
                     
                     <tr>
-                        <td>   </td>
-                        <td>   </td>
-                        <td>   </td>
-                        <td><h5>Subtotal</h5></td>
-                    <td class="text-right"><h5><strong>৳ {{ Cart::subtotal() }}</strong></h5></td>
+                        <td>   </td>
+                        <td>   </td>
+                        <td>   </td>
+                        @if (session()->has('coupon'))
+                        <td><h5>Discount ({{ session()->get('coupon')['name'] }}) </h5></td>
+                        <td class="text-right text-center"><h5><strong>-৳ {{ session()->get('coupon')['discount'] }} %</strong></h5></td>
+                    <form action="{{ route('coupon.destroy') }}" method="POST">
+                        @csrf
+                        {{ method_field('delete') }}
+                            <td><button class="btn btn-danger" type="submit">Remove  </button></td>
+                        </form>
+                        @endif
                     </tr>
                     <tr>
                         <td>   </td>
@@ -99,12 +110,21 @@
                         <td><h5>TAX</h5></td>
                     <td class="text-right"><h5><strong>৳ {{ Cart::tax() }}</strong></h5></td>
                     </tr>
+                    @if (session()->has('coupon'))
                     <tr>
                         <td>   </td>
                         <td>   </td>
+                        <td>  </td>
+                        <td><h3>Discount</h3></td>
+                    <td class="text-right"><h3><strong>৳ {{ $discount }}</strong></h3></td>
+                    </tr>
+                         @endif
+                    <tr>
                         <td>   </td>
+                        <td>   </td>
+                        <td>  </td>
                         <td><h3>Total</h3></td>
-                    <td class="text-right"><h3><strong>৳ {{ Cart::total()}}</strong></h3></td>
+                    <td class="text-right"><h3><strong>৳ {{ $newSubtotal }}</strong></h3></td>
                     </tr>
                     <tr>
                         <td>   </td>
@@ -118,6 +138,22 @@
                         <button type="button" class="btn btn-success">
                             Checkout <span class="glyphicon glyphicon-play"></span>
                         </button></td>
+                    </tr>
+                    <tr>
+                      <td>
+                            @if (! session()->has('coupon'))
+
+                            <a href="#" class="have-code">Have a Code?</a>
+
+                            <div class="have-code-container">
+                                <form action="{{ route('coupon.store') }}" method="POST">
+                                    {{ csrf_field() }}
+                                    <input type="text" name="coupon_code" id="coupon_code">
+                                    <button type="submit" class="button button-plain">Apply</button>
+                                </form>
+                            </div> <!-- end have-code-container -->
+                        @endif
+                      </td>
                     </tr>
                 </tbody>
             </table>
@@ -188,6 +224,29 @@
 
 @endif 
 </div> 
-
+    <script src="{{ asset('js/app.js') }}"></script>
+    <script>
+        (function(){
+            const classname = document.querySelectorAll('.quantity')
+            Array.from(classname).forEach(function(element) {
+                element.addEventListener('change', function() {
+                    const id = element.getAttribute('data-id')
+                    const productQuantity = element.getAttribute('data-productQuantity')
+                    axios.patch(`/cart/${id}`, {
+                        quantity: this.value,
+                        productQuantity: productQuantity
+                    })
+                    .then(function (response) {
+                        // console.log(response);
+                        window.location.href = '{{ route('cart.index') }}'
+                    })
+                    .catch(function (error) {
+                        // console.log(error);
+                        window.location.href = '{{ route('cart.index') }}'
+                    });
+                })
+            })
+        })();
+    </script>
 </body>
 </html>
