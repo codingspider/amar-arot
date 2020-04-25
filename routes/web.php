@@ -21,9 +21,9 @@ Route::get('locale/{locale}', function ($locale) {
 // Route::get('lang/{locale}','localization@view')->name('lang');
 
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 // Route::get('login', function () {
 //     return view('auth.login');
 // });
@@ -45,6 +45,7 @@ Route::get('/', function () {
 
 Auth::routes();
 
+Route::get('/', 'HomeController@index');
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/search', 'HomeController@search')->name('search');
 
