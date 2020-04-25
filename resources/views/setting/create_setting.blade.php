@@ -77,16 +77,21 @@
                 </div>
             </div>
             <div class="row">
-                <div class="input-field col s12">
+                <div class="input-field col s6">
                     <div class="file-field input-field">
                         <div class="btn">
                             <span>{{__('setting.logo')}}</span>
                             <input type="file" name="images">
                         </div>
                         <div class="file-path-wrapper">
-                            <input class="file-path validate" type="text">
+                            <input class="file-path validate" type="text" value="{{ isset($var->image)? $var->image : ''  }}">
                         </div>
                     </div>
+                </div>
+                <div class="col s6">
+                    @if(isset($var->image))
+                        <img src="{{ asset('images')}}/{{$var->image}}" class="responsive-img" alt="">
+                    @endif
                 </div>
             </div>
             <div class="row">

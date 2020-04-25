@@ -112,7 +112,7 @@ class ProfileController extends Controller
     }
     public function addAddress($type)
     {
-        $districts = District::all();
+        $districts = District::orderBy('name', 'asc')->get();
         return view('addresses.create', compact('type', 'districts'));
     }
     public function storeAddress(Request $request)

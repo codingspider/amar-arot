@@ -19,7 +19,6 @@ class SettingController extends Controller
      */
     public function index()
     {
-        
     }
 
     /**
@@ -43,34 +42,37 @@ class SettingController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request); 
-
-        $data = request()->except(['_token']);
-        $var = Setting::first();
-
-        // dd($var);
 
         $rules = array(
-            'site_title'=>'required',
-            'admin_email'=>'required',
-            'contact_address'=>'required',
-            'description'=>'required',
-            'seo_keywords'=>'required',
-            // 'images' => 'image|mimes:jpeg,png,jpg,gif,svg|max:3000'
-   
+            'site_title' => 'required'
+
         );
 
         $messages = array(
             'required' => 'The :attribute field is required',
-          
+
         );
 
         $validator = Validator::make($request->all(), $rules, $messages);
 
-         if ($validator->fails()) {
-                 return Redirect::back()->withErrors($validator);
-            } else {
-                if ($request->has('images')) {
+        if ($validator->fails()) {
+            return Redirect::back()->withErrors($validator);
+        } else {
+
+            $insert_array = [
+                'site_title'     => $request->get('site_title'),
+                'copyright' => $request->get('copyright'),
+                'admin_email'    => $request->get("admin_email"),
+                'description'   => $request->get('description'),
+                'seo_title'       => $request->get('seo_title'),
+                'seo_keywords'   => $request->get('seo_keywords'),
+                'contact_address'    => $request->get('contact_address'),
+                'contact_email'    => $request->get('contact_email'),
+                'contact_phone'    => $request->get('contact_phone'),
+                'about'    => $request->get('about')
+            ];
+
+            if ($request->has('images')) {
                 $originalImage = $request->file('images');
                 $thumbnailImage = Image::make($originalImage);
                 $thumbnailPath = public_path() . '/uploads/';
@@ -78,27 +80,24 @@ class SettingController extends Controller
                 $image_name = time() . $originalImage->getClientOriginalName();
                 $thumbnailImage->save($originalPath . $image_name);
                 $thumbnailImage->resize(150, 150)->save($thumbnailPath . $image_name);
-            }else {
-                $image_name ='no image';
-            }
+                $insert_array['image'] = $image_name;
 
-                $newUser = Setting::updateOrCreate([
-                    'updated_by'   => Auth::user()->id,
-                ],[
-                    'site_title'     => $request->get('site_title'),
-                    'copyright' => $request->get('copyright'),
-                    'admin_email'    => $request->get("admin_email"),
-                    'description'   => $request->get('description'),
-                    'seo_title'       => $request->get('seo_title'),
-                    'seo_keywords'   => $request->get('seo_keywords'),
-                    'contact_address'    => $request->get('contact_address'),
-                    'contact_email'    => $request->get('contact_email'),
-                    'contact_phone'    => $request->get('contact_phone'),
-                    'about'    => $request->get('about'),
-                    'image'    => $image_name
-                ]);
+                $var = Setting::first();
+                $old_image_t = $thumbnailPath . '/' . $var->image;
+                $old_image_o = $originalPath . '/' . $var->image;
 
-                 return back()->with('success','Setting saved');
+                if(file_exists($old_image_t)){
+                    unlink($old_image_t);
+                }
+                if(file_exists($old_image_o)){
+                    unlink($old_image_o);
+                }
+            } 
+
+            $newUser = Setting::updateOrCreate(
+                ['id'   => 1], $insert_array );
+
+            return back()->with('success', 'Setting saved');
         }
     }
 
