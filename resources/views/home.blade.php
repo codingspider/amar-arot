@@ -1,4 +1,4 @@
-*@extends('layouts.app')
+@extends('layouts.app')
 @section('pagetitle','Purchase-AmarBazar')
 @section('contents')
 
@@ -76,9 +76,18 @@
     <br><br>
 </div>
 <div class="fixed-action-btn">
+    @if(Cart::count() > 0)
+    <a class="btn-floating btn-large red" href="{{url('cart')}}">{{ Cart::instance('default')->count() }}
+        <i class="large material-icons">add_shopping_cart</i>
+       
+    </a>
+    @else 
+
     <a class="btn-floating btn-large red" href="{{url('cart')}}">
         <i class="large material-icons">add_shopping_cart</i>
+       
     </a>
+    @endif 
 </div>
 @endsection
 

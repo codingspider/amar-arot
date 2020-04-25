@@ -40,56 +40,88 @@
 
 @if(Cart::count() > 0)
 <h3> You have  {{ Cart::count() }} products in your cart. </h3>
-<div class="card">
-<table class="table table-hover shopping-cart-wrap">
-<thead class="text-muted">
-<tr>
-  <th scope="col">Product</th>
-  <th scope="col" width="120">Quantity</th>
-  <th scope="col" width="120">Price</th>
-  <th scope="col" width="200" class="text-right">Action</th>
-</tr>
-</thead>
-<tbody>
+<div class="col-md-12">
+    <div class="row">
+        <div class="col-sm-12 col-md-12 col-md-offset-1">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Quantity</th>
+                        <th class="text-center">Price</th>
+                        <th class="text-center">Total</th>
+                        <th> </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (Cart::content() as $item)
+                        
+                    <tr>
+                        <td class="col-sm-12 col-md-8">
+                        <div class="media">
+                        <a class="thumbnail pull-left" href="{{ url('product/details/'.$item->id )}}"> <img class="media-object" src="{{ asset('uploads/'.$item->model->image) }}" style="width: 50px; height: 50px;"> </a>
+                            <div class="media-body">
+                            <h5 style=" padding-left:20px;" class="media-heading"> <a href="{{ url('product/details/'.$item->id )}}"> {{ $item->name }}</a></h5>
 
-@foreach (Cart::content() as $item)
-        
-<tr>
-	<td>
-<figure class="media">
-<div class="img-wrap"><img src="{{ asset('uploads/'.$item->model->image) }}" class="img-thumbnail img-sm"></div>
-	<figcaption class="media-body">
-		<h6 class="title text-truncate">Product name goes here </h6>
-	</figcaption>
-</figure> 
-	</td>
-	<td> 
-		<select class="form-control">
-			<option>1</option>
-			<option>2</option>	
-			<option>3</option>	
-			<option>4</option>	
-		</select> 
-	</td>
-	<td> 
-		<div class="price-wrap"> 
-			<var class="price">USD 145</var> 
-			<small class="text-muted">(USD5 each)</small> 
-		</div> <!-- price-wrap .// -->
-	</td>
-	<td class="text-right"> 
-	<a title="" href="" class="btn btn-outline-success" data-toggle="tooltip" data-original-title="Save to Wishlist"> <i class="fa fa-heart"></i></a> 
-	<a href="" class="btn btn-outline-danger"> × Remove</a>
-	</td>
-</tr>
-
-    @endforeach
-
-</tbody>
-</table>
-</div> <!-- card.// -->
+                            </div>
+                        </div></td>
+                        <td class="col-sm-2 col-md-2" style="text-align: center">
+                        <input type="email" class="form-control" id="exampleInputEmail1" value="{{ $item->qty }}">
+                        </td>
+                        <td class="col-sm-2 col-md-2 text-center"><strong>৳ {{ $item->price  }}</strong></td>
+                        <td class="col-sm-2 col-md-2 text-center"><strong>৳ {{ $item->price * $item->qty }}</strong></td>
+                        <td class="col-sm-2 col-md-2">
+                        <form action="{{ route('cart.destroy', $item->rowId) }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger">Remove</button>
+                        </form>
+                    </td>
+                    </tr>
+                    @endforeach
+                    
+                    <tr>
+                        <td>   </td>
+                        <td>   </td>
+                        <td>   </td>
+                        <td><h5>Subtotal</h5></td>
+                    <td class="text-right"><h5><strong>৳ {{ Cart::subtotal() }}</strong></h5></td>
+                    </tr>
+                    <tr>
+                        <td>   </td>
+                        <td>   </td>
+                        <td>   </td>
+                        <td><h5>TAX</h5></td>
+                    <td class="text-right"><h5><strong>৳ {{ Cart::tax() }}</strong></h5></td>
+                    </tr>
+                    <tr>
+                        <td>   </td>
+                        <td>   </td>
+                        <td>   </td>
+                        <td><h3>Total</h3></td>
+                    <td class="text-right"><h3><strong>৳ {{ Cart::total()}}</strong></h3></td>
+                    </tr>
+                    <tr>
+                        <td>   </td>
+                        <td>   </td>
+                        <td>   </td>
+                        <td>
+                        <button type="button" class="btn btn-default">
+                            <span class="glyphicon glyphicon-shopping-cart"></span> Continue Shopping
+                        </button></td>
+                        <td>
+                        <button type="button" class="btn btn-success">
+                            Checkout <span class="glyphicon glyphicon-play"></span>
+                        </button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
 @else 
     <h3 class="text-center">There is no items in your cart! </h3>
+<a class="btn btn-primary" href="{{ url('/home')}}"> Shop Now </a>
 @endif 
 </div> 
 <!--container end.//-->

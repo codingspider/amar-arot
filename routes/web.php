@@ -77,3 +77,5 @@ Route::group(['middleware' => ['auth']], function () {
 Route::get('empty', function(){
     Cart::destroy(); 
 });
+
+Route::delete('/cart/{product}', 'CartController@destroy')->name('cart.destroy');
