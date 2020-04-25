@@ -63,6 +63,7 @@
                             <li>{{__('product.Place')}} {{$product->location}}</li>
                             <li>{{__('product.Seller')}} {{$product->seller_name}}</li>
                             <li>{{__('product.Phone')}} {{$product->phone}}</li>
+                            
                         </ul>
                     </div>
                 </div>

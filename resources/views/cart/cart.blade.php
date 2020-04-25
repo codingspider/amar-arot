@@ -70,12 +70,17 @@
                         </td>
                         <td class="col-sm-2 col-md-2 text-center"><strong>৳ {{ $item->price  }}</strong></td>
                         <td class="col-sm-2 col-md-2 text-center"><strong>৳ {{ $item->price * $item->qty }}</strong></td>
-                        <td class="col-sm-2 col-md-2">
+                        <td class="col-md-4">
                         <form action="{{ route('cart.destroy', $item->rowId) }}" method="POST">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger">Remove</button>
                         </form>
+                        <form action="{{ route('cart.switchToSaveForLater', $item->rowId) }}" method="POST">
+                                {{ csrf_field() }}
+
+                                <button type="submit" class="cart-options">Save for Later</button>
+                            </form>
                     </td>
                     </tr>
                     @endforeach
@@ -116,6 +121,7 @@
                     </tr>
                 </tbody>
             </table>
+            
         </div>
     </div>
 </div>
@@ -123,8 +129,65 @@
     <h3 class="text-center">There is no items in your cart! </h3>
 <a class="btn btn-primary" href="{{ url('/home')}}"> Shop Now </a>
 @endif 
+
+ @if (Cart::instance('saveForLater')->count() > 0)
+
+<h2>{{ Cart::instance('saveForLater')->count() }} item(s) Saved For Later</h2>
+<div class="col-md-12">
+    <div class="row">
+        <div class="col-sm-12 col-md-12 col-md-offset-1">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Product</th>
+
+                        <th class="text-center">Price</th>
+                        <th> </th>
+                    </tr>
+                </thead>
+                <tbody>
+                @foreach (Cart::instance('saveForLater')->content() as $item)
+                        
+                    <tr>
+                        <td class="col-sm-12 col-md-8">
+                        <div class="media">
+                        <a class="thumbnail pull-left" href="{{ url('product/details/'.$item->id )}}"> <img class="media-object" src="{{ asset('uploads/'.$item->model->image) }}" style="width: 50px; height: 50px;"> </a>
+                            <div class="media-body">
+                            <h5 style=" padding-left:20px;" class="media-heading"> <a href="{{ url('product/details/'.$item->id )}}"> {{ $item->name }}</a></h5>
+
+                            </div>
+                        </div></td>
+                        
+                        <td class="col-sm-2 col-md-2 text-center"><strong>৳ {{ $item->price  }}</strong></td>
+                       
+                        <td class="col-md-4">
+                        <form action="{{ route('saveForLater.destroy', $item->rowId) }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger">Remove</button>
+                        </form>
+
+                        <form action="{{ route('saveForLater.switchToCart', $item->rowId) }}" method="POST">
+                                {{ csrf_field() }}
+
+                                <button type="submit" class="cart-options">Move to Cart</button>
+                            </form>
+                    </td>
+                    </tr>
+                    @endforeach
+                    
+                   
+                </tbody>
+            </table>
+            
+        </div>
+    </div>
+</div>
+@else 
+    <h3 class="text-center">You have no items saved for later. </h3>
+
+@endif 
 </div> 
-<!--container end.//-->
 
 </body>
 </html>
