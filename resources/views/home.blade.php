@@ -1,4 +1,4 @@
-@extends('layouts.app')
+*@extends('layouts.app')
 @section('pagetitle','Purchase-AmarBazar')
 @section('contents')
 
@@ -44,7 +44,15 @@
                     <div class="card-content">
                         <span class="card-title activator grey-text text-darken-4">{{$product->name}}<i
                                 class="material-icons right">more_vert</i></span>
-                        <p><a href="#" class="btn light-blue">{{__('product.Add to Bag')}}</a></p>
+                        {{-- <p><a href="#" class="btn light-blue">{{__('product.Add to Bag')}}</a></p> --}}
+                        <form action="{{ route('cart.store')}}" method="POST">
+                            @csrf
+                        <input type="hidden" name="id" value="{{ $product->id }}">
+                        <input type="hidden" name="name" value="{{ $product->name }}">
+                        <input type="hidden" name="price" value="{{ $product->price }}">
+                        <button class="btn light-blue" type="submit">Add to cart </button>
+
+                        </form>
                     </div>
                     <div class="card-reveal">
                         <span class="card-title grey-text text-darken-4">{{$product->name}}<i

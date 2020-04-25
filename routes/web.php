@@ -13,6 +13,7 @@
 // All rout is for test Purpose
 
 use Illuminate\Support\Facades\DB;
+use Gloudemans\Shoppingcart\Facades\Cart;
 
 Route::get('locale/{locale}', function ($locale) {
     session()->put('locale', $locale);
@@ -69,4 +70,10 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('socials', 'SocialController');
     Route::resource('profiles', 'ProfileController');
     Route::resource('sales', 'SalerProductController');
+    Route::get('/cart','CartController@index')->name('cart.index');
+    Route::post('/cart','CartController@store')->name('cart.store');
+});
+
+Route::get('empty', function(){
+    Cart::destroy(); 
 });
