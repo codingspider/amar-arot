@@ -70,13 +70,16 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('socials', 'SocialController');
     Route::resource('profiles', 'ProfileController');
     Route::resource('sales', 'SalerProductController');
-    Route::get('/cart','CartController@index')->name('cart.index');
-    Route::post('/cart','CartController@store')->name('cart.store');
+
 });
 
 Route::get('empty', function(){
     Cart::destroy(); 
 });
+
+Route::get('/cart','CartController@index')->name('cart.index');
+Route::post('/cart','CartController@store')->name('cart.store');
+
 Route::patch('/cart/{product}', 'CartController@update')->name('cart.update');
 
 Route::delete('/cart/{product}', 'CartController@destroy')->name('cart.destroy');
