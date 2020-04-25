@@ -24,8 +24,6 @@
     </div>
 </div>
 
-0188 555 80 37
-
 <div class="container">
     <div class="section">
 
