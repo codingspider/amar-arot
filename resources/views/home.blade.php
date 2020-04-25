@@ -8,8 +8,8 @@
         <h1 class="header center light-blue-text">{{__('welcome.Amar Bazar')}}</h1>
         <div class="row center">
             <h5 class="header col s12 light">{{__('welcome.Everything together')}}</h5>
-            <form action="{{route('search')}}" method="POST" id="search-form">
-                @csrf
+            <form action="{{route('search')}}" method="GET" id="search-form">
+                
                 <div class="input-field inline">
                     <i class="material-icons prefix" type="button" id="mic-icon">keyboard_voice</i>
                     <input id="search" name="search" type="text" class="validate">

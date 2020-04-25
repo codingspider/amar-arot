@@ -46,7 +46,7 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-Route::post('/search', 'HomeController@search')->name('search');
+Route::get('/search', 'HomeController@search')->name('search');
 
 Route::group(['middleware' => ['auth']], function () {
     Route::resource('roles', 'RoleController');
