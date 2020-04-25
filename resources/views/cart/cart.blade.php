@@ -59,9 +59,9 @@
                     <tr>
                         <td class="col-sm-12 col-md-8">
                         <div class="media">
-                        <a class="thumbnail pull-left" href="{{ url('product/details/'.$item->id )}}"> <img class="media-object" src="{{ asset('uploads/'.$item->model->image) }}" style="width: 50px; height: 50px;"> </a>
+                        <a class="thumbnail pull-left" href="{{ url('details/'.$item->id )}}"> <img class="media-object" src="{{ asset('uploads/'.$item->model->image) }}" style="width: 50px; height: 50px;"> </a>
                             <div class="media-body">
-                            <h5 style=" padding-left:20px;" class="media-heading"> <a href="{{ url('product/details/'.$item->id )}}"> {{ $item->name }}</a></h5>
+                            <h5 style=" padding-left:20px;" class="media-heading"> <a href="{{ url('details/'.$item->id )}}"> {{ $item->name }}</a></h5>
 
                             </div>
                         </div></td>
@@ -187,9 +187,9 @@
                     <tr>
                         <td class="col-sm-12 col-md-8">
                         <div class="media">
-                        <a class="thumbnail pull-left" href="{{ url('product/details/'.$item->id )}}"> <img class="media-object" src="{{ asset('uploads/'.$item->model->image) }}" style="width: 50px; height: 50px;"> </a>
+                        <a class="thumbnail pull-left" href="{{ url('details/'.$item->id )}}"> <img class="media-object" src="{{ asset('uploads/'.$item->model->image) }}" style="width: 50px; height: 50px;"> </a>
                             <div class="media-body">
-                            <h5 style=" padding-left:20px;" class="media-heading"> <a href="{{ url('product/details/'.$item->id )}}"> {{ $item->name }}</a></h5>
+                            <h5 style=" padding-left:20px;" class="media-heading"> <a href="{{ url('details/'.$item->id )}}"> {{ $item->name }}</a></h5>
 
                             </div>
                         </div></td>
