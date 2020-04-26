@@ -18,18 +18,15 @@ class CartController extends Controller
     {
         $discount = session()->get('coupon')['discount'];
         $total = Cart::total();
-     
-       
-
         $a = $total;
         $b = str_replace( ',', '', $a );
-        
-        $discounted_total = $b - ($b * ($discount/100)); 
-     
-      
+
+        $discounted_total = $b - ($b * ($discount/100));
+
+
         // Session::put('shiping_id', $shiping_id);
 
-        return view('cart.cart')->with([
+        return view('carts.show')->with([
 
             'discount' => $discount,
             'newSubtotal' => $discounted_total,
@@ -61,13 +58,13 @@ class CartController extends Controller
         });
 
         if ($duplicates->isNotEmpty()) {
-            return redirect()->route('cart.index')->with('success', 'Item is already in your cart!');
+            return redirect()->route('home')->with('success', 'Item is already in your cart!');
         }
 
 
         Cart::add($request->id, $request->name, 1, $request->price)->associate('App\Model\Products');
 
-        return redirect()->route('cart.index')->with('success', 'Items has been added to your cart'); 
+        return redirect()->route('home')->with('success', 'Items has been added to your cart');
     }
 
 
@@ -132,7 +129,7 @@ class CartController extends Controller
     {
         Cart::remove($id);
 
-        return back()->with('success', 'Item has been removed from your cart. '); 
+        return back()->with('success', 'Item has been removed from your cart. ');
     }
 
      public function switchToSaveForLater($id)
