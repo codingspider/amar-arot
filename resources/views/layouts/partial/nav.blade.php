@@ -6,22 +6,24 @@
     </div>
 </nav>
 <ul id="slide-out" class="sidenav light-blue">
+    @if(Auth::check())
     <li>
         <div class="user-view">
             <div class="background">
                 <img src="{{asset('content')}}/img/cover.jpg">
             </div>
             <a href="#user"><img class="circle" src="{{asset('content')}}/img/profile.png"></a>
-            <a href="#name"><span class="white-text name">@if(Auth::check()){{Auth::user()->name}}@endif</span></a>
-            <a href="#email"><span class="white-text email">@if(Auth::check()){{Auth::user()->email}}@endif</span></a>
+            <a href="#name"><span class="white-text name">{{Auth::user()->name}}</span></a>
+            <a href="#email"><span class="white-text email">{{Auth::user()->email}}</span></a>
         </div>
     </li>
-    <li><a class="white-text waves-effect" href="@if(Auth::check()){{route('profiles.show',Auth::user()->id)}}@endif"><i
+    <li><a class="white-text waves-effect" href="{{route('profiles.show',Auth::user()->id)}}"><i
         class="material-icons white-text">account_circle</i>{{__('nav.Profile')}}</a>
     </li>
     <li>
         <div class="divider"></div>
     </li>
+    @endif
     <!-- <li><a href="#!">Second Link</a></li> -->
     <li><a class="waves-effect white-text" href="{{route('sales.index')}}"><i
                 class="material-icons white-text">add_box</i>{{__('nav.Sale')}}</a>

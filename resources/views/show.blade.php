@@ -31,16 +31,24 @@
                                 <h6><b>Product Code:</b>{{$product_details->product_code}}</h6>
                             </div>
                             <div class="col s12 m12">
-                                <h6><b>Seller: </b>  {{$user->name}}</h6>
+                                <h6><b>Seller: </b> {{$user->name}}</h6>
                             </div>
                             <div class="col s12 m12">
-                                @if($user->phone)<h6><b>Seller: </b>  {{$user->phone}}@endif</h6>
+                                @if($user->phone)<h6><b>Seller: </b> {{$user->phone}}@endif</h6>
                             </div>
                             <div class="col s12 m12">
                                 <h6>@if(!empty($address))<b>Location: </b>{{$address->name}}@endif</h6>
                             </div>
                             <div class="col s12 m12">
-                                <a href="#" class="btn light-blue">{{__('product.Add to Bag')}}</a>
+                                <form action="{{ route('cart.store')}}" method="POST">
+                                    @csrf
+                                    @if(Cart::content()->where('id', $product_details->id)->count() >0)
+                                    <button class="btn light-blue disabled" type="submit">Already Added </button>
+                                    @else
+                                    <button class="btn light-blue " type="submit">Add to cart </button>
+                                    @endif
+
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -74,7 +82,20 @@
                     <div class="card-content">
                         <span class="card-title activator grey-text text-darken-4">{{$product->name}}<i
                                 class="material-icons right">more_vert</i></span>
-                        <p><a href="#" class="btn light-blue">{{__('product.Add to Bag')}}</a></p>
+                        {{-- <p><a href="#" class="btn light-blue">{{__('product.Add to Bag')}}</a></p> --}}
+                        <form action="{{ route('cart.store')}}" method="POST">
+                            @csrf
+                            <input type="hidden" name="id" value="{{ $product->id }}">
+                            <input type="hidden" name="name" value="{{ $product->name }}">
+                            <input type="hidden" name="price" value="{{ $product->price }}">
+                            @if(Cart::content()->where('id', $product->id)->count() >0)
+                            <button class="btn light-blue disabled" type="submit">Already Added </button>
+                            @else
+                            <button class="btn light-blue " type="submit">Add to cart </button>
+                            @endif
+
+                        </form>
+
                     </div>
                     <div class="card-reveal">
                         <span class="card-title grey-text text-darken-4">{{$product->name}}<i
@@ -85,6 +106,7 @@
                             <li>{{__('product.Place')}} {{$product->location}}</li>
                             <li>{{__('product.Seller')}} {{$product->seller_name}}</li>
                             <li>{{__('product.Phone')}} {{$product->phone}}</li>
+
                         </ul>
                     </div>
                     <div class="card-content">
@@ -99,9 +121,17 @@
 
 
 <div class="fixed-action-btn">
+    @if(Cart::count() > 0)
+    <a class="btn-floating btn-large red" href="{{url('cart')}}">{{ Cart::instance('default')->count() }}
+        <i class="large material-icons">add_shopping_cart</i>
+
+    </a>
+    @else
     <a class="btn-floating btn-large red" href="{{url('cart')}}">
         <i class="large material-icons">add_shopping_cart</i>
+
     </a>
+    @endif
 </div>
 @endsection
 
