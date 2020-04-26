@@ -40,7 +40,9 @@
                         <img class="activator" src="{{asset('uploads/'.$product->image)}}">
                     </div>
                     <div class="card-content">
-                        <span class="card-title activator grey-text text-darken-4">{{$product->name}}<i
+                        <span class="card-title activator grey-text text-darken-4"><a
+                                href="{{route('details',$product->id)}}"
+                                title="Product Details">{{$product->name}}</a><i
                                 class="material-icons right">more_vert</i></span>
                         {{-- <p><a href="#" class="btn light-blue">{{__('product.Add to Bag')}}</a></p> --}}
                         <form action="{{ route('cart.store')}}" method="POST">
@@ -68,9 +70,6 @@
                             <li>{{__('product.Phone')}} {{$product->phone}}</li>
 
                         </ul>
-                    </div>
-                    <div class="card-content">
-                        <p><a href="{{route('details',$product->id)}}">{{__('Details')}}</a></p>
                     </div>
                 </div>
             </div>
@@ -114,6 +113,8 @@
     if (SpeechRecognition) {
         console.log("Your Browser supports speech Recognition");
         const recognition = new SpeechRecognition();
+        recognition.lang = "{{App::getLocale()}}";
+
         recognition.continuous = true;
         const micBtn = document.querySelector("#mic-icon");
         // const micIcon = micBtn.innerHTML;
@@ -216,11 +217,11 @@
             return d; // returns the distance in meter
         };
 
-        console.log('Distance to seler 1: ',getDistance(
+        console.log('Distance to seler 1: ', getDistance(
             buyer,
             seller1
         ))
-        console.log('Distance to seler 2: ',getDistance(
+        console.log('Distance to seler 2: ', getDistance(
             buyer,
             seller2
         ))
