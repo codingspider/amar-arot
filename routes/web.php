@@ -71,6 +71,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('socials', 'SocialController');
     Route::resource('profiles', 'ProfileController');
     Route::resource('sales', 'SalerProductController');
+    Route::get('checkout', 'CartController@checkout');
+    Route::resource('coupons', 'CouponsMangeController');
 
 });
 

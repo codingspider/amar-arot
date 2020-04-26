@@ -63,6 +63,9 @@
     <li id="butRefresh"><a href="{{ route('measurments.index') }}" class="waves-effect white-text"><i
                 class="material-icons white-text">palette</i>{{__('nav.measurments')}}</a>
     </li>
+    <li id="butRefresh"><a href="{{ route('coupons.index') }}" class="waves-effect white-text"><i
+                class="material-icons white-text">local_offer</i>{{__('cart.coupons')}}</a>
+    </li>
     @endcan
     <li>
         <div class="divider"></div>

@@ -131,13 +131,20 @@
                         <td>   </td>
                         <td>   </td>
                         <td>
-                        <button type="button" class="btn btn-default">
+                        <a  href="{{ url('/home') }}" class="btn btn-default">
                             <span class="glyphicon glyphicon-shopping-cart"></span> Continue Shopping
-                        </button></td>
+                        </a></td>
                         <td>
-                        <button type="button" class="btn btn-success">
+                         @if(Auth::id() != NULL &&  Cart::count() > 0 )
+                        <a href="{{ url('/checkout') }}" class="btn btn-success">
                             Checkout <span class="glyphicon glyphicon-play"></span>
-                        </button></td>
+                        </a>
+                        @else 
+                            <a href="{{ url('/login') }}" class="btn btn-success">
+                            Checkout <span class="glyphicon glyphicon-play"></span>
+                        </a>
+                        @endif 
+                    </td>
                     </tr>
                     <tr>
                       <td>
