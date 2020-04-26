@@ -151,4 +151,24 @@ class CartController extends Controller
 
         return redirect()->route('cart.index')->with('success_message', 'Item has been Saved For Later!');
     }
+    
+    public function checkout (){
+        $discount = session()->get('coupon')['discount'];
+        $total = Cart::total();
+     
+       
+
+        $a = $total;
+        $b = str_replace( ',', '', $a );
+        
+        $discounted_total = $b - ($b * ($discount/100)); 
+
+
+        return view('cart.checkout')->with([
+
+            'discount' => $discount,
+            'newSubtotal' => $discounted_total,
+        ]);
+
+    }
 }

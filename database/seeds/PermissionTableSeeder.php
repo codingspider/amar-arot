@@ -48,7 +48,11 @@ class PermissionTableSeeder extends Seeder
             'header-list',
             'header-create',
             'header-edit',
-            'header-delete'
+            'header-delete',
+            'coupon-list',
+            'coupon-create',
+            'coupon-edit',
+            'coupon-delete',
         ];
         foreach ($permissions as $permission) {
             Permission::create(['name' => $permission]);

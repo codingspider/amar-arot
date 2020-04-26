@@ -19,5 +19,11 @@ return [
     'Shop Now'=>'Shop Now',
     'Saved For Later'=>'Saved For Later',
     'item(s)'=>'item(s)',
+    'coupons'=>'Coupons',
+    'coupons_creat'=>'Coupons Create',
+    'code'=>'Coupons Code ',
+    'type'=>'Coupons Type ',
+    'value'=>'Coupons Value',
+    'percent_off'=>'Percent Off',
 ];
 ?>
