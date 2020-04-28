@@ -71,6 +71,7 @@
                             <input type="hidden" name="id" value="{{ $product->id }}">
                             <input type="hidden" name="name" value="{{ $product->name }}">
                             <input type="hidden" name="price" value="{{ $product->price }}">
+                            <input type="hidden" name="seller_id" value="{{  $product->seller_id }}">
                             @if(Cart::content()->where('id', $product->id)->count() >0)
                             <button class="btn light-blue disabled" type="submit">Already Added </button>
                             @else

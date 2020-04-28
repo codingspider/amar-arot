@@ -77,9 +77,12 @@ class HomeController extends Controller
     public function show($id)
     {
         $product_details = Products::find($id);
+
         if (isset($product_details->catagory_id)) {
             $categories = Catagory::find($product_details->catagory_id);
             $measurmentUnit = MeasurmentUnit::find($product_details->catagory_id);
+
+            // dd($categories);
         }
         if (isset($product_details->seller_id)) {
             $user = User::select('id', 'name', 'name_bn', 'phone')->find($product_details->seller_id);

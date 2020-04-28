@@ -15,8 +15,8 @@ class CreateOrdersTable extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('user_id');
-            $table->bigInteger('transection_id');
+            $table->bigInteger('user_id'); 
+            $table->bigInteger('transection_id')->nullable();
             $table->bigInteger('shipping_address_id');
             $table->bigInteger('billing_address_id');
             $table->bigInteger('order_status_id');
@@ -30,7 +30,7 @@ class CreateOrdersTable extends Migration
             $table->float('vat');
             $table->float('service_charge');
             $table->float('total_payable');
-            $table->string('applied_coupon');
+            $table->string('applied_coupon')->nullable();
             $table->timestamps();
         });
     }

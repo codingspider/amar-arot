@@ -60,7 +60,7 @@
                             </td>
                             <td>
                                 <select class="quantity input-field" data-id="{{ $item->rowId }}"
-                                    data-productQuantity="{{ $item->model->quantity }}">
+                                    data-productQuantity="{{ $item->qty }}">
                                     @for ($i = 1; $i < 5 + 1 ; $i++) <option
                                         {{ $item->qty == $i ? 'selected' : '' }}>{{ $i }}</option>
                                     @endfor
@@ -114,7 +114,7 @@
                                 </a>
                             </td>
                             <td colspan="2" class="right-align">
-                                <button class="btn light-blue right waves-effect waves-light">{{__('cart.Confirm')}}</button>
+                            <a href="{{ url('/checkout') }}" class="btn light-blue right waves-effect waves-light">{{__('cart.Confirm')}}</a>
                             </td>
                         </tr>
                         <tr>

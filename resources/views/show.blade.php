@@ -25,7 +25,7 @@
                                 <h6><b>Price:</b>{{$product_details->price}}</h6>
                             </div>
                             <div class="col s12 m12">
-                                <h6><b>Stock:</b>{{$product_details->stock_qty}}<b>{{$measurmentUnit->name}}</b></h6>
+                                <h6><b>Stock:</b>{{$product_details->stock_qty}}<b>{{isset($measurmentUnit->name)}}</b></h6>
                             </div>
                             <div class="col s12 m12">
                                 <h6><b>Product Code:</b>{{$product_details->product_code}}</h6>

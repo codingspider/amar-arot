@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use Session;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Support\Facades\Validator;
-use Session;
 
 class CartController extends Controller
 {
@@ -29,7 +31,8 @@ class CartController extends Controller
         return view('carts.show')->with([
 
             'discount' => $discount,
-            'newSubtotal' => $discounted_total,
+            'address' => $discounted_total,
+             'newSubtotal' => $discounted_total,
 
         ]);;
     }
@@ -59,12 +62,29 @@ class CartController extends Controller
 
         if ($duplicates->isNotEmpty()) {
             return redirect()->route('home')->with('success', 'Item is already in your cart!');
-        }
+        }else {
 
+            if (Session::get('seller_id') == $request->seller_id) {
+            
+             Cart::add([
+            'id' =>$request->id,
+            'name'=>$request->name,
+            'qty' => 1,
+            'price'=>$request->price,
+            'weight'=> 1,
+            'options'=>[
+                'size'=>$request->seller_id
+            ]])->associate('App\Model\Products');
+            
+            Session::put('seller_id', $request->seller_id);
 
-        Cart::add($request->id, $request->name, 1, $request->price)->associate('App\Model\Products');
+                return redirect()->route('home')->with('success', 'Items has been added to your cart');
+            }else {
+                return redirect()->route('home')->with('success', 'Items must be same seller');
+                
+            }
 
-        return redirect()->route('home')->with('success', 'Items has been added to your cart');
+        }   
     }
 
 
@@ -153,8 +173,15 @@ class CartController extends Controller
     }
     
     public function checkout (){
+        $address = DB::table('addresses')
+        ->join('users', 'users.id', 'addresses.user_id')
+        ->select('users.*', 'addresses.*')
+        ->where('user_id', Auth::id())->first(); 
+        // dd($address);
         $discount = session()->get('coupon')['discount'];
         $total = Cart::total();
+
+        $district = DB::table('districts')->get();
      
        
 
@@ -168,6 +195,8 @@ class CartController extends Controller
 
             'discount' => $discount,
             'newSubtotal' => $discounted_total,
+            'address' => $address,
+            'district' => $district,
         ]);
 
     }
