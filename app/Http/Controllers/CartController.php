@@ -19,6 +19,8 @@ class CartController extends Controller
     public function index()
     {
         $discount = session()->get('coupon')['discount'];
+
+        
         $total = Cart::total();
         $a = $total;
         $b = str_replace( ',', '', $a );
@@ -32,7 +34,7 @@ class CartController extends Controller
 
             'discount' => $discount,
             'address' => $discounted_total,
-             'newSubtotal' => $discounted_total,
+            'newSubtotal' => $discounted_total,
 
         ]);;
     }
@@ -62,29 +64,41 @@ class CartController extends Controller
 
         if ($duplicates->isNotEmpty()) {
             return redirect()->route('home')->with('success', 'Item is already in your cart!');
-        }else {
+        }
+        
+        else if(Session::get('seller_id') == $request->seller_id && count(Cart::content()) > 0){
+            
+            Cart::add([
+                'id' => $request->id,
+                'name' => $request->name,
+                'qty' => 1,
+                'price' => $request->price,
+                'weight' => 1,
+                'options' => [
+                    'size' => $request->seller_id
+                ]
+            ])->associate('App\Model\Products');
+            return redirect()->route('home')->with('success', 'Item has been added in your cart!');
+        }
+        else if(count(Cart::content()) < 1) {
 
-            if (Session::get('seller_id') == $request->seller_id) {
-            
-             Cart::add([
-            'id' =>$request->id,
-            'name'=>$request->name,
-            'qty' => 1,
-            'price'=>$request->price,
-            'weight'=> 1,
-            'options'=>[
-                'size'=>$request->seller_id
-            ]])->associate('App\Model\Products');
-            
+            Cart::add([
+                'id' => $request->id,
+                'name' => $request->name,
+                'qty' => 1,
+                'price' => $request->price,
+                'weight' => 1,
+                'options' => [
+                    'size' => $request->seller_id
+                ]
+            ])->associate('App\Model\Products');
+
             Session::put('seller_id', $request->seller_id);
+            return redirect()->route('home')->with('success', 'Item has been added in your cart!');
 
-                return redirect()->route('home')->with('success', 'Items has been added to your cart');
-            }else {
-                return redirect()->route('home')->with('success', 'Items must be same seller');
-                
-            }
-
-        }   
+        } else {
+            return redirect()->route('home')->with('warning', 'please buy from same seller');
+        }  
     }
 
 

@@ -35,6 +35,11 @@
                     {{ session()->get('success') }}
                 </div>
                 @endif
+                @if(session()->has('warning'))
+                <div class="alert alert-warning">
+                    {{ session()->get('warning') }}
+                </div>
+                @endif
 
                 @if (count($errors) > 0)
                 <div class="alert alert-danger">
