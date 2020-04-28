@@ -80,7 +80,9 @@
                         <img class="activator" src="{{asset('uploads/'.$product->image)}}">
                     </div>
                     <div class="card-content">
-                        <span class="card-title activator grey-text text-darken-4">{{$product->name}}<i
+                        <span class="card-title activator grey-text text-darken-4"><a
+                                href="{{route('details',$product->id)}}"
+                                title="Product Details">{{$product->name}}</a><i
                                 class="material-icons right">more_vert</i></span>
                         {{-- <p><a href="#" class="btn light-blue">{{__('product.Add to Bag')}}</a></p> --}}
                         <form action="{{ route('cart.store')}}" method="POST">
@@ -108,9 +110,6 @@
                             <li>{{__('product.Phone')}} {{$product->phone}}</li>
 
                         </ul>
-                    </div>
-                    <div class="card-content">
-                        <p><a href="{{route('details',$product->id)}}">{{__('Details')}}</a></p>
                     </div>
                 </div>
             </div>

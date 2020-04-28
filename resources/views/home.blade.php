@@ -60,6 +60,7 @@
             <div class="col s12 m12">
                 <h2 class="center-align">{{ $category->name}}</h2>
             </div>
+<<<<<<< HEAD
             @foreach($products as $product)
             @if($product->catagory_id == $category->id)
             <div class="col s12 m3">
@@ -100,11 +101,54 @@
                     </div>
                     <div class="card-content">
                         <p><a href="{{route('details',$product->id)}}">{{__('Details')}}</a></p>
+=======
+            <div class="row">
+                @foreach($products as $product)
+                @if($product->catagory_id == $category->id)
+
+                <div class="col s12 m3">
+                    <div class="card hoverable">
+                        <div class="card-image waves-effect waves-block waves-light">
+                            <img class="activator" src="{{asset('uploads/'.$product->image)}}">
+                        </div>
+                        <div class="card-content">
+                            <span class="card-title activator grey-text text-darken-4"><a href="{{route('details',$product->id)}}" title="Product Details">{{$product->name}}</a><i
+                                    class="material-icons right">more_vert</i></span>
+                            {{-- <p><a href="#" class="btn light-blue">{{__('product.Add to Bag')}}</a></p> --}}
+                            <form action="{{ route('cart.store')}}" method="POST">
+                                @csrf
+                                <input type="hidden" name="id" value="{{ $product->id }}">
+                                <input type="hidden" name="name" value="{{ $product->name }}">
+                                <input type="hidden" name="price" value="{{ $product->price }}">
+                                @if(Cart::content()->where('id', $product->id)->count() >0)
+                                <button class="btn light-blue disabled" type="submit">Already Added </button>
+                                @else
+                                <button class="btn light-blue " type="submit">Add to cart </button>
+                                @endif
+
+                            </form>
+
+                        </div>
+                        <div class="card-reveal">
+                            <span class="card-title grey-text text-darken-4">{{$product->name}}<i
+                                    class="material-icons right">close</i></span>
+                            <ul>
+                                <li>{{__('product.Price')}} {{$product->price}}{{__('cart.Taka')}} {{__('cart.Kg')}}</li>
+                                <li>{{__('product.Minimum Order')}} {{$product->stock_qty}}{{__('cart.Kg')}} </li>
+                                <li>{{__('product.Place')}} {{$product->location}}</li>
+                                <li>{{__('product.Seller')}} {{$product->seller_name}}</li>
+                                <li>{{__('product.Phone')}} {{$product->phone}}</li>
+
+                            </ul>
+                        </div>
+>>>>>>> 59d9ce0cc3cbe3d5b64872e10ca627bba68cd3b3
                     </div>
                 </div>
+
+                @endif
+                @endforeach
             </div>
-            @endif
-            @endforeach
+
             @endforeach
         </div>
 
@@ -135,10 +179,10 @@
 
     // The speech recognition interface lives on the browser’s window object
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition; // if none exists -> undefined
-
     if (SpeechRecognition) {
         console.log("Your Browser supports speech Recognition");
         const recognition = new SpeechRecognition();
+        recognition.lang = "{{App::getLocale()}}";
         recognition.continuous = true;
         const micBtn = document.querySelector("#mic-icon");
         // const micIcon = micBtn.innerHTML;

@@ -48,7 +48,7 @@
                             <th width="15%">{{__('cart.Quantity')}}</th>
                             <th width="20%">{{__('cart.Unit Price')}}</th>
                             <th width="20%">{{__('cart.Sub Total')}}</th>
-                            <th width="25%">{{__('Action')}}</th>
+                            <th width="25%">{{__('cart.Action')}}</th>
                         </tr>
                     </thead>
 
@@ -88,8 +88,7 @@
                                         <form action="{{ route('cart.switchToSaveForLater', $item->rowId) }}"
                                             method="POST">
                                             {{ csrf_field() }}
-                                            <button type="submit" class="waves-effect waves-light btn">Save for
-                                                Later</button>
+                                            <button type="submit" class="waves-effect waves-light btn">{{__('cart.Save for Later')}}</button>
                                         </form>
                                     </div>
                                 </div>
@@ -110,7 +109,7 @@
                         <tr>
                             <td colspan="3">
                                 <a type="button" class="btn btn-default" href="{{url('/home')}}">
-                                    <span class="glyphicon glyphicon-shopping-cart"></span> Continue Shopping
+                                    <span class="glyphicon glyphicon-shopping-cart"></span> {{__('cart.Continue Shopping')}}
                                 </a>
                             </td>
                             <td colspan="2" class="right-align">
@@ -121,7 +120,7 @@
                             <td colspan="3"></td>
                             <td colspan="2">
                                 @if (! session()->has('coupon'))
-                                <a href="#" class="have-code">Have a Code?</a>
+                                <a href="#" class="have-code">{{__('cart.Have a Code?')}}</a>
                                 <div class="have-code-container">
                                     <form action="{{ route('coupon.store') }}" method="POST">
                                         {{ csrf_field() }}
@@ -131,7 +130,7 @@
                                                     id="coupon_code">
                                             </div>
                                             <div class="col s6">
-                                                <input type="submit" class="btn btn form-input" value="Apply">
+                                                <button type="submit" class="btn btn form-input">{{__('cart.Apply')}}</button>
                                             </div>
                                         </div>
                                     </form>
@@ -147,8 +146,8 @@
         @else
         <div class="row">
             <div class="col s12 center-align">
-                <h3 class="text-center">There is no items in your cart! </h3>
-                <a class="btn btn-primary" href="{{ url('/home')}}"> Shop Now </a>
+                <h3 class="text-center">{{__('cart.There is no items in your cart!')}} </h3>
+                <a class="btn btn-primary" href="{{ url('/home')}}"> {{__('cart.Shop Now')}} </a>
             </div>
         </div>
         @endif
@@ -158,7 +157,7 @@
         @if (Cart::instance('saveForLater')->count() > 0)
         <div class="row">
             <div class="col s12">
-                <h3 class="center-align">{{ Cart::instance('saveForLater')->count() }} item(s) Saved For Later</h3>
+                <h3 class="center-align">{{ Cart::instance('saveForLater')->count() }} {{__('cart.item(s)')}} {{__('cart.Saved For Later')}}</h3>
             </div>
         </div>
         <div class="row">
@@ -170,7 +169,7 @@
                             <th width="15%">{{__('cart.Quantity')}}</th>
                             <th width="20%">{{__('cart.Unit Price')}}</th>
                             <th width="20%">{{__('cart.Sub Total')}}</th>
-                            <th width="25%">{{__('Action')}}</th>
+                            <th width="25%">{{__('cart.Action')}}</th>
                         </tr>
                     </thead>
 
@@ -207,8 +206,7 @@
                                         <form action="{{ route('saveForLater.switchToCart', $item->rowId) }}"
                                             method="POST">
                                             {{ csrf_field() }}
-                                            <button type="submit" class="waves-effect waves-light btn">Move to
-                                                cart</button>
+                                            <button type="submit" class="waves-effect waves-light btn">{{__('cart.Move to Cart')}}</button>
                                         </form>
                                     </div>
                                 </div>
