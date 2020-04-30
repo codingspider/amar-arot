@@ -19,9 +19,9 @@ class CartController extends Controller
         $discount = session()->get('coupon')['discount'];
         $total = Cart::total();
         $a = $total;
-        $b = str_replace( ',', '', $a );
+        $b = str_replace(',', '', $a);
 
-        $discounted_total = $b - ($b * ($discount/100));
+        $discounted_total = $b - ($b * ($discount / 100));
 
 
         // Session::put('shiping_id', $shiping_id);
@@ -53,7 +53,7 @@ class CartController extends Controller
     public function store(Request $request)
     {
 
-         $duplicates = Cart::search(function ($cartItem, $rowId) use ($request) {
+        $duplicates = Cart::search(function ($cartItem, $rowId) use ($request) {
             return $cartItem->id === $request->id;
         });
 
@@ -132,7 +132,7 @@ class CartController extends Controller
         return back()->with('success', 'Item has been removed from your cart. ');
     }
 
-     public function switchToSaveForLater($id)
+    public function switchToSaveForLater($id)
     {
         $item = Cart::get($id);
 
@@ -151,17 +151,18 @@ class CartController extends Controller
 
         return redirect()->route('cart.index')->with('success_message', 'Item has been Saved For Later!');
     }
-    
-    public function checkout (){
+
+    public function checkout()
+    {
         $discount = session()->get('coupon')['discount'];
         $total = Cart::total();
-     
-       
+
+
 
         $a = $total;
-        $b = str_replace( ',', '', $a );
-        
-        $discounted_total = $b - ($b * ($discount/100)); 
+        $b = str_replace(',', '', $a);
+
+        $discounted_total = $b - ($b * ($discount / 100));
 
 
         return view('cart.checkout')->with([
@@ -169,6 +170,5 @@ class CartController extends Controller
             'discount' => $discount,
             'newSubtotal' => $discounted_total,
         ]);
-
     }
 }
