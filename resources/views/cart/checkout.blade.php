@@ -17,11 +17,11 @@
       </div>
       <div class="row">
         <div class="input-field col s6">
-          <input id="adress_1" type="text" name="address_1" value="{{ $address->address_line_1 }}" class="validate">
+          <input id="adress_1" type="text" name="address_1" value="{{ isset($address->address_line_1) }}" class="validate">
           <label for="adress_1">Address Line 1</label>
         </div>
         <div class="input-field col s6">
-          <input id="adress_2" type="text" name="address_2" value="{{ $address->address_line_2 }}" class="validate">
+          <input id="adress_2" type="text" name="address_2" value="{{ isset($address->address_line_2) }}" class="validate">
           <label for="adress_2">Address Line 2</label>
         </div>
       </div>

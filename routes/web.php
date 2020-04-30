@@ -37,11 +37,9 @@ Route::get('locale/{locale}', function ($locale) {
 // Route::get('sales', function () {
 //     return view('sales.index');
 // });
-Route::get('orders', 'OrderController@all_orders');
+Route::get('orders/', 'OrderController@all_orders');
 
-Route::get('details', function () {
-    return view('orders.show');
-});
+Route::get('order/details/{id}', 'OrderController@order_details');
 
 Auth::routes();
 

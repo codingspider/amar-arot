@@ -17,6 +17,7 @@ class CreateOrderDetailsTable extends Migration
             $table->bigIncrements('id');
             $table->bigInteger('variation_id');
             $table->bigInteger('product_id');
+            $table->bigInteger('order_id');
             $table->float('price');
             $table->float('sale_price');
             $table->float('buying_price');

@@ -192,7 +192,7 @@ class CartController extends Controller
         $address = DB::table('addresses')
         ->join('users', 'users.id', 'addresses.user_id')
         ->select('users.*', 'addresses.*')
-        ->where('user_id', Auth::id())->first(); 
+        ->where('user_id', Auth::id())->orderBy('addresses.id','desc')->first(); 
         // dd($address);
         $discount = session()->get('coupon')['discount'];
         $total = Cart::total();

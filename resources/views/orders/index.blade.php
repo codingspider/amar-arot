@@ -79,7 +79,7 @@
                 <td>{{ Carbon\Carbon::parse($item->created_at)->diffForHumans() }}</td>
                 <td>{{ $item->total_payable }} {{__('cart.Taka')}}</td>
                 <td>{{ $item->status }}</td>
-                <td><a href="{{url('details')}}" class="btn btn-sm light-blue">{{__('order.Details')}}</a></td>
+                <td><a href="{{url('order/details/'.$item->id )}}" class="btn btn-sm light-blue">{{__('order.Details')}}</a></td>
               </tr>
               @endforeach
 
