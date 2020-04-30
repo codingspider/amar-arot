@@ -76,8 +76,8 @@
 
                 <div class="row">
                     <div class="input-field col s12">
-                        <textarea id="short_description"
-                            class="materialize-textarea" name="short_description">{{$sale->short_description}}</textarea>
+                        <textarea id="short_description" class="materialize-textarea"
+                            name="short_description">{{$sale->short_description}}</textarea>
                         <label for="short_description">{{__('product.short_description')}}</label>
                         @error('short_description')
                         <span class="invalid-feedback" role="alert">
@@ -86,8 +86,8 @@
                         @enderror
                     </div>
                     <div class="input-field col s12">
-                        <textarea id="description" class="materialize-textarea" name="description"
-                           >{{$sale->description}}</textarea>
+                        <textarea id="description" class="materialize-textarea"
+                            name="description">{{$sale->description}}</textarea>
                         <label for="description">{{__('product.description')}} </label>
                         @error('description')
                         <span class="invalid-feedback" role="alert">
@@ -98,8 +98,8 @@
                 </div>
                 <div class="row">
                     <div class="input-field col s12">
-                        <textarea id="short_description_bn" class="materialize-textarea" name="short_description_bn"
-                           >{{$sale->short_description_bn}}</textarea>
+                        <textarea id="short_description_bn" class="materialize-textarea"
+                            name="short_description_bn">{{$sale->short_description_bn}}</textarea>
                         <label for="short_description_bn">{{__('product.short_description_bn')}} </label>
                         @error('short_description_bn')
                         <span class="invalid-feedback" role="alert">
@@ -150,31 +150,32 @@
                         @enderror
                     </div>
                 </div>
-                {{--<div class="row">
+                <div class="row">
                     <div class="file-field col s12 input-field">
                         <div class="btn light-blue">
                             <span>{{__('product.Photo')}}</span>
-                <input value="{{old('image')}}" type="file" name="image">
+                            <input value="{{old('image')}}" type="file" name="image">
+                        </div>
+                        <div class="file-path-wrapper">
+                            <input class="file-path validate" type="text">
+                        </div>
+                        @error('image')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
+                    </div>
+                </div>
+
+                <div class="row text-center">
+                    <div class="file-field col s12 input-field">
+                        <input value="Upload Plroduct" type="submit" class="btn btn-link" value="Save">
+                    </div>
+                </div>
+            </form>
         </div>
-        <div class="file-path-wrapper">
-            <input class="file-path validate" type="text">
-        </div>
-        @error('image')
-        <span class="invalid-feedback" role="alert">
-            <strong>{{ $message }}</strong>
-        </span>
-        @enderror
     </div>
-</div>--}}
-<div class="row text-center">
-    <div class="file-field col s12 input-field">
-        <input value="Upload Plroduct" type="submit" class="btn btn-link" value="Save">
-    </div>
-</div>
-</form>
-</div>
-</div>
-<br><br>
+    <br><br>
 </div>
 
 <div id="add_product" class="side_add_product sidenav">

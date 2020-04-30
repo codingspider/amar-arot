@@ -25,16 +25,27 @@
                         <img class="activator" src="{{asset('uploads/'.$product->image)}}">
                     </div>
                     <div class="card-content">
-                        <span class="card-title activator grey-text text-darken-4">{{$product->name}}<i
-                                class="material-icons right">more_vert</i></span>
-                        <span><a href="{{route('sales.edit',$product->id)}}"
-                                class="btn light-blue">{{__('product.Edit')}}</a>
-                            <form action="{{route('sales.destroy',$product->id)}}" method="POST">
-                                @csrf
-                                @method('DELETE')
-                                <input type="submit" class="btn light-blue" value="{{__('DELETE')}}">
-                            </form>
-                        </span>
+                        <div class="row">
+                            <div class="col s12">
+                                <span class="card-title activator grey-text text-darken-4">{{$product->name}}<i
+                                        class="material-icons right">more_vert</i></span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col s8 ">
+                                <span><a href="{{route('sales.edit',$product->id)}}"
+                                        class="btn light-blue left-align">{{__('product.Edit')}}</a> </span>
+
+                            </div>
+                            <div class="col s2 left-align">
+                                <form action="{{route('sales.destroy',$product->id)}}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn red"><i
+                                            class="material-icons">delete_forever</i></button>
+                                </form>
+                            </div>
+                        </div>
 
                     </div>
                     <div class="card-reveal">
