@@ -90,6 +90,7 @@
     </li>
     @endif
     <li>
+        @if(Auth::check())
         <a class="waves-effect white-text" href="{{ route('logout') }}"
             onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
             <i class="material-icons white-text">keyboard_return</i>
@@ -97,6 +98,13 @@
         </a>
 
 
+        @else
+
+        <a class="waves-effect white-text" href="{{ route('login') }}">
+            <i class="material-icons white-text">keyboard_tab</i>
+            {{__('nav.login')}}
+        </a>
+        @endif
         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
             @csrf
         </form>
