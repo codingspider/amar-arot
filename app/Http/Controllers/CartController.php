@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use Session;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Support\Facades\Validator;
-use Session;
 
 class CartController extends Controller
 {
@@ -17,6 +19,8 @@ class CartController extends Controller
     public function index()
     {
         $discount = session()->get('coupon')['discount'];
+
+
         $total = Cart::total();
         $a = $total;
         $b = str_replace(',', '', $a);
@@ -29,6 +33,7 @@ class CartController extends Controller
         return view('carts.show')->with([
 
             'discount' => $discount,
+            'address' => $discounted_total,
             'newSubtotal' => $discounted_total,
 
         ]);;
@@ -61,10 +66,39 @@ class CartController extends Controller
             return redirect()->route('home')->with('success', 'Item is already in your cart!');
         }
 
+        else if(Session::get('seller_id') == $request->seller_id && count(Cart::content()) > 0){
 
-        Cart::add($request->id, $request->name, 1, $request->price)->associate('App\Model\Products');
+            Cart::add([
+                'id' => $request->id,
+                'name' => $request->name,
+                'qty' => 1,
+                'price' => $request->price,
+                'weight' => 1,
+                'options' => [
+                    'size' => $request->seller_id
+                ]
+            ])->associate('App\Model\Products');
+            return redirect()->route('home')->with('success', 'Item has been added in your cart!');
+        }
+        else if(count(Cart::content()) < 1) {
 
-        return redirect()->route('home')->with('success', 'Items has been added to your cart');
+            Cart::add([
+                'id' => $request->id,
+                'name' => $request->name,
+                'qty' => 1,
+                'price' => $request->price,
+                'weight' => 1,
+                'options' => [
+                    'size' => $request->seller_id
+                ]
+            ])->associate('App\Model\Products');
+
+            Session::put('seller_id', $request->seller_id);
+            return redirect()->route('home')->with('success', 'Item has been added in your cart!');
+
+        } else {
+            return redirect()->route('home')->with('warning', 'please buy from same seller');
+        }
     }
 
 
@@ -152,10 +186,16 @@ class CartController extends Controller
         return redirect()->route('cart.index')->with('success_message', 'Item has been Saved For Later!');
     }
 
-    public function checkout()
-    {
+    public function checkout (){
+        $address = DB::table('addresses')
+        ->join('users', 'users.id', 'addresses.user_id')
+        ->select('users.*', 'addresses.*')
+        ->where('user_id', Auth::id())->first();
+        // dd($address);
         $discount = session()->get('coupon')['discount'];
         $total = Cart::total();
+
+        $district = DB::table('districts')->get();
 
 
 
@@ -169,6 +209,8 @@ class CartController extends Controller
 
             'discount' => $discount,
             'newSubtotal' => $discounted_total,
+            'address' => $address,
+            'district' => $district,
         ]);
     }
 }
