@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 use Gloudemans\Shoppingcart\Facades\Cart;
 
 class CheckoutController extends Controller
@@ -23,6 +24,8 @@ class CheckoutController extends Controller
          $this->validate($request, [
             'address_1' => 'required',
             'address_2' => 'required',
+            'district' => 'required',
+
         ]);
         $role = DB::table('addresses')->insert([
             'status' => 0,
@@ -58,6 +61,7 @@ class CheckoutController extends Controller
                 'applied_coupon' => $coupon_code,
             ]);
         Cart::destroy();
+        // Session::flush();
         
 
         return redirect()->route('home')

@@ -57,6 +57,7 @@ class CartController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request->seller_id);
 
          $duplicates = Cart::search(function ($cartItem, $rowId) use ($request) {
             return $cartItem->id === $request->id;
@@ -78,7 +79,7 @@ class CartController extends Controller
                     'size' => $request->seller_id
                 ]
             ])->associate('App\Model\Products');
-            return redirect()->route('home')->with('success', 'Item has been added in your cart!');
+            return redirect()->route('home')->with('success', 'Item has been added');
         }
         else if(count(Cart::content()) < 1) {
 
@@ -94,6 +95,7 @@ class CartController extends Controller
             ])->associate('App\Model\Products');
 
             Session::put('seller_id', $request->seller_id);
+
             return redirect()->route('home')->with('success', 'Item has been added in your cart!');
 
         } else {
