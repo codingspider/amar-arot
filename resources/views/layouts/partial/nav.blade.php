@@ -44,6 +44,9 @@
     <li id="butRefresh"><a href="{{ route('users.index') }}" class="waves-effect white-text"><i
                 class="material-icons white-text">people</i>{{__('nav.Manage_user')}}</a>
     </li>
+    <li id="butRefresh"><a href="{{ URL::to('all/orders/for/admin') }}" class="waves-effect white-text"><i
+                class="material-icons white-text">apps</i>{{__('nav.Manage_order')}}</a>
+    </li>
     <li id="butRefresh"><a href="{{ route('roles.index') }}" class="waves-effect white-text"><i
                 class="material-icons white-text">device_hub</i>{{__('nav.Manage_role')}}</a>
     </li>

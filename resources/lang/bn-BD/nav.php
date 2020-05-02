@@ -11,5 +11,6 @@ return [
     'catagory' => 'ক্যাটাগরি ব্যবস্থাপনা',
     'measurments' => 'পরিমাপক ব্যবস্থাপনা',
     'logout' => 'লগআউট',
+    'Manage_order' => 'Manage Order'
 ];
 ?>

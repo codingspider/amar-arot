@@ -28,6 +28,7 @@
     <meta name="description" content="Amar Bazaar">
     <!-- CODELAB: Add meta theme-color -->
     <meta name="theme-color" content="#2F3BA2" />
+    
 </head>
 
 <body>

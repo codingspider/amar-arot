@@ -11,5 +11,6 @@ return [
     'catagory' => 'Manage Catagory',
     'measurments' => 'Manage Measurments',
     'logout' => 'Logout',
+    'Manage_order' => 'Manage Order'
 ];
 ?>

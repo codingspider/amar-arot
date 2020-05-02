@@ -39,6 +39,7 @@ Route::get('locale/{locale}', function ($locale) {
 // });
 Route::get('orders/', 'OrderController@all_orders');
 
+
 Route::get('order/details/{id}', 'OrderController@order_details');
 
 Auth::routes();
@@ -49,6 +50,7 @@ Route::get('/search', 'HomeController@search')->name('search');
 Route::get('details/{id}', 'HomeController@show')->name('details');
 
 Route::group(['middleware' => ['auth']], function () {
+    Route::get('all/orders/for/admin', 'OrderController@order_list');
     Route::resource('roles', 'RoleController');
     Route::resource('users', 'UserController');
     Route::post('catagories/update', 'CatagoryController@update');
@@ -72,6 +74,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('checkout', 'CartController@checkout');
     Route::resource('coupons', 'CouponsMangeController');
     Route::post('confirm/order', 'CheckoutController@checkout');
+    Route::get('orders/lists/fors/admins', 'OrderController@get_order_list');
 
 });
 
