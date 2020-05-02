@@ -36,8 +36,8 @@
               ajax: "{{ url('orders/lists/fors/admins') }}",
               columns: [
                   {data: 'DT_RowIndex', name: 'DT_RowIndex'},
-                  {data: 'name', name: 'name'},
-                  {data: 'order_id', name: 'order_id'},
+                  {data: 'oname', name: 'oname'},
+                  {data: 'oid', name: 'oid'},
                   {data: 'action', name: 'action', orderable: false, searchable: false},
               ]
           });

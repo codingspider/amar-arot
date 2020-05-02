@@ -74,15 +74,16 @@ class OrderController extends Controller
 
         if ($request->ajax()) {
             $data = DB::table('order_statuses')
-            
+            ->join('orders', 'orders.id', '=', 'order_statuses.order_id')
+            ->orderBy('order_statuses.id', 'desc')
+            ->select('order_statuses.id as oid', 'order_statuses.name as oname' )
             ->get();
 
-           
             return Datatables::of($data)
                     ->addIndexColumn()
                     ->addColumn('action', function($row){
-   
-                           $btn = '<a href="javascript:void(0)" class="edit btn btn-primary btn-sm">View</a>';
+
+                           $btn = '<a href="details/order/view/'.$row->oid.'" class="edit btn btn-primary btn-sm">View</a>';
      
                             return $btn;
                     })
@@ -92,6 +93,33 @@ class OrderController extends Controller
       
         return view('orders.order_list_admin');
 
+    }
+
+    public function get_order_details($id){
+
+        // dd($id);
+
+         $order = DB::table('order_details')
+            ->leftjoin('order_statuses', 'order_details.order_id', '=', 'order_statuses.order_id')
+            ->leftjoin('orders', 'orders.id', '=', 'order_details.order_id')
+            ->leftjoin('products', 'products.id', '=', 'order_details.product_id')
+            ->select('orders.*', 'order_statuses.id as status', 'order_details.*','products.*')
+            ->where('order_details.order_id', $id)
+            // ->groupBy('order_details.order_id')
+            ->get();
+        // dd($order);
+
+        return view('orders.status_change', compact('order'));
+            
+
+    }
+    public function status_change_done(Request $request){
+        DB::table('order_statuses')->where('id', $request->id)->update([
+            'name' =>$request->name,
+            'name_bn' =>$request->name,
+        ]);
+
+        return back()->with('succes', 'You order status has been changed.' );
     }
 
 
