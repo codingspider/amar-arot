@@ -12,8 +12,10 @@
 */
 // All rout is for test Purpose
 
+use App\Model\Products;
 use Illuminate\Support\Facades\DB;
 use Gloudemans\Shoppingcart\Facades\Cart;
+use GuzzleHttp\Psr7\Request;
 
 Route::get('locale/{locale}', function ($locale) {
     session()->put('locale', $locale);
@@ -37,15 +39,15 @@ Route::get('locale/{locale}', function ($locale) {
 // Route::get('sales', function () {
 //     return view('sales.index');
 // });
-// Route::get('orders', function () {
-//     return view('orders.index');
-// });
-// Route::get('details', function () {
-//     return view('orders.show');
-// });
+
+Route::get('express-cart', function () {
+    return view('express-cart');
+});
 
 Auth::routes();
 
+Route::post('store-express-order', 'HomeController@storeExpOrder');
+Route::post('p', 'HomeController@productList');
 Route::get('/', 'HomeController@index');
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/search', 'HomeController@search')->name('search');
@@ -75,15 +77,14 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('checkout', 'CartController@checkout');
     Route::resource('coupons', 'CouponsMangeController');
     Route::post('confirm/order', 'CheckoutController@checkout');
-
 });
 
-Route::get('empty', function(){
-    Cart::destroy(); 
+Route::get('empty', function () {
+    Cart::destroy();
 });
 
-Route::get('/cart','CartController@index')->name('cart.index');
-Route::post('/cart','CartController@store')->name('cart.store');
+Route::get('/cart', 'CartController@index')->name('cart.index');
+Route::post('/cart', 'CartController@store')->name('cart.store');
 
 Route::patch('/cart/{product}', 'CartController@update')->name('cart.update');
 

@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\ExpressOrder;
+use App\ExpressOrderDetails;
 use App\Model\Catagory;
 use App\Model\Products;
 use Illuminate\Http\Request;
 use App\Model\Address;
 use App\Model\MeasurmentUnit;
 use App\User;
+use Dotenv\Validator;
 use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
@@ -86,12 +89,64 @@ class HomeController extends Controller
         }
         if (isset($product_details->seller_id)) {
             $user = User::select('id', 'name', 'name_bn', 'phone')->find($product_details->seller_id);
-            $address = Address::join('districts', 'districts.id', 'addresses.district_id')->where('user_id', $user->id)->where('type','1')->where('status','1')->select('districts.name','districts.name_bn')->first();
-
+            $address = Address::join('districts', 'districts.id', 'addresses.district_id')->where('user_id', $user->id)->where('type', '1')->where('status', '1')->select('districts.name', 'districts.name_bn')->first();
         }
 
 
         $products = Products::where('catagory_id', $product_details->catagory_id)->latest()->take(4)->get();
-        return view('show', compact('products', 'product_details', 'categories','measurmentUnit','user','address'));
+        return view('show', compact('products', 'product_details', 'categories', 'measurmentUnit', 'user', 'address'));
+    }
+    public function productList(Request $request)
+    {
+        // return $request->product;
+        $products = Products::where('name', 'LIKE', "%$request->product_name%")->get();
+        if (count($products) > 0) {
+            $output =  '<ul class="collection">';
+
+            foreach ($products as $product) {
+                $output .= '<li class="collection-item">' . $product->name . '</li>';
+            }
+            $output .=  "</ul>";
+            echo $output;
+        } else {
+            $output = '';
+        }
+    }
+    public function storeExpOrder(Request $request)
+    {
+        foreach ($request->name as $key => $order_detail) {
+            if(empty($request->name[$key])){
+                return back()->with('error','Name is Required');
+            }else if(empty($request->brand[$key])){
+                return back()->with('error','Brand is Required');
+
+            }
+            else if(empty($request->qty[$key])){
+                return back()->with('error','Qty is Required');
+
+            }
+        }
+
+
+
+
+        $exp_order = ExpressOrder::create(
+            [
+                "status" => "Pending",
+                "user_id" => Auth::user()->id,
+            ]
+        );
+
+
+        foreach ($request->name as $key => $order_detail) {
+
+            ExpressOrderDetails::create([
+                "exporder_id" => $exp_order->id,
+                "name" => $request->name[$key],
+                "brand" => $request->brand[$key],
+                "qty" => $request->qty[$key],
+            ]);
+        }
+        return back()->with('success', ' Added Successfully');
     }
 }
