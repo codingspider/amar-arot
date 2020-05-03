@@ -31,6 +31,9 @@
     <li><a class="waves-effect white-text" href="{{url('orders')}}"><i
                 class="material-icons white-text">add_box</i>{{__('nav.Orders')}}</a></li>
     <li>
+    <li><a class="waves-effect white-text" href="{{url('express-orders')}}"><i
+                class="material-icons white-text">add_box</i>{{__('nav.Express Order')}}</a></li>
+    <li>
         <div class="divider"></div>
     </li>
     <li id="butInstall" hidden><a class="waves-effect white-text"><i

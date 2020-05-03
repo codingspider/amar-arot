@@ -46,8 +46,6 @@ Route::get('express-cart', function () {
 
 Auth::routes();
 
-Route::post('store-express-order', 'HomeController@storeExpOrder');
-Route::post('p', 'HomeController@productList');
 Route::get('/', 'HomeController@index');
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/search', 'HomeController@search')->name('search');
@@ -77,6 +75,9 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('checkout', 'CartController@checkout');
     Route::resource('coupons', 'CouponsMangeController');
     Route::post('confirm/order', 'CheckoutController@checkout');
+    Route::resource('express-orders', 'ExpressOrderController');
+    Route::post('ajax/express-orders-product-list', 'ExpressOrderController@ajaxProductListRequest');
+
 });
 
 Route::get('empty', function () {

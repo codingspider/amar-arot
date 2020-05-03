@@ -35,7 +35,7 @@
 
             </div>
             <div class="col s12">
-                <form action="{{url('store-express-order')}}" method="POST">
+                <form action="{{route('express-orders.store')}}" method="POST">
                     @csrf
                     <table id="myTable" class="order-list striped responsive-table">
                         <thead>
@@ -52,21 +52,27 @@
                             <tr>
                                 <td>
                                     <input type="text" id="product" onclick="productSugest('#product','#suggest')"
-                                        class="input-field" autocomplete="off" value="{{old('name')}}" name="name[]">
+                                        class="input-field" autocomplete="off" value="{{old('name')}}" name="name[]"
+                                        required>
                                     <div id="suggest"></div>
                                 </td>
                                 <td>
-                                    <input type="text" class="input-field" autocomplete="off" value="{{old('brand')}}" name="brand[]" />
+                                    <select class="input-field" autocomplete="off" value="{{old('brand')}}"
+                                        name="brand[]">
+                                        <option value="N/A">N/A</option>
+                                        <option value="Local">Local</option>
+                                        <option value="ACI">ACI</option>
+                                        <option value="PRAN">PRAN</option>
+                                    </select>
                                 </td>
                                 <td>
-                                    <input type="text" class="input-field" autocomplete="off" value="{{old('qty')}}" name="qty[]" />
+                                    <input type="text" class="input-field" autocomplete="off" value="{{old('qty')}}"
+                                        name="qty[]" required />
                                 </td>
                                 <td><a class="deleteRow"></a>
 
                                 </td>
                             </tr>
-
-
                         </tbody>
                         <tfoot>
                             <tr>
@@ -98,13 +104,14 @@
                 var query = $(this).val();
                 if (query != '') {
                     $.ajax({
-                        url: "{{url('p')}}",
+                        url: "{{url('ajax/express-orders-product-list')}}",
                         method: "POST",
                         data: { product_name: query },
                         headers: {
                             'X-CSRF-TOKEN': "{{ csrf_token() }}",
                         },
                         success: function (data) {
+                            console.log
                             $(suggest).fadeIn();
                             $(suggest).html(data);
 
@@ -135,9 +142,9 @@
 
             var newRow = $("<tr>");
             var cols = "";
-            cols += '<td><input type="text" id="product' + counter + '" onclick=productSugest("#product' + counter + '","#suggest' + counter + '") class="input-field" autocomplete="off" value="{{old("name")}}" name="name[]"><div id="suggest' + counter + '"></div></td>';
-            cols += '<td><input type="text" class="input-field" autocomplete="off" value="{{old("brand")}}" name="brand[]" /></td>';
-            cols += '<td><input type="text" class="input-field" autocomplete="off" value="{{old("qty")}}" name="qty[]" /></td>';
+            cols += '<td><input type="text" id="product' + counter + '" onclick=productSugest("#product' + counter + '","#suggest' + counter + '") class="input-field" autocomplete="off" value="{{old("name")}}" name="name[]" required><div id="suggest' + counter + '"></div></td>';
+            cols += '<td><select class="input-field" autocomplete="off" value="{{old("brand")}}" name="brand[]"><option value="N/A">N/A</option><option value="Local">Local</option><option value="ACI">ACI</option><option value="PRAN">PRAN</option></select></td>';
+            cols += '<td><input type="text" class="input-field" autocomplete="off" value="{{old("qty")}}" name="qty[]" required/></td>';
             cols += '<td><input type="button" class="btn btn-red ibtnDel"  value="Delete"></td>';
             newRow.append(cols);
             if (counter >= limit) $('#addrow').attr('disabled', true).prop('value', "You've reached the limit");

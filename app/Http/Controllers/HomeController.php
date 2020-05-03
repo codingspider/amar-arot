@@ -96,57 +96,5 @@ class HomeController extends Controller
         $products = Products::where('catagory_id', $product_details->catagory_id)->latest()->take(4)->get();
         return view('show', compact('products', 'product_details', 'categories', 'measurmentUnit', 'user', 'address'));
     }
-    public function productList(Request $request)
-    {
-        // return $request->product;
-        $products = Products::where('name', 'LIKE', "%$request->product_name%")->get();
-        if (count($products) > 0) {
-            $output =  '<ul class="collection">';
-
-            foreach ($products as $product) {
-                $output .= '<li class="collection-item">' . $product->name . '</li>';
-            }
-            $output .=  "</ul>";
-            echo $output;
-        } else {
-            $output = '';
-        }
-    }
-    public function storeExpOrder(Request $request)
-    {
-        foreach ($request->name as $key => $order_detail) {
-            if(empty($request->name[$key])){
-                return back()->with('error','Name is Required');
-            }else if(empty($request->brand[$key])){
-                return back()->with('error','Brand is Required');
-
-            }
-            else if(empty($request->qty[$key])){
-                return back()->with('error','Qty is Required');
-
-            }
-        }
-
-
-
-
-        $exp_order = ExpressOrder::create(
-            [
-                "status" => "Pending",
-                "user_id" => Auth::user()->id,
-            ]
-        );
-
-
-        foreach ($request->name as $key => $order_detail) {
-
-            ExpressOrderDetails::create([
-                "exporder_id" => $exp_order->id,
-                "name" => $request->name[$key],
-                "brand" => $request->brand[$key],
-                "qty" => $request->qty[$key],
-            ]);
-        }
-        return back()->with('success', ' Added Successfully');
-    }
+    
 }
