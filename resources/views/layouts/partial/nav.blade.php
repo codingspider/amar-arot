@@ -5,6 +5,7 @@
                 class="material-icons">menu</i></a>
     </div>
 </nav>
+
 <ul id="slide-out" class="sidenav light-blue">
     @if(Auth::check())
     <li>
