@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'Amar Bazar'=>'Amar Bazar',
+    'Amar Bazar'=>'Amar Arot',
     'Everything together' => 'Everything together',
     'Fast delivery' => 'Fast delivery',
     'Easy interface' => 'Easy interface',

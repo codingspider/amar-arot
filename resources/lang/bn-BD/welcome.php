@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'Amar Bazar'=>'আমার বাজার',
+    'Amar Bazar'=>'আমার আড়ত',
     'Everything together' => 'একসাথে সবকিছু',
     'Fast delivery' => 'দ্রুত ডেলিভারি',
     'Easy interface' => 'সহজ ইন্টারফেস',

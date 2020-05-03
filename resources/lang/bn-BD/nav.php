@@ -12,6 +12,7 @@ return [
     'measurments' => 'পরিমাপক ব্যবস্থাপনা',
     'logout' => 'লগআউট',
     'login' => 'লগইন',
-    'Manage_order' => 'Manage Order'
+    'Manage_order' => 'অর্ডার পরিচালনা করুন',
+    'Express Order' => 'দূর্ত অর্ডার'
 ];
 ?>

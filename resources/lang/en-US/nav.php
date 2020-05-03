@@ -12,6 +12,7 @@ return [
     'measurments' => 'Manage Measurments',
     'logout' => 'Logout',
     'login' => 'Login',
-    'Manage_order' => 'Manage Order'
+    'Manage_order' => 'Manage Order',
+    'Express Order' => 'Express Order'
 ];
 ?>
