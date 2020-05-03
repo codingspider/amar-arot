@@ -12,5 +12,6 @@ return [
     'measurments' => 'পরিমাপক ব্যবস্থাপনা',
     'logout' => 'লগআউট',
     'login' => 'লগইন',
+    'Manage_order' => 'Manage Order'
 ];
 ?>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 use Gloudemans\Shoppingcart\Facades\Cart;
 
 class CheckoutController extends Controller
@@ -23,6 +24,8 @@ class CheckoutController extends Controller
          $this->validate($request, [
             'address_1' => 'required',
             'address_2' => 'required',
+            'district' => 'required',
+
         ]);
         $role = DB::table('addresses')->insert([
             'status' => 0,
@@ -31,20 +34,15 @@ class CheckoutController extends Controller
             'address_line_2' => $request->input('address_2'),
             'district_id' => $request->input('district'),
             'user_id' => Auth::id(),
-            ]);
+        ]);
         $address = DB::getPdo()->lastInsertId();
 
-        $order_statuses = DB::table('order_statuses')->insertGetId([
-            'name' => 'placed',
-            'name_bn' => 'placed',
-        ]);
-
-            DB::table('orders')->insert([
+             $order_id =  DB::table('orders')->insertGetId([
                 'user_id' => Auth::id(),
                 'transection_id' => rand(10,100),
                 'shipping_address_id' =>$address,
                 'billing_address_id' =>$address,
-                'order_status_id' => $order_statuses,
+                'order_status_id' => '0',
                 'slug' => '',
                 'buyer_comment' => '',
                 'seller_comment' => '',
@@ -57,7 +55,30 @@ class CheckoutController extends Controller
                 'total_payable' => $discounted_total,
                 'applied_coupon' => $coupon_code,
             ]);
-        Cart::destroy();
+            
+           foreach (Cart::content() as $value) {
+               DB::table('order_details')->insert([
+                'variation_id' => rand(10,100),
+                'product_id' =>$value->id,
+                'price' =>$value->price,
+                'sale_price' => '0',
+                'buying_price' => '0',
+                'quantity' => $value->qty,
+                'total_price' => '0',
+                'order_id' => $order_id
+
+            ]);
+
+           }
+
+            $order_statuses = DB::table('order_statuses')->insertGetId([
+            'name' => 'placed',
+            'name_bn' => 'placed',
+            'order_id' => $order_id
+        ]);
+            
+            Cart::destroy();
+        // Session::flush();
         
 
         return redirect()->route('home')

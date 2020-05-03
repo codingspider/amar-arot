@@ -12,10 +12,7 @@
 */
 // All rout is for test Purpose
 
-use App\Model\Products;
-use Illuminate\Support\Facades\DB;
 use Gloudemans\Shoppingcart\Facades\Cart;
-use GuzzleHttp\Psr7\Request;
 
 Route::get('locale/{locale}', function ($locale) {
     session()->put('locale', $locale);
@@ -43,6 +40,10 @@ Route::get('locale/{locale}', function ($locale) {
 Route::get('express-cart', function () {
     return view('express-cart');
 });
+Route::get('orders/', 'OrderController@all_orders');
+
+
+Route::get('order/details/{id}', 'OrderController@order_details');
 
 Auth::routes();
 
@@ -52,6 +53,7 @@ Route::get('/search', 'HomeController@search')->name('search');
 Route::get('details/{id}', 'HomeController@show')->name('details');
 
 Route::group(['middleware' => ['auth']], function () {
+    Route::get('all/orders/for/admin', 'OrderController@order_list');
     Route::resource('roles', 'RoleController');
     Route::resource('users', 'UserController');
     Route::post('catagories/update', 'CatagoryController@update');
@@ -77,6 +79,9 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('confirm/order', 'CheckoutController@checkout');
     Route::resource('express-orders', 'ExpressOrderController');
     Route::post('ajax/express-orders-product-list', 'ExpressOrderController@ajaxProductListRequest');
+    Route::get('orders/lists/fors/admins', 'OrderController@get_order_list');
+    Route::get('all/orders/for/details/order/view/{id}', 'OrderController@get_order_details');
+    Route::post('change/order/status/form', 'OrderController@status_change_done');
 
 });
 

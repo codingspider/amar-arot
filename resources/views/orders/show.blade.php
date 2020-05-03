@@ -21,9 +21,9 @@
       <div class="row z-depth-1">
         <div class="col s12 m4">
           <p>
-            {{__('order.Buyer Name')}} করিম উদ্দিন <br>
-            {{__('product.Phone')}} ০১৭২২২২২২২২২২২ <br>
-            {{__('order.Address')}} ঢাকা।
+            {{__('order.Buyer Name')}} {{ Auth::user()->name }} <br>
+            Email :  {{ Auth::user()->email }} <br>
+            {{__('order.Address')}} {{ $auth_user->address_line_1}}
           </p>
           </td>
         </div>
@@ -37,8 +37,8 @@
         </div>
         <div class="col s12 m4">
           <p>
-            {{__('order.Status')}}: কুরিয়ারে আছে <br>
-            {{__('order.Order no')}}: BUY001001 <br>
+          {{__('order.Status')}}: {{ $status->status}}<br>
+            {{__('order.Order no')}}: BUY00{{$status->order_id}} <br>
             {{__('order.Note')}} {{__('order.Booking memo no')}} ১২৪৮
           </p>
           </td>
@@ -50,35 +50,30 @@
           <table class="responsive-table">
             <thead>
               <tr>
-                <th>{{__('product.Product Name')}}</th>
+                <th>{{__('product.Product Name bn')}}</th>
                 <th>{{__('cart.Quantity')}}</th>
-                <th>{{__('cart.Unit Price')}}</th>
-                <th>{{__('cart.Sub Total')}}</th>
+                <th>{{__('cart.Unit Price')}}  </th>
+                <th>{{__('cart.Sub Total')}} with (vat)</th>
               </tr>
             </thead>
-
+            @php
+                $sum = 0;
+            @endphp
             <tbody>
+              @foreach ($order as $item)
               <tr>
-                <td>আম</td>
-                <td>২০{{__('cart.Kg')}}</td>
-                <td>১৫০{{__('cart.Taka')}}</td>
-                <td>৩০০০{{__('cart.Taka')}}</td>
+                <td>{{ $item->name}}</td>
+                <td>{{ $item->quantity }}</td>
+                <td>{{ $item->price }}</td>
+                <td>{{ $act_points = ($item->quantity * $item->price)+ $item->vat }} </td>
+                <td style="display:none;">{{ $sum += $act_points }}</td>
               </tr>
-              <tr>
-                <td>আম</td>
-                <td>২০{{__('cart.Kg')}}</td>
-                <td>১৫০{{__('cart.Taka')}}</td>
-                <td>৩০০০{{__('cart.Taka')}}</td>
-              </tr>
-              <tr>
-                <td>আম</td>
-                <td>২০{{__('cart.Kg')}}</td>
-                <td>১৫০{{__('cart.Taka')}}</td>
-                <td>৩০০০{{__('cart.Taka')}}</td>
-              </tr>
+
+              @endforeach
+            
             </tbody>
           </table>
-          <p class="center">{{__('cart.Total')}}৯০০০{{__('cart.Taka')}}</p>
+          <p class="center">{{__('cart.Total')}} {{ $sum }} {{__('cart.Taka')}}</p>
         </div>
       </div>
     </div>

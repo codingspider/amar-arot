@@ -33,22 +33,24 @@
             </thead>
 
             <tbody>
+              @if (count($slae_orders) > 0)
+                  
+              @foreach ($slae_orders as $item)
+                  
               <tr>
-                <td>BUY001001</td>
-                <td>12-12-2020</td>
-                <td>১৫০{{__('cart.Taka')}}</td>
-                <td>{{__('order.Confired')}}</td>
+                <td>BUY00{{$item->id }}</td>
+              <td>{{ Carbon\Carbon::parse($item->created_at)->diffForHumans() }}</td>
+                <td>{{ $item->total_payable }} {{__('cart.Taka')}}</td>
+                <td>{{ $item->status }}</td>
                 <td class="center"><a href="{{url('details')}}" class="btn btn-sm light-blue">{{__('order.Details')}}</a></td>
                 <td class="center"><button class="btn btn-sm green">{{__('order.Shipment')}}</button></td>
               </tr>
-              <tr>
-                <td>BUY001002</td>
-                <td>12-12-2020</td>
-                <td>১৫০{{__('cart.Taka')}}</td>
-                <td>{{__('order.Not Confired')}}</td>
-                <td class="center"><a href="{{url('details')}}" class="btn btn-sm light-blue">{{__('order.Details')}}</a></td>
-                <td class="center"><button class="btn btn-sm green">{{__('order.Confired Order')}}</button></td>
-              </tr>
+              @endforeach
+
+              @else 
+              <h4>You have no orders!</h4>
+              @endif
+
             </tbody>
           </table>
         </div>
@@ -68,20 +70,22 @@
             </thead>
 
             <tbody>
+              @if (count($orders) > 0)
+                  
+              @foreach ($orders as $item)
+                  
               <tr>
-                <td>BUY001001</td>
-                <td>12-12-2020</td>
-                <td>১৫০{{__('cart.Taka')}}</td>
-                <td>{{__('order.In the Courier')}}</td>
-                <td><a href="{{url('details')}}" class="btn btn-sm light-blue">{{__('order.Details')}}</a></td>
+                <td>BUY00{{$item->id }}</td>
+                <td>{{ Carbon\Carbon::parse($item->created_at)->diffForHumans() }}</td>
+                <td>{{ $item->total_payable }} {{__('cart.Taka')}}</td>
+                <td>{{ $item->status }}</td>
+                <td><a href="{{url('order/details/'.$item->id )}}" class="btn btn-sm light-blue">{{__('order.Details')}}</a></td>
               </tr>
-              <tr>
-                <td>BUY001002</td>
-                <td>12-12-2020</td>
-                <td>১৫০{{__('cart.Taka')}}</td>
-                <td>{{__('order.Not Confired')}}</td>
-                <td><a href="{{url('details')}}" class="btn btn-sm light-blue">{{__('order.Details')}}</a></td>
-              </tr>
+              @endforeach
+
+              @else 
+              <h4>You have no orders!</h4>
+              @endif
             </tbody>
           </table>
         </div>

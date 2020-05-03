@@ -17,6 +17,7 @@ class CreateOrderStatusesTable extends Migration
             $table->bigIncrements('id');
             $table->string('name')->comment('accepted, processing');
             $table->string('name_bn')->comment('accepted, processing')->nullable();
+            $table->bigInteger('order_id');
             $table->timestamps();
         });
     }
