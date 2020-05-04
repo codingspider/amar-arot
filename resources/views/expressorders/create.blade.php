@@ -37,7 +37,7 @@
             <div class="col s12">
                 <form action="{{route('express-orders.store')}}" method="POST">
                     @csrf
-                    <table id="myTable" class="order-list striped responsive-table">
+                    <table id="myTable" class="order-list striped">
                         <thead>
                             <tr>
                                 <td width="65%">Name</td>
@@ -46,15 +46,15 @@
                                 <td width="10%">Action</td>
                             </tr>
                         </thead>
-
                         <tbody>
-
                             <tr>
                                 <td>
-                                    <input type="text" id="product" onclick="productSugest('#product','#suggest')"
-                                        class="input-field" autocomplete="off" value="{{old('name')}}" name="name[]"
-                                        required>
-                                    <div id="suggest"></div>
+                                    <div class="input-field inline" style="width: 100% !important;">
+                                        <i class="material-icons prefix" type="button" id="mic-icon" onclick="voice_input('#product','#mic-icon')">keyboard_voice</i>
+                                        <input type="text" id="product" onclick="productSugest('#product','#suggest')"
+                                            autocomplete="off" value="{{old('name')}}" name="name[]" required>
+                                        <div id="suggest"></div>
+                                    </div>
                                 </td>
                                 <td>
                                     <select class="input-field" autocomplete="off" value="{{old('brand')}}"
@@ -69,8 +69,8 @@
                                     <input type="text" class="input-field" autocomplete="off" value="{{old('qty')}}"
                                         name="qty[]" required />
                                 </td>
-                                <td><a class="deleteRow"></a>
-
+                                <td>
+                                    <a type="button" class="ibtnDel waves-effect waves-light btn disabled"><i class="material-icons">delete_forever</i></a>
                                 </td>
                             </tr>
                         </tbody>
@@ -98,6 +98,62 @@
 
 @section('script')
 <script>
+    function voice_input(product,micicon) {
+        const searchFormInput = document.querySelector(product); // <=> document.querySelector("#search-form input");
+
+        // The speech recognition interface lives on the browser’s window object
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition; // if none exists -> undefined
+
+        if (SpeechRecognition) {
+            console.log("Your Browser supports speech Recognition");
+            const recognition = new SpeechRecognition();
+            recognition.lang = "{{App::getLocale()}}";
+
+            recognition.continuous = true;
+            const micBtn = document.querySelector(micicon);
+            // const micIcon = micBtn.innerHTML;
+            micBtn.addEventListener("click", micBtnClick);
+            function micBtnClick() {
+                if (micBtn.innerHTML == "keyboard_voice") { // Start Voice Recognition
+                    recognition.start(); // First time you have to allow access to mic!
+                }
+                else {
+                    recognition.stop();
+                }
+            }
+            recognition.addEventListener("start", startSpeechRecognition); // <=> recognition.onstart = function() {...}
+            function startSpeechRecognition() {
+                document.querySelector(micicon).innerHTML = "record_voice_over";
+                searchFormInput.focus();
+                console.log("Voice activated, SPEAK");
+
+            }
+            recognition.addEventListener("end", endSpeechRecognition); // <=> recognition.onend = function() {...}
+            function endSpeechRecognition() {
+                document.querySelector(micicon).innerHTML = "keyboard_voice";
+                console.log("Speech recognition service disconnected");
+            }
+            recognition.addEventListener("result", resultOfSpeechRecognition); // <=> recognition.onresult = function(event) {...} - Fires when you stop talking
+            function resultOfSpeechRecognition(event) {
+                const current = event.resultIndex;
+                const transcript = event.results[current][0].transcript;
+                searchFormInput.value = transcript;
+                searchFormInput.focus();
+                setTimeout(() => {
+                    recognition.stop();
+                }, 500);
+            }
+        }
+        else {
+            console.log("Your Browser does not support speech Recognition");
+            info.textContent = "Your Browser does not support Speech Recognition";
+        }
+    }
+</script>
+<script>
+
+
+
     function productSugest(product, suggest) {
         $(document).ready(function () {
             $(product).keypress(function () {
@@ -142,14 +198,18 @@
 
             var newRow = $("<tr>");
             var cols = "";
-            cols += '<td><input type="text" id="product' + counter + '" onclick=productSugest("#product' + counter + '","#suggest' + counter + '") class="input-field" autocomplete="off" value="{{old("name")}}" name="name[]" required><div id="suggest' + counter + '"></div></td>';
+            cols += '<td><div class="input-field inline" style="width: 100% !important;"><i class="material-icons prefix" type="button" id="mic-icon' + counter + '" onclick=voice_input("#product' + counter + '","#mic-icon' + counter + '")>keyboard_voice</i><input type="text" id="product' + counter + '" onclick=productSugest("#product' + counter + '","#suggest' + counter + '") class="input-field" autocomplete="off" value="{{old("name")}}" name="name[]" required><div id="suggest' + counter + '"></div></td></div>';
+
             cols += '<td><select class="input-field" autocomplete="off" value="{{old("brand")}}" name="brand[]"><option value="N/A">N/A</option><option value="Local">Local</option><option value="ACI">ACI</option><option value="PRAN">PRAN</option></select></td>';
+
             cols += '<td><input type="text" class="input-field" autocomplete="off" value="{{old("qty")}}" name="qty[]" required/></td>';
-            cols += '<td><input type="button" class="btn btn-red ibtnDel"  value="Delete"></td>';
+            cols += '<td><a type="button" class="ibtnDel waves-effect waves-light btn"><i class="material-icons">delete_forever</i></a></td>';
             newRow.append(cols);
             if (counter >= limit) $('#addrow').attr('disabled', true).prop('value', "You've reached the limit");
             $("table.order-list").append(newRow);
             counter++;
+            $('select').formSelect();
+
         });
         $("table.order-list").on("click", ".ibtnDel", function (event) {
             $(this).closest("tr").remove();

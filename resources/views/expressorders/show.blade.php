@@ -29,7 +29,7 @@
                 <p>
                     {{__('order.Buyer Name')}} {{Auth::user()->name}} <br>
                     {{__('product.Phone')}} {{Auth::user()->phone}} <br>
-                    {{__('order.Address')}} {{$address->address_line_1}}
+                    {{__('order.Address')}} @if(!empty($address->address_line_1)){{$address->address_line_1}}@endif
                 </p>
             </div>
             <div class="col s12 m4">
