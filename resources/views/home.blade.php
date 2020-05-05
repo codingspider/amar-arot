@@ -64,7 +64,7 @@
                 @foreach($products as $product)
                 @if($product->catagory_id == $category->id)
 
-                <div class="col s12 m3">
+                <div class="col s6 m3">
                     <div class="card hoverable">
                         <div class="card-image waves-effect waves-block waves-light">
                             <img class="activator" src="{{asset('uploads/'.$product->image)}}">
