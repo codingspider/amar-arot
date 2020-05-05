@@ -82,6 +82,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('orders/lists/fors/admins', 'OrderController@get_order_list');
     Route::get('all/orders/for/details/order/view/{id}', 'OrderController@get_order_details');
     Route::post('change/order/status/form', 'OrderController@status_change_done');
+    Route::get('order/status/change/{id}', 'OrderController@order_status_change');
+    Route::get('re-order/{id}', 'OrderController@re_order');
 
 });
 

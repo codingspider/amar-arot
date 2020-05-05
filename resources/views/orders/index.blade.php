@@ -82,6 +82,9 @@
                 <td>{{ $act_points =  $item->total_payable }} {{__('cart.Taka')}}</td>
                 <td>{{ $item->status }}</td>
                 <td><a href="{{url('order/details/'.$item->id )}}" class="btn btn-sm light-blue">{{__('order.Details')}}</a></td>
+                @if ($item->status == 'Cancelled')
+                <td><a href="{{url('re-order/'.$item->status_id )}}" class="btn btn-sm light-yellow">Re-Order</a></td>
+                @endif
               </tr>
               @endforeach
 
