@@ -25,5 +25,6 @@ return [
     'type'=>'Coupons Type ',
     'value'=>'Coupons Value',
     'percent_off'=>'Percent Off',
+    'brand' => 'Brand'
 ];
 ?>

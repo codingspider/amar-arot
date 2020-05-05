@@ -140,7 +140,7 @@
                         </tr>
                     </tbody>
                 </table>
-                <p class="center">{{__('cart.Total')}} {{ $newSubtotal }} {{__('cart.Taka')}}</p>
+                <p class="center">{{__('cart.Total')}} {{ $newSubtotal }} {{__('cart.Taka')}} ( {{__('cart.vat')}} )</p>
             </div>
         </div>
         @else

@@ -5,7 +5,7 @@ return [
     'Price'=>'মুল্য',
     'Status'=>'অবস্থা',
     'Details'=>'বিস্তারিত',
-    'Arrangement'=>'ব্যবস্থা',
+    'Sales Arrangement'=>'ব্যবস্থা',
     'Confired'=>'কনফার্ম হয়েছে',
     'Confired Order'=>'কনফার্ম করুন',
     'Not Confired'=>'এখনো কনফার্ম হয়নি',
