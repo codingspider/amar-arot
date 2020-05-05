@@ -16,7 +16,7 @@ class OrderController extends Controller
         $orders = DB::table('orders')
             ->join('order_statuses', 'order_statuses.order_id', '=', 'orders.id')
             // ->join('orders', 'users.id', '=', 'orders.user_id')
-            ->select('orders.*', 'order_statuses.name as status', DB::raw('SUM(orders.vat) as o_vat'))
+            ->select('orders.*', 'order_statuses.name as status', 'order_statuses.id as status_id', DB::raw('SUM(orders.vat) as o_vat'))
             ->where('orders.user_id', Auth::id())
             ->groupBy('orders.id')
             ->get();
@@ -36,10 +36,10 @@ class OrderController extends Controller
     public function order_details($id){
 
         $order = DB::table('order_details')
-            // ->leftjoin('order_statuses', 'order_details.order_id', '=', 'order_statuses.order_id')
+            ->leftjoin('order_statuses', 'order_details.order_id', '=', 'order_statuses.order_id')
             ->join('orders', 'orders.id', '=', 'order_details.order_id')
             ->join('products', 'products.id', '=', 'order_details.product_id')
-            ->select('orders.*', 'order_details.*','products.*')
+            ->select('orders.*', 'order_details.*', 'products.*', 'order_statuses.id as status_id')
             ->where('orders.user_id', Auth::id())
             ->where('orders.id', $id)
             ->get();
@@ -52,6 +52,7 @@ class OrderController extends Controller
             ->select('orders.*', 'order_statuses.name as status','orders.id as order_id', 'order_details.*','products.*')
             ->where('orders.user_id', Auth::id())
             ->orderBy('orders.id', 'desc')
+            ->where('orders.id', $id)
             ->first();
 
             // dd($status);
@@ -123,6 +124,21 @@ class OrderController extends Controller
         ]);
 
         return back()->with('succes', 'You order status has been changed.' );
+    }
+
+    public function order_status_change($id){
+        DB::table('order_statuses')->where('id', $id)->update([
+            'name' => 'Cancelled',
+            'name_bn' => 'Cancelled',
+        ]);
+        return back()->with('succes', 'You order status has been cancelled.');
+    }
+    public function re_order($id){
+        DB::table('order_statuses')->where('id', $id)->update([
+            'name' => 'placed',
+            'name_bn' => 'placed',
+        ]);
+        return back()->with('succes', 'You order status has been placed.');
     }
 
 
