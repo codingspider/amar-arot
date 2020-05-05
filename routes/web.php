@@ -33,7 +33,7 @@ Route::get('details/{id}', 'HomeController@show')->name('details');
 
 
 // Admin Route
-Route::group(['prefix' => 'admin',  'middleware' => 'auth'],function(){
+Route::group(['prefix' => 'admin','as'=>'admin.',  'middleware' => 'auth'],function(){
     route::resource('express-orders','Admin\ExpressOrderController');
 });
 

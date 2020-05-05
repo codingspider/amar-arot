@@ -32,18 +32,19 @@
         <div class="row">
             <div class="col s12">
                 <h4>Please add your bazar list</h4>
-
             </div>
             <div class="col s12">
-                <form action="{{route('express-orders.update',$id)}}" method="POST">
+                <form action="{{route('admin.express-orders.update',$id)}}" method="POST">
                     @csrf
                     @method('PUT')
                     <table id="myTable" class="order-list striped responsive-table">
                         <thead>
                             <tr>
-                                <td width="65%">Name</td>
+                                <td width="45%">Name</td>
                                 <td width="15%">Brand</td>
                                 <td width="10%">Quantity</td>
+                                <td width="10%">Unit Price</td>
+                                <td width="10%">Total Price</td>
                                 <td width="10%">Action</td>
                             </tr>
                         </thead>
@@ -52,6 +53,7 @@
                             @foreach($express_order_details as $key=>$item)
                             <tr>
                                 <td>
+                                    <input type="hidden" name="product_id[]">
                                     <div class="input-field inline" style="width: 100% !important;">
                                         <i class="material-icons prefix" type="button" id="mic-icon{{$key}}"
                                             onclick="voice_input('#product{{$key}}','#mic-icon{{$key}}')">keyboard_voice</i>
@@ -73,11 +75,19 @@
                                     </select>
                                 </td>
                                 <td>
-                                    <input type="text" class="input-field" autocomplete="off" value="{{ $item->qty}}"
-                                        name="qty[]" required />
+                                    <input type="text" class="input-field" autocomplete="off" id="qty{{$key}}"
+                                        value="{{ $item->qty}}" name="qty[]" required />
                                 </td>
                                 <td>
-                                    <a type="button" class="ibtnDel waves-effect waves-light btn"><i class="material-icons">delete_forever</i></a>
+                                    <input type="text" class="input-field" autocomplete="off" name="unit_price[]" id="unit_price{{$key}}" value="{{ $item->unit_price}}"
+                                        onchange="totalPrice('#qty{{$key}}', '#unit_price{{$key}}', '#total_price{{$key}}')">
+                                </td>
+                                <td>
+                                    <p id="total_price{{$key}}">{{$item->qty*$item->unit_price}}</p>
+                                </td>
+                                <td>
+                                    <a type="button" class="ibtnDel waves-effect waves-light btn"><i
+                                            class="material-icons">delete_forever</i></a>
                                 </td>
                             </tr>
                             @endforeach
@@ -203,9 +213,17 @@
             var newRow = $("<tr>");
             var cols = "";
             cols += '<td><div class="input-field inline" style="width: 100% !important;"><i class="material-icons prefix" type="button" id="mic-icon' + counter + '" onclick=voice_input("#product' + counter + '","#mic-icon' + counter + '")>keyboard_voice</i><input type="text" id="product' + counter + '" onclick=productSugest("#product' + counter + '","#suggest' + counter + '") class="input-field" autocomplete="off" value="{{old("name")}}" name="name[]" required><div id="suggest' + counter + '"></div></div></td>';
-            cols += '<td><input type="text" class="input-field" autocomplete="off" value="{{old("brand")}}" name="brand[]" /></td>';
-            cols += '<td><input type="text" class="input-field" autocomplete="off" value="{{old("qty")}}" name="qty[]" required/></td>';
+
+            cols += '<td><select class="input-field" autocomplete="off" name="brand[]"><option value="N/A">N/A</option><option value="Local">Local</option><option value="ACI">ACI</option><option value="PRAN">PRAN</option></select></td>';
+
+            cols += '<td><input type="text" class="input-field" autocomplete="off" id="qty'+counter+'" name="qty[]" required /></td>';
+
+            cols += '<td><input type="text" name="unit_price[]" id="unit_price'+counter+'" onchange="totalPrice(`#qty'+counter+'`, `#unit_price'+counter+'`, `#total_price'+counter+'`)"></td>';
+
+            cols += '<td><p id="total_price'+counter+'"></p></td>';
+
             cols += '<td><a type="button" class="ibtnDel waves-effect waves-light btn"><i class="material-icons">delete_forever</i></a></td>';
+
             newRow.append(cols);
             if (counter >= limit) $('#addrow').attr('disabled', true).prop('value', "You've reached the limit");
             $("table.order-list").append(newRow);
@@ -219,5 +237,13 @@
             $('#addrow').attr('disabled', false).prop('value', "Add Row");
         });
     });
+
+
+    function totalPrice(qty, unit_price, total_price) {
+        var total_qty = $(qty).val();
+        var total_unit_price = $(unit_price).val();
+        var ground_total_price = (+total_qty * +total_unit_price);
+        $(total_price).html(ground_total_price);
+    }
 </script>
 @endsection

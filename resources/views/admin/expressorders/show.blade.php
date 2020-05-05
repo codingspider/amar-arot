@@ -41,8 +41,8 @@
             </div>
             <div class="col s12 m2">
                 <p>
-                    <a href="{{route('express-orders.edit',$express_order->id)}}" class="btn"> Edit</a>
-                    <form action="{{route('express-orders.destroy',$express_order->id)}}" method="POST">
+                    <a href="{{route('admin.express-orders.edit',$express_order->id)}}" class="btn"> Edit</a>
+                    <form action="{{route('admin.express-orders.destroy',$express_order->id)}}" method="POST">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-red"> Cancel</button>

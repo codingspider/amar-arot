@@ -11,14 +11,15 @@
         </div>
     </div>
 </div>
-<h5><a href="{{route('express-orders.create')}}" class="btn">{{__('order.New Order')}}</a></h5>
 
 
 <div class="container">
     <div class="section">
+        <h5><a href="{{route('express-orders.create')}}" class="btn">{{__('order.New Order')}}</a></h5>
+
         <div class="row">
             <div class="col s12 z-depth-1">
-                <table id="myTable">
+                <table id="myTable" class="highlight">
                     <thead>
                         <tr>
                             <th>{{__('order.Order no')}}</th>
@@ -33,8 +34,8 @@
                         <tr>
                             <td>{{$exp_order->id}}</td>
                             <td>{{$exp_order->created_at}}</td>
-                            <td>{{$exp_order->status}}</td>
-                            <td class="center"><a href="{{route('express-orders.show',$exp_order->id)}}"
+                            <td>{{$exp_order->status}}@if($exp_order->status == "Pending")<span class="new badge"></span>@endif</td>
+                            <td class="center"><a href="{{url('admin/express-orders/'.$exp_order->id)}}"
                                     class="btn btn-sm light-blue">{{__('order.Details')}}</a></td>
                         </tr>
                         @endforeach
@@ -51,7 +52,8 @@
 <script>
     $(document).ready(function () {
         $('#myTable').DataTable();
-        console.log($('#myTable').DataTable())
+        $('select').formSelect();
+
     });
 </script>
 @endsection
