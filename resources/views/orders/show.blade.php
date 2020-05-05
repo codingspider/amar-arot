@@ -53,7 +53,7 @@
                 <th>{{__('product.Product Name bn')}}</th>
                 <th>{{__('cart.Quantity')}}</th>
                 <th>{{__('cart.Unit Price')}}  </th>
-                <th>{{__('cart.Sub Total')}} with (vat)</th>
+              <th>{{__('cart.Sub Total')}}</th>
               </tr>
             </thead>
             @php
@@ -65,7 +65,7 @@
                 <td>{{ $item->name}}</td>
                 <td>{{ $item->quantity }}</td>
                 <td>{{ $item->price }}</td>
-                <td>{{ $act_points = ($item->quantity * $item->price)+ $item->vat }} </td>
+                <td>{{ $act_points = ($item->quantity * $item->price) }} </td>
                 <td style="display:none;">{{ $sum += $act_points }}</td>
               </tr>
 
@@ -73,7 +73,7 @@
             
             </tbody>
           </table>
-          <p class="center">{{__('cart.Total')}} {{ $sum }} {{__('cart.Taka')}}</p>
+          <p class="center">{{__('cart.Total')}} {{ $sum + $vat->vat }} {{__('cart.Taka')}} {{__('cart.vat')}}</p>
         </div>
       </div>
     </div>

@@ -63,7 +63,7 @@
               <tr>
                 <th>{{__('order.Order no')}}</th>
                 <th>{{__('order.Date')}}</th>
-                <th>{{__('order.Price')}}</th>
+                <th>{{__('order.Price')}} {{ __('cart.vat')}}</th>
                 <th>{{__('order.Status')}}</th>
                 <th>{{__('order.Details')}}</th>
               </tr>
@@ -71,13 +71,15 @@
 
             <tbody>
               @if (count($orders) > 0)
-                  
+                     @php
+                        $sum = 0;
+                    @endphp
               @foreach ($orders as $item)
                   
               <tr>
                 <td>BUY00{{$item->id }}</td>
                 <td>{{ Carbon\Carbon::parse($item->created_at)->diffForHumans() }}</td>
-                <td>{{ $item->total_payable }} {{__('cart.Taka')}}</td>
+                <td>{{ $act_points =  $item->total_payable }} {{__('cart.Taka')}}</td>
                 <td>{{ $item->status }}</td>
                 <td><a href="{{url('order/details/'.$item->id )}}" class="btn btn-sm light-blue">{{__('order.Details')}}</a></td>
               </tr>
