@@ -56,8 +56,8 @@
                 <table class="responsive-table">
                     <thead>
                         <tr>
-                            <th>{{__('product.Product Name')}}</th>
-                            <th>{{__('cart.Brand')}}</th>
+                            <th>{{__('product.Product Name bn')}}</th>
+                            <th>{{__('cart.brand')}}</th>
                             <th>{{__('cart.Quantity')}}</th>
                         </tr>
                     </thead>

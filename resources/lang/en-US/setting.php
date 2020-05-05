@@ -20,7 +20,13 @@ return [
     'contact_phone' => 'Contact Phone',
     'about' => 'About ',
     'updated_by' =>'Updated By',
-    'logo' =>'Image'
+    'logo' =>'Image',
+    'title' => 'Title',
+    'title_bn' => 'Title English',
+    'link' => 'Link',
+    'action' => 'Action',
+    'edit' => 'Edit ',
+    'delete' => 'Delete',
    
 
 ];

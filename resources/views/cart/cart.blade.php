@@ -149,7 +149,7 @@
                                     <h3>Total</h3>
                                 </td>
                                 <td class="text-right">
-                                    <h3><strong>৳ {{ $newSubtotal }}</strong></h3>
+                                <h3><strong>৳ {{ $newSubtotal }} {{ __('cart.vat')}}</strong></h3>
                                 </td>
                             </tr>
                             <tr>

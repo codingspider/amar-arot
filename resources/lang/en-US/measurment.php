@@ -1,11 +1,11 @@
 <?php
 
 return [
-    'name' => 'নাম (ইংরেজি)',
-    'name_bn' => 'নাম (বাংলা)',
-    'no' => 'নং',
-    'action' => 'একশন',
-    'edit' => 'সম্পাদনা',
-    'delete' => 'মুছে ফেলুন',
+    'name' => 'Name (English)',
+    'name_bn' => 'Name (Bangla)',
+    'no' => 'No',
+    'action' => 'Action',
+    'edit' => 'Edit',
+    'delete' => 'Delete',
 ];
 ?>
