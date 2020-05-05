@@ -7,6 +7,9 @@
     <title>@yield('pagetitle','Optima')</title>
 
     <!-- CSS  -->
+    <!-- datatblae -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css"/>
+
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="{{asset('content')}}/css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection" />
     <link href="{{asset('content')}}/css/style.css" type="text/css" rel="stylesheet" media="screen,projection" />
@@ -28,7 +31,7 @@
     <meta name="description" content="Amar Bazaar">
     <!-- CODELAB: Add meta theme-color -->
     <meta name="theme-color" content="#2F3BA2" />
-    
+
 </head>
 
 <body>
@@ -39,6 +42,8 @@
     <script src="{{asset('content')}}/js/materialize.js"></script>
     <script src="{{asset('content')}}/js/install.js"></script>
     <script src="{{asset('content')}}/js/init.js?v=1"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+   
     @yield('script')
 
 </body>

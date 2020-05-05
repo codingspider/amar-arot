@@ -14,44 +14,30 @@
 
 use Gloudemans\Shoppingcart\Facades\Cart;
 
+// This Route For Language Change
 Route::get('locale/{locale}', function ($locale) {
     session()->put('locale', $locale);
     return redirect()->back();
 });
-// Route::get('lang/{locale}','localization@view')->name('lang');
 
-
-// Route::get('/', function () {
-//     return view('welcome');
-// });
-// Route::get('login', function () {
-//     return view('auth.login');
-// });
-// Route::get('purchases', function () {
-//     return view('purchases.index');
-// });
-// Route::get('cart', function () {
-//     return view('carts.show');
-// });
-// Route::get('sales', function () {
-//     return view('sales.index');
-// });
-
-Route::get('express-cart', function () {
-    return view('express-cart');
-});
-Route::get('orders/', 'OrderController@all_orders');
-
-
-Route::get('order/details/{id}', 'OrderController@order_details');
-
+// This for Authentication
 Auth::routes();
 
+//
+Route::get('orders/', 'OrderController@all_orders');
+Route::get('order/details/{id}', 'OrderController@order_details');
 Route::get('/', 'HomeController@index');
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/search', 'HomeController@search')->name('search');
 Route::get('details/{id}', 'HomeController@show')->name('details');
 
+
+// Admin Route
+Route::group(['prefix' => 'admin',  'middleware' => 'auth'],function(){
+    route::resource('express-orders','Admin\ExpressOrderController');
+});
+
+// Authenticate User Route
 Route::group(['middleware' => ['auth']], function () {
     Route::get('all/orders/for/admin', 'OrderController@order_list');
     Route::resource('roles', 'RoleController');

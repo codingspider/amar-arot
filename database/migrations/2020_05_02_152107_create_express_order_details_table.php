@@ -18,6 +18,7 @@ class CreateExpressOrderDetailsTable extends Migration
             $table->string('exporder_id');
             $table->string('name');
             $table->string('brand')->nullable();
+            $table->string('unit_price')->nullable();
             $table->string('qty');
             $table->timestamps();
         });

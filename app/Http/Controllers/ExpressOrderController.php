@@ -19,7 +19,7 @@ class ExpressOrderController extends Controller
     public function index()
     {
         $exp_orders = ExpressOrder::where('user_id', Auth::user()->id)->get();
-        return view('expressorders.index', compact('exp_orders'));
+        return view('admin/expressorders.index', compact('exp_orders'));
     }
 
     /**
