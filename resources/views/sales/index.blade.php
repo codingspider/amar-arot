@@ -15,6 +15,32 @@
 
 <div class="container">
     <div class="section">
+        <div class="row">
+            <div class="col s12">
+                @if(session()->has('success'))
+                <div class="alert alert-success">
+                    {{ session()->get('success') }}
+                </div>
+                @endif
+                @if(session()->has('error'))
+                <div class="alert alert-success">
+                    {{ session()->get('error') }}
+                </div>
+                @endif
+
+                @if (count($errors) > 0)
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                        <li>{{$error}}</li>
+                        @endforeach
+                    </ul>
+                </div>
+                @endif
+            </div>
+        </div>
+    </div>
+    <div class="section">
 
         <!--   Icon Section   -->
         <div class="row">
@@ -128,8 +154,8 @@
 
             <div class="row">
                 <div class="input-field col s12">
-                    <textarea id="short_description" value="{{old('short_description')}}" class="materialize-textarea"
-                        name="short_description"></textarea>
+                    <textarea id="short_description" class="materialize-textarea"
+                        name="short_description">{{old('short_description')}}</textarea>
                     <label for="short_description">{{__('product.short_description')}}</label>
                     @error('short_description')
                     <span class="invalid-feedback" role="alert">
@@ -139,7 +165,7 @@
                 </div>
                 <div class="input-field col s12">
                     <textarea id="description" class="materialize-textarea" name="description"
-                        value="{{old('description')}}"></textarea>
+                        >{{old('description')}}</textarea>
                     <label for="description">{{__('product.description')}} </label>
                     @error('description')
                     <span class="invalid-feedback" role="alert">
@@ -151,7 +177,7 @@
             <div class="row">
                 <div class="input-field col s12">
                     <textarea id="short_description_bn" class="materialize-textarea" name="short_description_bn"
-                        value="{{old('short_description_bn')}}"></textarea>
+                        >{{old('short_description_bn')}}</textarea>
                     <label for="short_description_bn">{{__('product.short_description_bn')}} </label>
                     @error('short_description_bn')
                     <span class="invalid-feedback" role="alert">
@@ -160,8 +186,8 @@
                     @enderror
                 </div>
                 <div class="input-field col s12">
-                    <textarea id="description_bn" value="{{old('description_bn')}}" class="materialize-textarea"
-                        name="description_bn"></textarea>
+                    <textarea id="description_bn" class="materialize-textarea"
+                        name="description_bn">{{old('description_bn')}}</textarea>
                     <label for="description_bn">{{__('product.description_bn')}}</label>
                     @error('description_bn')
                     <span class="invalid-feedback" role="alert">
