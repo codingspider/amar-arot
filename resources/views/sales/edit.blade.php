@@ -16,7 +16,34 @@
 <div class="container">
     <div class="section">
         <div class="row">
-            <form class="col s12" action="{{route('sales.update',$sale->id)}}" method="POST">
+            <div class="col s12">
+                @if(session()->has('success'))
+                <div class="alert alert-success">
+                    {{ session()->get('success') }}
+                </div>
+                @endif
+                @if(session()->has('error'))
+                <div class="alert alert-success">
+                    {{ session()->get('error') }}
+                </div>
+                @endif
+
+                @if (count($errors) > 0)
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                        <li>{{$error}}</li>
+                        @endforeach
+                    </ul>
+                </div>
+                @endif
+            </div>
+        </div>
+    </div>
+    <div class="section">
+        <div class="row">
+            <form class="col s12" action="{{route('sales.update',$sale->id)}}" method="POST"
+                enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
                 <div class="row">
@@ -151,14 +178,29 @@
                     </div>
                 </div>
                 <div class="row">
+                    @if(!empty($sale->image))
+                    <div class="col s12">
+                        <div class="card-image waves-effect waves-block waves-light">
+                            <img class="activator" src="{{asset('uploads/'.$sale->image)}}">
+                        </div>
+                    </div>
+                    @endif
+                </div>
+                <div class="row">
                     <div class="file-field col s12 input-field">
                         <div class="btn light-blue">
                             <span>{{__('product.Photo')}}</span>
                             <input value="{{old('image')}}" type="file" name="image">
                         </div>
                         <div class="file-path-wrapper">
-                            <input class="file-path validate" type="text">
+                            <input class="file-path validate" id="imgae" type="text" >
                         </div>
+                        @if(session()->has('error'))
+                        <span class="invalid-feedback" role="alert">
+                            <strong> {{ session()->get('error') }}
+                            </strong>
+                        </span>
+                        @endif
                         @error('image')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -220,4 +262,9 @@
 </div>
 
 
+@endsection
+@section('script')
+<script>
+
+</script>
 @endsection
