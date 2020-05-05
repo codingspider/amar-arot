@@ -37,35 +37,35 @@
                             <div class="input-field col s12">
                                 <input id="first_name" name="name" value="{{ $profile->name }}" type="text"
                                     class="validate">
-                                <label for="first_name">Name</label>
+                                <label for="first_name">{{__('profile.Name')}}</label>
                             </div>
                         </div>
                         <div class="row">
                             <div class="input-field col s12">
                                 <input id="bn_name" name="name_bn" value="{{ $profile->name_bn }}" type="text"
                                     class="validate">
-                                <label for="bn_name">Bangla Name</label>
+                                <label for="bn_name">{{__('profile.Bangla Name')}}</label>
                             </div>
                         </div>
                         <div class="row">
                             <div class="input-field col s12">
                                 <input id="website" name="website" value="{{ $profile->website }}" type="text"
                                     class="validate">
-                                <label for="website">Website</label>
+                                <label for="website">{{__('profile.website')}}</label>
                             </div>
                         </div>
                         <div class="row">
                             <div class="input-field col s12">
                                 <input id="facebook" name="facebook" value="{{ $profile->facebook }}" type="text"
                                     class="validate">
-                                <label for="facebook">facebook</label>
+                                <label for="facebook">{{__('profile.facebook')}}</label>
                             </div>
                         </div>
                         <div class="row">
                             <div class="input-field col s12">
                                 <input id="phone" name="phone" value="{{ $profile->phone }}" type="text"
                                     class="validate">
-                                <label for="phone">phone</label>
+                                <label for="phone">{{__('profile.phone')}}</label>
                             </div>
                         </div>
 
@@ -73,12 +73,12 @@
                             <div class="input-field col s12">
                                 <input id="email" type="email" name="email" value="{{ $profile->email }}"
                                     class="validate" disabled>
-                                <label for="email">Email</label>
+                                <label for="email">{{__('profile.Email')}}</label>
                             </div>
                         </div>
                     </div>
                     <div class="card-action">
-                        <button class="waves-effect waves-light btn" type="submit">Update</button>
+                        <button class="waves-effect waves-light btn" type="submit">{{__('profile.Update')}}</button>
                     </div>
                 </form>
 

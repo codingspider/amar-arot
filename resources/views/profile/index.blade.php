@@ -25,32 +25,32 @@
                     <table>
                         <thead>
                             <tr>
-                                <th>Name</th>
+                                <th>{{__('profile.Name')}}</th>
                                 <th>:</th>
                                 <th>{{ $profile->name }}</th>
                             </tr>
                             <tr>
-                                <th>Bangla Name</th>
+                                <th>{{__('profile.Bangla Name')}}</th>
                                 <th>:</th>
                                 <th>{{ $profile->name_bn }}</th>
                             </tr>
                             <tr>
-                                <th>Email</th>
+                                <th>{{__('profile.Email')}}</th>
                                 <th>:</th>
                                 <th>{{ $profile->email }}</th>
                             </tr>
                             <tr>
-                                <th>website</th>
+                                <th>{{__('profile.website')}}</th>
                                 <th>:</th>
                                 <th>{{ $profile->website }}</th>
                             </tr>
                             <tr>
-                                <th>facebook</th>
+                                <th>{{__('profile.facebook')}}</th>
                                 <th>:</th>
                                 <th>{{ $profile->facebook }}</th>
                             </tr>
                             <tr>
-                                <th>phone</th>
+                                <th>{{__('profile.phone')}}</th>
                                 <th>:</th>
                                 <th>{{ $profile->phone }}</th>
                             </tr>
@@ -58,7 +58,7 @@
                     </table>
                 </div>
                 <div class="card-action">
-                    <a href="{{route('profiles.edit',$profile->id)}}" class="btn btn-link">Edit</a>
+                    <a href="{{route('profiles.edit',$profile->id)}}" class="btn btn-link">{{__('profile.edit')}}</a>
                 </div>
             </div>
         </div>
@@ -70,8 +70,8 @@
                 <div class="col s12">
                     <div class="card">
                         <div class="card-action">
-                            <h6>Billing Address <span><a href="{{url('add-address/billing')}}" class="btn btn-link">Add
-                                        New</a></span></h6>
+                            <h6><span class="new badge red" data-badge-caption="Activated"></span> {{__('address.Billing Address')}}
+                                <span><a href="{{url('add-address/billing')}}" class="btn btn-link">{{__('address.Add New')}}</a></span></h6>
                         </div>
                         @if(isset($billing))
 
@@ -87,7 +87,7 @@
                             </div>
                         </div>
                         <div class="card-action">
-                            <a href="{{url('edit-address/'.$billing->id)}}" class="btn btn-link">Edit</a>
+                            <a href="{{url('edit-address/'.$billing->id)}}" class="btn btn-link">{{__('address.Edit')}}</a>
                         </div>
                         @endif
 
@@ -101,7 +101,7 @@
                 <div class="col s12">
                     <div class="card">
                         <div class="card-action">
-                            <h6>Billing Address <span><a href="{{url('active-address/'.$billing_history->id)}}"
+                            <h6>{{__('address.Billing Address')}} <span><a href="{{url('active-address/'.$billing_history->id)}}"
                                         class="btn btn-link">Active</a> <a
                                         href="{{url('delete-address/'.$billing_history->id)}}"
                                         class="btn btn-danger">Delete</a>
@@ -121,7 +121,7 @@
                             </div>
                         </div>
                         <div class="card-action">
-                            <a href="{{url('edit-address/'.$billing_history->id)}}" class="btn btn-link">Edit</a>
+                            <a href="{{url('edit-address/'.$billing_history->id)}}" class="btn btn-link">{{__('address.Edit')}}</a>
                         </div>
                     </div>
                 </div>
@@ -135,8 +135,9 @@
                 <div class="col s12">
                     <div class="card">
                         <div class="card-action">
-                            <h6>Shipping Address <span><a href="{{url('add-address/shipping')}}"
-                                        class="btn btn-link">Add New</a></span></h6>
+                            <h6><span class="new badge red" data-badge-caption="Activated"></span>{{__('address.Shipping Address')}}
+                                <span><a href="{{url('add-address/shipping')}}" class="btn btn-link">{{__('address.Add New')}}</a></span>
+                            </h6>
                         </div>
                         @if(isset($shipping))
 
@@ -151,7 +152,7 @@
                             </div>
                         </div>
                         <div class="card-action">
-                            <a href="{{url('edit-address/'.$shipping->id)}}" class="btn btn-link">Edit</a>
+                            <a href="{{url('edit-address/'.$shipping->id)}}" class="btn btn-link">{{__('address.Edit')}}</a>
                         </div>
                         @endif
                     </div>
@@ -162,7 +163,7 @@
                 <div class="col s12">
                     <div class="card">
                         <div class="card-action">
-                            <h6>Shipping Address <span><a href="{{url('active-address/'.$shipping_history->id)}}"
+                            <h6>{{__('address.Shipping Address')}}<span><a href="{{url('active-address/'.$shipping_history->id)}}"
                                         class="btn btn-link">Active</a> <a
                                         href="{{url('delete-address/'.$shipping_history->id)}}"
                                         class="btn btn-danger">Delete</a>
@@ -179,7 +180,7 @@
                             </div>
                         </div>
                         <div class="card-action">
-                            <a href="{{url('edit-address/'.$shipping_history->id)}}" class="btn btn-link">Edit</a>
+                            <a href="{{url('edit-address/'.$shipping_history->id)}}" class="btn btn-link">{{__('address.Edit')}}</a>
                         </div>
                     </div>
                 </div>
