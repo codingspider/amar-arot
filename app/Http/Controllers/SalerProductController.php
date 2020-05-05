@@ -6,6 +6,7 @@ use App\Model\Address;
 use App\Model\Products;
 use App\Model\MeasurmentUnit;
 use App\Model\Catagory;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Intervention\Image\Facades\Image;
@@ -69,9 +70,13 @@ class SalerProductController extends Controller
         $produt = Products::create($input);
         if ($produt && $request->has('image')) {
             $originalImage  = $request->file('image');
-            $thumbnailImage = Image::make($originalImage);
-            $thumbnailPath  = public_path() . '/uploads/';
-            $originalPath   = public_path() . '/images/';
+            try {
+                $thumbnailImage = Image::make($originalImage);
+                $thumbnailPath  = public_path() . '/uploads/';
+                $originalPath   = public_path() . '/images/';
+            } catch (Exception $e) {
+                return back()->with('error','Invalid Image Type');
+            }
             $image_name     = time() . $originalImage->getClientOriginalName();
             $thumbnailImage->save($originalPath . $image_name);
             $thumbnailImage->resize(400, 400)->save($thumbnailPath . $image_name);
