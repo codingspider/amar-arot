@@ -35,7 +35,7 @@
         <div class="row">
             @if(count($products)>0)
             @foreach($products as $product)
-            <div class="col s12 m3">
+            <div class="col s6 m3">
                 <div class="card">
                     <div class="card-image waves-effect waves-block waves-light">
                         <img class="activator" src="{{asset('uploads/'.$product->image)}}">
