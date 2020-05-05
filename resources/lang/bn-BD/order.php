@@ -21,5 +21,6 @@ return [
     'Buyer Name'=>'ক্রেতার নামঃ',
     'Note'=>'নোটঃ',
     'Booking memo no'=>'বুকিং মেমো নংঃ',
+    'New Order' => 'নতুন আদেশ'
 ];
 ?>

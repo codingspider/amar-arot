@@ -5,7 +5,7 @@ return [
     'Price'=>'Price',
     'Status'=>'Status',
     'Details'=>'Details',
-    'Arrangement'=>'Arrangement',
+    'Sales Arrangement'=>'Arrangement',
     'Confired'=>'Confired',
     'Confired Order'=>'Confired Order',
     'Not Confired'=>'Not Confired',
@@ -21,6 +21,7 @@ return [
     'Buyer Name'=>'Buyer Name:',
     'Note'=>'Note:',
     'Booking memo no'=>'Booking memo no:',
+     'New Order' => 'New Order'
 
 ];
 ?>
