@@ -97,15 +97,32 @@
                         @endforeach
                         @if (session()->has('coupon'))
                         <tr>
-
                             <td colspan="3">
-                                <h3>Discount</h3>
+                                <h6>Discount ({{ session()->get('coupon')['name'] }})</h6>
                             </td>
                             <td class="text-right">
-                                <h3><strong>৳ {{ $discount }}</strong></h3>
+                                <h6><strong>-৳ {{ session()->get('coupon')['discount'] }} %</strong></h6>
+                            </td>
+                            <td>
+                                <form action="{{ route('coupon.destroy') }}" method="POST">
+                                    @csrf
+                                    {{ method_field('delete') }}
+                                    <button class="btn btn-danger" type="submit"><i
+                                        class="material-icons ">delete_forever
+                                    </i> </button>
+                                </form>
                             </td>
                         </tr>
                         @endif
+                        <tr>
+                            <td colspan="3">
+                                <h6>TAX</h6>
+                            </td>
+                            <td class="text-right">
+                                <h6><strong>৳ {{ Cart::tax() }}</strong></h6>
+                            </td>
+                            <td></td>
+                        </tr>
                         <tr>
                             <td colspan="3">
                                 <a type="button" class="btn btn-default" href="{{url('/home')}}">
