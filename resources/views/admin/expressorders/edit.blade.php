@@ -40,12 +40,13 @@
                     <table id="myTable" class="order-list striped responsive-table">
                         <thead>
                             <tr>
-                                <td width="45%">{{__('product.Product Name bn')}}</td>
-                                <td width="15%">{{__('cart.brand')}}</td>
-                                <td width="10%">{{__('cart.Quantity')}}</td>
-                                <td width="10%">{{__('cart.Unit Price')}}</td>
-                                <td width="10%">{{__('cart.Sub Total')}}</td>
-                                <td width="10%">{{__('Action')}}</td>
+                                <th width="35%">{{__('product.Product Name bn')}}</th>
+                                <th width="15%">{{__('cart.brand')}}</th>
+                                <th width="10%">{{__('cart.Quantity')}}</th>
+                                <th width="10%">{{__('cart.Unit')}}</th>
+                                <th width="10%">{{__('cart.Unit Price')}}</th>
+                                <th width="10%">{{__('cart.Sub Total')}}</th>
+                                <th width="10%">{{__('Action')}}</th>
                             </tr>
                         </thead>
 
@@ -68,12 +69,22 @@
                                     <input type="text" name="brand[]" value="{{ $item->brand}}">
                                 </td>
                                 <td>
-                                    <input type="text" class="input-field" autocomplete="off" id="qty{{$key}}"
+                                    <input type="number" class="input-field" autocomplete="off" id="qty{{$key}}"
                                         value="{{ $item->qty}}" name="qty[]" required />
                                 </td>
                                 <td>
-                                    <input type="text" class="input-field" autocomplete="off" name="unit_price[]" id="unit_price{{$key}}" value="{{ $item->unit_price}}"
-                                        onchange="totalPrice('#qty{{$key}}', '#unit_price{{$key}}', '#total_price{{$key}}')" required>
+                                    <select name="unit[]" required class="validated">
+                                        @foreach($units as $unit)
+                                        <option value="{{$unit->name}}" @if($unit->name ==$item->unit) selected
+                                            @endif>{{$unit->name}}</option>
+                                        @endforeach
+                                    </select>
+                                </td>
+                                <td>
+                                    <input type="text" class="input-field" autocomplete="off" name="unit_price[]"
+                                        id="unit_price{{$key}}" value="{{ $item->unit_price}}"
+                                        onchange="totalPrice('#qty{{$key}}', '#unit_price{{$key}}', '#total_price{{$key}}')"
+                                        required>
                                 </td>
                                 <td>
                                     <p id="total_price{{$key}}">{{$item->qty*$item->unit_price}}</p>
@@ -90,7 +101,7 @@
                                 <td colspan="" style="text-align: left;">
                                     <input type="button" class="btn" id="addrow" value="{{__('cart.Add Row')}}" />
                                 </td>
-                                <td colspan="5" style="text-align: right;">
+                                <td colspan="6" style="text-align: right;">
                                     <input type="submit" class="btn" value="{{__('cart.Confirm Order')}}" />
                                 </td>
                             </tr>
@@ -209,11 +220,13 @@
 
             cols += '<td><input type="text" name="brand[]" ></td>';
 
-            cols += '<td><input type="text" class="input-field" autocomplete="off" id="qty'+counter+'" name="qty[]" required /></td>';
+            cols += '<td><input type="number" class="input-field" autocomplete="off" id="qty' + counter + '" name="qty[]" required /></td>';
 
-            cols += '<td><input type="text" name="unit_price[]" id="unit_price'+counter+'" onchange="totalPrice(`#qty'+counter+'`, `#unit_price'+counter+'`, `#total_price'+counter+'`)" required></td>';
+            cols += '<td><select name="unit[]" required class="validated">@foreach($units as $unit)<option value="{{$unit->name}}">{{$unit->name}}</option>@endforeach</select></td>';
 
-            cols += '<td><p id="total_price'+counter+'"></p></td>';
+            cols += '<td><input type="text" name="unit_price[]" id="unit_price' + counter + '" onchange="totalPrice(`#qty' + counter + '`, `#unit_price' + counter + '`, `#total_price' + counter + '`)" required></td>';
+
+            cols += '<td><p id="total_price' + counter + '"></p></td>';
 
             cols += '<td><a type="button" class="ibtnDel waves-effect waves-light btn"><i class="material-icons">delete_forever</i></a></td>';
 

@@ -6,6 +6,7 @@ use App\ExpressOrder;
 use App\ExpressOrderDetails;
 use App\Model\Products;
 use App\Model\Address;
+use App\Model\MeasurmentUnit;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -30,7 +31,8 @@ class ExpressOrderController extends Controller
      */
     public function create()
     {
-        return view('expressorders.create');
+        $units = MeasurmentUnit::all();
+        return view('expressorders.create',compact('units'));
     }
 
     /**
@@ -66,6 +68,7 @@ class ExpressOrderController extends Controller
                 "name" => $request->name[$key],
                 "brand" => $request->brand[$key],
                 "qty" => $request->qty[$key],
+                "unit" => $request->unit[$key],
             ]);
         }
         return redirect()->route('express-orders.show',$exp_order->id)->with('success', 'Order Added Successfully');
@@ -98,8 +101,9 @@ class ExpressOrderController extends Controller
      */
     public function edit($id)
     {
+        $units = MeasurmentUnit::all();
         $express_order_details = ExpressOrderDetails::where('exporder_id', $id)->get();
-        return view('expressorders.edit',compact('express_order_details','id'));
+        return view('expressorders.edit',compact('express_order_details','id','units'));
     }
 
     /**
@@ -127,6 +131,7 @@ class ExpressOrderController extends Controller
                 "name" => $request->name[$key],
                 "brand" => $request->brand[$key],
                 "qty" => $request->qty[$key],
+                "unit" => $request->unit[$key],
             ]);
         }
         return redirect()->route('express-orders.show',$id)->with('success', 'Order Updated Successfully');
@@ -140,8 +145,11 @@ class ExpressOrderController extends Controller
      */
     public function destroy($id)
     {
-        ExpressOrderDetails::where('exporder_id',$id)->delete();
-        ExpressOrder::find($id)->delete();
+        ExpressOrder::find($id)->update(
+            [
+                "deleted_by"=>Auth::user()->id
+            ]
+        );
         return redirect()->route('express-orders.index')->with('success', 'Deleted Successfully');
     }
 

@@ -20,6 +20,7 @@ class CreateExpressOrderDetailsTable extends Migration
             $table->string('brand')->nullable();
             $table->string('unit_price')->nullable();
             $table->string('qty');
+            $table->string('unit');
             $table->timestamps();
         });
     }

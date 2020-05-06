@@ -1,3 +1,11 @@
+@php
+$exp_new_orders = \DB::table('express_orders')->where('read_status','1')->get()->count();
+$exp_new_orders_user_confirmed = \DB::table('express_orders')->where('read_status','0')->where('status','Confirmed')->where('user_status','1')->whereNull('deleted_by')->get()->count();
+
+
+
+$exp_new_user_order = \DB::table('express_orders')->where('user_status','0')->where('status','Confirmed')->where('user_id',Auth::user()->id)->whereNull('deleted_by')->get()->count();
+@endphp
 <nav class="light-blue lighten-1" role="navigation">
     <div class="nav-wrapper container"><a id="logo-container" href="{{url('home')}}"
             class="brand-logo">{{__('welcome.Amar Bazar')}}</a>
@@ -19,7 +27,7 @@
         </div>
     </li>
     <li><a class="white-text waves-effect" href="{{route('profiles.show',Auth::user()->id)}}"><i
-        class="material-icons white-text">account_circle</i>{{__('nav.Profile')}}</a>
+                class="material-icons white-text">account_circle</i>{{__('nav.Profile')}}</a>
     </li>
     <li>
         <div class="divider"></div>
@@ -33,7 +41,8 @@
                 class="material-icons white-text">add_box</i>{{__('nav.Orders')}}</a></li>
     <li>
     <li><a class="waves-effect white-text" href="{{url('express-orders')}}"><i
-                class="material-icons white-text">add_box</i>{{__('nav.Express Order')}}</a></li>
+                class="material-icons white-text">add_box</i>{{__('nav.Express Order')}}@if($exp_new_user_order>0)<span
+                class="new badge">{{$exp_new_user_order}}</span>@endif</a></li>
     <li>
         <div class="divider"></div>
     </li>
@@ -53,7 +62,12 @@
     </li>
 
     <li id="butRefresh"><a href="{{url('admin/express-orders') }}" class="waves-effect white-text"><i
-                class="material-icons white-text">apps</i>{{__('nav.Manage_Express_order')}}</a>
+                class="material-icons white-text">apps</i>{{__('nav.Manage_Express_order')}}@if($exp_new_orders>0)<span
+                class="new badge">{{$exp_new_orders}}</span>@endif </a>
+
+                {{--User Confired Count
+                    @if($exp_new_orders_user_confirmed>0)<span class="new badge" data-badge-caption="q">{{$exp_new_orders_user_confirmed}}</span>@endif
+                --}}
     </li>
 
     <li id="butRefresh"><a href="{{ route('roles.index') }}" class="waves-effect white-text"><i

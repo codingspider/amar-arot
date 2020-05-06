@@ -29,6 +29,8 @@ return [
     'vat' => '(With Vat)',
     'Add Row'=>'Add Row',
     'Confirm Order'=>'Confirm Order',
-    'Order'=>'Order'
+    'Order'=>'Order',
+    'Unit'=>'একক',
+
 ];
 ?>

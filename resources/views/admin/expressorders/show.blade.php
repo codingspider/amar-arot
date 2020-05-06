@@ -55,7 +55,8 @@
                             <th>{{__('product.Product Name bn')}}</th>
                             <th>{{__('cart.brand')}}</th>
                             <th>{{__('cart.Quantity')}}</th>
-                            @if($express_order->status == 'Confired'|| $express_order->status == 'Processing')
+                            <th>{{__('cart.Unit')}}</th>
+                            @if($express_order->status == 'Confirmed'|| $express_order->status == 'Processing')
                             <th>{{__('cart.Unit Price')}}</th>
                             <th>{{__('cart.Sub Total')}}</th>
                             @endif
@@ -68,6 +69,7 @@
                             <td>{{$item->name}}</td>
                             <td>{{$item->brand}}</td>
                             <td>{{$item->qty}}</td>
+                            <td>{{$item->unit}}</td>
                             @if($item->unit_price)
                             <td>{{$item->unit_price}}</td>
                             <td>{{$item->unit_price*$item->qty}}</td>

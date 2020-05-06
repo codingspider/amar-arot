@@ -38,15 +38,26 @@
                             <td>{{$exp_order->created_at}}</td>
                             <td>{{$exp_order->status}}</td>
                             @if($exp_order->user_status == '0')
+                            @if(empty($exp_order->deleted_by))
                             <td><a href="{{route('express-orders.show',$exp_order->id)}}"
-                                    class="btn btn-sm light-blue">{{__('cart.Confirm')}}</a></td>
+                                    class="btn btn-sm light-blue">{{__('cart.Confirm')}}</a> <span
+                                    class="new badge"></span></td>
+                            @else
+
+                            <td><a href="#" class="btn disabled">Canceled</a></td>
+                            @endif
                             @elseif($exp_order->user_status == '1')
                             <td>Confirmed</td>
                             @else
                             <td>Pending Price Confiramtion</td>
                             @endif
+                            @if(empty($exp_order->deleted_by))
                             <td class="center"><a href="{{route('express-orders.show',$exp_order->id)}}"
                                     class="btn btn-sm light-blue">{{__('order.Details')}}</a></td>
+                            @else
+
+                            <td><a href="#" class="btn disabled">Canceled</a></td>
+                            @endif
                         </tr>
                         @endforeach
                     </tbody>

@@ -19,6 +19,7 @@ class CreateExpressOrdersTable extends Migration
             $table->tinyInteger('read_status')->comment('1=Unread','0=Read')->nullable();
             $table->tinyInteger('user_status')->comment('1=Confired','0=Cancel')->nullable();
             $table->tinyInteger('user_id');
+            $table->tinyInteger('deleted_by')->nullable();
             $table->timestamps();
         });
     }

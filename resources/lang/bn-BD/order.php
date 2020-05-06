@@ -21,7 +21,7 @@ return [
     'Buyer Name' => 'ক্রেতার নামঃ',
     'Note' => 'নোটঃ',
     'Booking memo no' => 'বুকিং মেমো নংঃ',
-    'New Order' => 'নতুন আদেশ',
+    'New Order' => 'নতুন ক্রয়',
     'User Confirmation' => 'ব্যবহারকারীর নিশ্চিতকরণ ',
     'Print' => 'প্রিন্ট',
     'Add Price' => 'মূল্য যোগ করুন',

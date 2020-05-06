@@ -8,6 +8,7 @@ use App\ExpressOrder;
 use App\ExpressOrderDetails;
 use App\Model\Address;
 use App\User;
+use App\Model\MeasurmentUnit;
 use Illuminate\Support\Facades\DB;
 
 class ExpressOrderController extends Controller
@@ -19,6 +20,7 @@ class ExpressOrderController extends Controller
      */
     public function index()
     {
+
         $exp_orders = DB::table('express_orders')->orderBy('id', 'desc')->get();
         return view('admin/expressorders.index', compact('exp_orders'));
     }
@@ -30,8 +32,10 @@ class ExpressOrderController extends Controller
      */
     public function create()
     {
+        $units = MeasurmentUnit::all();
+
         $users = User::all();
-        return view('admin.expressorders.create',compact('users'));
+        return view('admin.expressorders.create',compact('users','units'));
     }
 
     /**
@@ -67,6 +71,7 @@ class ExpressOrderController extends Controller
                 "name" => $request->name[$key],
                 "brand" => $request->brand[$key],
                 "qty" => $request->qty[$key],
+                "unit" => $request->unit[$key],
             ]);
         }
         return back()->with('success', ' Added Successfully');
@@ -98,8 +103,9 @@ class ExpressOrderController extends Controller
      */
     public function edit($id)
     {
+        $units = MeasurmentUnit::all();
         $express_order_details = ExpressOrderDetails::where('exporder_id', $id)->get();
-        return view('admin/expressorders.edit', compact('express_order_details', 'id'));
+        return view('admin/expressorders.edit', compact('express_order_details', 'id','units'));
     }
 
     /**
@@ -129,11 +135,12 @@ class ExpressOrderController extends Controller
                 "brand" => $request->brand[$key],
                 "unit_price" => $request->unit_price[$key],
                 "qty" => $request->qty[$key],
+                "unit" => $request->unit[$key],
             ]);
         }
         ExpressOrder::where('id', $id)->update(
             [
-                'status' => 'Confired',
+                'status' => 'Confirmed',
                 'read_status' => '0',
                 'user_status' => '0',
             ]

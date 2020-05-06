@@ -37,14 +37,19 @@
                             <td>{{$exp_order->created_at}}</td>
                             <td>{{$exp_order->status}}@if($exp_order->read_status == '1')<span
                                     class="new badge"></span>@endif</td>
+                            @if(empty($exp_order->deleted_by))
                             <td>
                                 @if($exp_order->user_status == '0') Pending @endif
                                 @if($exp_order->user_status == '1') User Confirmed @endif
                             </td>
+                            @else
+                            <td><a href="#" class="btn disabled">Canceled</a></td>
+                            @endif
                             <td class="center"><a href="{{url('admin/express-orders/'.$exp_order->id)}}"
                                     class="btn btn-sm light-blue">{{__('order.Details')}}</a>
                                 @if($exp_order->user_status == '1')
-                                <a href="{{route('admin.print_express_order',$exp_order->id)}}" target="_blank" class="btn">{{__('order.Print')}}</a>
+                                <a href="{{route('admin.print_express_order',$exp_order->id)}}" target="_blank"
+                                    class="btn">{{__('order.Print')}}</a>
                                 @endif
                             </td>
 

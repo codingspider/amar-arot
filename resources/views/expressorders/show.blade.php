@@ -24,27 +24,30 @@
                 </div>
                 @endif
             </div>
-            <div class="col s12">
-                @if($express_order->status == "Confired")
-                    @if(empty(Auth::user()->phone))
-                    <p class="btn red">Please Add Your Phone Number To Confirm The Order</p><br>
-                    @endif
-
-                    @if(count($billing)!=1)
-                    <p class="btn red">Please Add Your billing To Confirm The Order</p><br>
-                    @endif
-                    @if(count($shipping)!=1)
-                    <p class="btn red">Please Add Your Shipping To Confirm The Order</p>
-                    @endif
+            @if($express_order->status == "Confirmed")
+            <div class="collection">
+                @if(empty(Auth::user()->phone))
+                <a href="{{route('profiles.show',Auth::user()->id)}}" target="_blank"
+                    class="collection-item red-text">*Please Add Your Phone Number To Confirm The Order</a>
+                @endif
+                @if(count($billing)!=1)
+                <a href="{{route('profiles.show',Auth::user()->id)}}" target="_blank"
+                    class="collection-item red-text">*Please Add Your billing To Confirm The Order</a>
+                @endif
+                @if(count($shipping)!=1)
+                <a href="{{route('profiles.show',Auth::user()->id)}}" target="_blank"
+                    class="collection-item red-text">*Please Add Your Shipping To Confirm The Order</a>
                 @endif
             </div>
+            @endif
         </div>
         <div class="row z-depth-1">
             <div class="col s12 m6">
                 <p>
                     {{__('order.Buyer Name')}} {{Auth::user()->name}} <br>
                     {{__('product.Phone')}} {{Auth::user()->phone}} <br>
-                    {{__('order.Address')}} @if(!empty($address->address_line_1)){{$address->address_line_1}}@endif @if(!empty($address->name)){{$address->name}}@endif
+                    {{__('order.Address')}} @if(!empty($address->address_line_1)){{$address->address_line_1}}@endif
+                    @if(!empty($address->name)){{$address->name}}@endif
                 </p>
             </div>
             <div class="col s12 m4">
@@ -56,7 +59,10 @@
             </div>
             <div class="col s12 m2">
                 <p>
-                    @if($express_order->status == "Confired")
+                    @if($express_order->user_status =='1')
+                    <a href="{{route('express-orders.index')}}" class="btn">{{__('order.Back')}}</a>
+                    @else
+                    @if($express_order->status == "Confirmed")
                     <a href="{{route('orderconfiramtion',$express_order->id)}}"
                         class="btn @if($express_order->user_status =='1')disabled @endif">{{__('cart.Confirm')}}</a>
 
@@ -69,8 +75,9 @@
                     <form action="{{route('express-orders.destroy',$express_order->id)}}" method="POST">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="btn btn-red disabled">{{__('order.Cancel')}}</button>
+                        <button type="submit" class="btn btn-red ">{{__('order.Cancel')}}</button>
                     </form>
+                    @endif
                 </p>
             </div>
         </div>
@@ -84,7 +91,8 @@
                             <th>{{__('product.Product Name bn')}}</th>
                             <th>{{__('cart.brand')}}</th>
                             <th>{{__('cart.Quantity')}}</th>
-                            @if($express_order->status == 'Confired'|| $express_order->status == 'Processing')
+                            <th>{{__('cart.Unit')}}</th>
+                            @if($express_order->status == 'Confirmed'|| $express_order->status == 'Processing')
                             <th>{{__('cart.Unit Price')}}</th>
                             <th>{{__('cart.Sub Total')}}</th>
                             @endif
@@ -98,6 +106,7 @@
                             <td>{{$item->name}}</td>
                             <td>{{$item->brand}}</td>
                             <td>{{$item->qty}}</td>
+                            <td>{{$item->unit}}</td>
                             @if($item->unit_price)
                             <td>{{$item->unit_price}}</td>
                             <td>{{$item->unit_price*$item->qty}}</td>
