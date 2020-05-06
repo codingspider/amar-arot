@@ -41,10 +41,10 @@
                     <table id="myTable" class="order-list striped responsive-table">
                         <thead>
                             <tr>
-                                <td width="65%">Name</td>
-                                <td width="15%">Brand</td>
-                                <td width="10%">Quantity</td>
-                                <td width="10%">Action</td>
+                                <th width="65%">{{__('product.Product Name bn')}}</th>
+                                <th width="15%">{{__('cart.brand')}}</th>
+                                <th width="10%">{{__('cart.Quantity')}}</th>
+                                <th width="10%">{{__('Action')}}</th>
                             </tr>
                         </thead>
 
@@ -63,15 +63,16 @@
                                     </div>
                                 </td>
                                 <td>
-                                    <input class="input-field" placeholder="Ex: N/A, Local" autocomplete="off" value="{{$item->brand}}"
-                                    name="brand[]">
+                                    <input class="input-field" placeholder="Ex: N/A, Local" autocomplete="off"
+                                        value="{{$item->brand}}" name="brand[]">
                                 </td>
                                 <td>
                                     <input type="number" class="input-field" autocomplete="off" value="{{ $item->qty}}"
                                         name="qty[]" required />
                                 </td>
                                 <td>
-                                    <a type="button" class="ibtnDel waves-effect waves-light btn"><i class="material-icons">delete_forever</i></a>
+                                    <a type="button" class="ibtnDel waves-effect waves-light btn"><i
+                                            class="material-icons">delete_forever</i></a>
                                 </td>
                             </tr>
                             @endforeach
@@ -79,10 +80,10 @@
                         <tfoot>
                             <tr>
                                 <td colspan="" style="text-align: left;">
-                                    <input type="button" class="btn" id="addrow" value="Add Row" />
+                                    <input type="button" class="btn" id="addrow" value="{{__('cart.Add Row')}}" />
                                 </td>
                                 <td colspan="4" style="text-align: right;">
-                                    <input type="submit" class="btn" value="Order" />
+                                    <input type="submit" class="btn" value="{{__('cart.Order')}}" />
                                 </td>
                             </tr>
                         </tfoot>

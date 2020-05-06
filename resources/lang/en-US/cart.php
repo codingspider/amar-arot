@@ -26,6 +26,9 @@ return [
     'value'=>'Coupons Value',
     'percent_off'=>'Percent Off',
     'brand' => 'Brand',
-    'vat' => '(With Vat)'
+    'vat' => '(With Vat)',
+    'Add Row'=>'Add Row',
+    'Confirm Order'=>'Confirm Order',
+    'Order'=>'Order'
 ];
 ?>

@@ -41,8 +41,8 @@
             </div>
             <div class="col s12 m3">
                 <p>
-                    <a href="{{route('admin.express-orders.edit',$express_order->id)}}" class="btn">Add Price</a>
-                    <a href="{{route('admin.express-orders.index')}}" class="btn">Back</a>
+                    <a href="{{route('admin.express-orders.edit',$express_order->id)}}" class="btn">{{__('order.Add Price')}}</a>
+                    <a href="{{route('admin.express-orders.index')}}" class="btn">{{__('order.Back')}}</a>
                 </p>
             </div>
         </div>

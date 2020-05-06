@@ -40,41 +40,45 @@
                     <table id="myTable" class="order-list striped">
                         <thead>
                             <tr>
-                                <th width="65%">Name</th>
-                                <th width="15%">Brand</th>
-                                <th width="10%">Quantity</th>
-                                <th width="10%">Action</th>
+                                <th width="65%">{{__('product.Product Name bn')}}</th>
+                                <th width="15%">{{__('cart.brand')}}</th>
+                                <th width="10%">{{__('cart.Quantity')}}</th>
+                                <th width="10%">{{__('Action')}}</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
                                 <td>
                                     <div class="input-field inline" style="width: 100% !important;">
-                                        <i class="material-icons prefix" type="button" id="mic-icon" onclick="voice_input('#product','#mic-icon')">keyboard_voice</i>
-                                        <input type="text" placeholder="Product Name" id="product" onclick="productSugest('#product','#suggest')"
-                                            autocomplete="off" value="{{old('name')}}" name="name[]" required>
+                                        <i class="material-icons prefix" type="button" id="mic-icon"
+                                            onclick="voice_input('#product','#mic-icon')">keyboard_voice</i>
+                                        <input type="text" placeholder="Product Name" id="product"
+                                            onclick="productSugest('#product','#suggest')" autocomplete="off"
+                                            value="{{old('name')}}" name="name[]" required>
                                         <div id="suggest"></div>
                                     </div>
                                 </td>
                                 <td>
-                                    <input type="text" placeholder="Ex:N/A, Local" value="{{old('brand')}}" name="brand[]">
+                                    <input type="text" placeholder="Ex:N/A, Local" value="{{old('brand')}}"
+                                        name="brand[]">
                                 </td>
                                 <td>
                                     <input type="number" class="input-field" autocomplete="off" value="{{old('qty')}}"
                                         name="qty[]" required />
                                 </td>
                                 <td>
-                                    <a type="button" class="ibtnDel waves-effect waves-light btn disabled"><i class="material-icons">delete_forever</i></a>
+                                    <a type="button" class="ibtnDel waves-effect waves-light btn disabled"><i
+                                            class="material-icons">delete_forever</i></a>
                                 </td>
                             </tr>
                         </tbody>
                         <tfoot>
                             <tr>
                                 <td colspan="" style="text-align: left;">
-                                    <input type="button" class="btn" id="addrow" value="Add Row" />
+                                    <input type="button" class="btn" id="addrow" value="{{__('cart.Add Row')}}" />
                                 </td>
                                 <td colspan="4" style="text-align: right;">
-                                    <input type="submit" class="btn" value="Order" />
+                                    <input type="submit" class="btn" value="{{__('cart.Order')}}" />
                                 </td>
                             </tr>
                         </tfoot>
@@ -92,7 +96,7 @@
 
 @section('script')
 <script>
-    function voice_input(product,micicon) {
+    function voice_input(product, micicon) {
         const searchFormInput = document.querySelector(product); // <=> document.querySelector("#search-form input");
 
         // The speech recognition interface lives on the browser’s window object

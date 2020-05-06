@@ -40,12 +40,12 @@
                     <table id="myTable" class="order-list striped responsive-table">
                         <thead>
                             <tr>
-                                <td width="45%">Name</td>
-                                <td width="15%">Brand</td>
-                                <td width="10%">Quantity</td>
-                                <td width="10%">Unit Price</td>
-                                <td width="10%">Total Price</td>
-                                <td width="10%">Action</td>
+                                <td width="45%">{{__('product.Product Name bn')}}</td>
+                                <td width="15%">{{__('cart.brand')}}</td>
+                                <td width="10%">{{__('cart.Quantity')}}</td>
+                                <td width="10%">{{__('cart.Unit Price')}}</td>
+                                <td width="10%">{{__('cart.Sub Total')}}</td>
+                                <td width="10%">{{__('Action')}}</td>
                             </tr>
                         </thead>
 
@@ -88,10 +88,10 @@
                         <tfoot>
                             <tr>
                                 <td colspan="" style="text-align: left;">
-                                    <input type="button" class="btn" id="addrow" value="Add Row" />
+                                    <input type="button" class="btn" id="addrow" value="{{__('cart.Add Row')}}" />
                                 </td>
                                 <td colspan="5" style="text-align: right;">
-                                    <input type="submit" class="btn" value="Confirm Order" />
+                                    <input type="submit" class="btn" value="{{__('cart.Confirm Order')}}" />
                                 </td>
                             </tr>
                         </tfoot>

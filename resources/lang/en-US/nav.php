@@ -13,6 +13,8 @@ return [
     'logout' => 'Logout',
     'login' => 'Login',
     'Manage_order' => 'Manage Order',
-    'Express Order' => 'Express Order'
+    'Express Order' => 'Express Order',
+    'Manage_Express_order' => 'Manage Express Order',
+
 ];
 ?>

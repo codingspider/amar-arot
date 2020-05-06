@@ -13,6 +13,8 @@ return [
     'logout' => 'লগআউট',
     'login' => 'লগইন',
     'Manage_order' => 'অর্ডার পরিচালনা করুন',
-    'Express Order' => 'ফর্দ'
+    'Express Order' => 'ফর্দ',
+    'Manage_Express_order' => 'ফর্দ পরিচালনা করুন',
+
 ];
 ?>

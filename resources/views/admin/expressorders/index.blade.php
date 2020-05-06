@@ -44,7 +44,7 @@
                             <td class="center"><a href="{{url('admin/express-orders/'.$exp_order->id)}}"
                                     class="btn btn-sm light-blue">{{__('order.Details')}}</a>
                                 @if($exp_order->user_status == '1')
-                                <a href="{{route('admin.print_express_order',$exp_order->id)}}" class="btn">Print</a>
+                                <a href="{{route('admin.print_express_order',$exp_order->id)}}" class="btn">{{__('order.Print')}}</a>
                                 @endif
                             </td>
 

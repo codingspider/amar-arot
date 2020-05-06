@@ -42,18 +42,18 @@
             <div class="col s12 m2">
                 <p>
                     @if($express_order->status == "Confired")
-                    <a href="{{route('orderconfiramtion',$express_order->id)}}" class="btn @if($express_order->user_status =='1')disabled @endif">Confirm</a>
+                    <a href="{{route('orderconfiramtion',$express_order->id)}}" class="btn @if($express_order->user_status =='1')disabled @endif">{{__('order.Confired')}}</a>
 
                     @elseif($express_order->status == "Processing")
                     <a href="{{route('orderconfiramtion',$express_order->id)}}" class="btn disabled">
-                        Confired</a>
+                        {{__('order.Confired')}}</a>
                     @else
-                    <a href="{{route('express-orders.edit',$express_order->id)}}" class="btn">Edit</a>
+                    <a href="{{route('express-orders.edit',$express_order->id)}}" class="btn">{{__('order.Edit')}}</a>
                     @endif
                     <form action="{{route('express-orders.destroy',$express_order->id)}}" method="POST">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="btn btn-red disabled">Cancel</button>
+                        <button type="submit" class="btn btn-red disabled">{{__('order.Cancel')}}</button>
                     </form>
                 </p>
             </div>
@@ -68,7 +68,7 @@
                             <th>{{__('product.Product Name bn')}}</th>
                             <th>{{__('cart.brand')}}</th>
                             <th>{{__('cart.Quantity')}}</th>
-                            @if($express_order->status == 'Confired')
+                            @if($express_order->status == 'Confired'|| $express_order->status == 'Processing')
                             <th>{{__('cart.Unit Price')}}</th>
                             <th>{{__('cart.Sub Total')}}</th>
                             @endif
