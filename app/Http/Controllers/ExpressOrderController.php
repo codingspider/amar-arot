@@ -68,7 +68,7 @@ class ExpressOrderController extends Controller
                 "qty" => $request->qty[$key],
             ]);
         }
-        return back()->with('success', 'Order Added Successfully');
+        return redirect()->route('express-orders.show',$exp_order->id)->with('success', 'Order Added Successfully');
     }
 
     /**

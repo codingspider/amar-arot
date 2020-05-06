@@ -13,15 +13,17 @@ class ExpressOrderConfiramtionController extends Controller
 {
     public function orderConfiramtion($id)
     {
-
+        if(empty(Auth::user()->phone)){
+            return redirect()->route('profiles.show', Auth::user()->id)->with('success', 'Please Add Your Phone Number Then Confirm Your Order');
+        }
         $address = Address::where('user_id', Auth::user()->id)->get();
         if (count($address) > 1) {
             ExpressOrder::where('id', $id)->update([
                 'user_status' => '1'
             ]);
-            return back()->with('success', 'Your Order Is Confiremd');
+            return back()->with('success', 'Your Order is Confiremd');
         } else {
-            return redirect()->route('profiles.show', Auth::user()->id)->with('success', 'Please Add Your Billing And Shipping Address Then Confirm YOur Order');
+            return redirect()->route('profiles.show', Auth::user()->id)->with('success', 'Please Add Your Billing And Shipping Address Then Confirm Your Order');
         }
     }
     public function printExpressOrder($id)

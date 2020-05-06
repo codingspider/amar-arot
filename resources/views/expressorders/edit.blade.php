@@ -71,7 +71,7 @@
                                         name="qty[]" required />
                                 </td>
                                 <td>
-                                    <a type="button" class="ibtnDel waves-effect waves-light btn"><i
+                                    <a type="button" class="ibtnDel waves-effect waves-light btn disabled"><i
                                             class="material-icons">delete_forever</i></a>
                                 </td>
                             </tr>

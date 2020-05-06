@@ -42,7 +42,7 @@
             <div class="col s12 m2">
                 <p>
                     @if($express_order->status == "Confired")
-                    <a href="{{route('orderconfiramtion',$express_order->id)}}" class="btn @if($express_order->user_status =='1')disabled @endif">{{__('order.Confired')}}</a>
+                    <a href="{{route('orderconfiramtion',$express_order->id)}}" class="btn @if($express_order->user_status =='1')disabled @endif">{{__('cart.Confirm')}}</a>
 
                     @elseif($express_order->status == "Processing")
                     <a href="{{route('orderconfiramtion',$express_order->id)}}" class="btn disabled">

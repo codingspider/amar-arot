@@ -39,7 +39,7 @@
                             <td>{{$exp_order->status}}</td>
                             @if($exp_order->user_status == '0')
                             <td><a href="{{route('express-orders.show',$exp_order->id)}}"
-                                    class="btn btn-sm light-blue">{{__('order.Confirm')}}</a></td>
+                                    class="btn btn-sm light-blue">{{__('cart.Confirm')}}</a></td>
                             @elseif($exp_order->user_status == '1')
                             <td>Confired</td>
                             @else

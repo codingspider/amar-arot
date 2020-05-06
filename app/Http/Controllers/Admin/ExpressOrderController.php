@@ -19,7 +19,7 @@ class ExpressOrderController extends Controller
      */
     public function index()
     {
-        $exp_orders = ExpressOrder::latest()->get();
+        $exp_orders = DB::table('express_orders')->orderBy('id', 'desc')->get();
         return view('admin/expressorders.index', compact('exp_orders'));
     }
 
