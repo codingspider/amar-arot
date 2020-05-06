@@ -55,7 +55,7 @@
                                     <div class="input-field inline" style="width: 100% !important;">
                                         <i class="material-icons prefix" type="button" id="mic-icon{{$key}}"
                                             onclick="voice_input('#product{{$key}}','#mic-icon{{$key}}')">keyboard_voice</i>
-                                        <input type="text" id="product{{$key}}"
+                                        <input type="text" placeholder="Product Name" id="product{{$key}}"
                                             onclick="productSugest('#product{{$key}}','#suggest{{$key}}')"
                                             class="input-field" autocomplete="off" value="{{ $item->name}}"
                                             name="name[]" required>
@@ -63,11 +63,11 @@
                                     </div>
                                 </td>
                                 <td>
-                                    <input class="input-field" autocomplete="off" value="{{$item->brand}}"
+                                    <input class="input-field" placeholder="Ex: N/A, Local" autocomplete="off" value="{{$item->brand}}"
                                     name="brand[]">
                                 </td>
                                 <td>
-                                    <input type="text" class="input-field" autocomplete="off" value="{{ $item->qty}}"
+                                    <input type="number" class="input-field" autocomplete="off" value="{{ $item->qty}}"
                                         name="qty[]" required />
                                 </td>
                                 <td>
@@ -196,9 +196,9 @@
             console.log(counter);
             var newRow = $("<tr>");
             var cols = "";
-            cols += '<td><div class="input-field inline" style="width: 100% !important;"><i class="material-icons prefix" type="button" id="mic-icon' + counter + '" onclick=voice_input("#product' + counter + '","#mic-icon' + counter + '")>keyboard_voice</i><input type="text" id="product' + counter + '" onclick=productSugest("#product' + counter + '","#suggest' + counter + '") class="input-field" autocomplete="off" value="{{old("name")}}" name="name[]" required><div id="suggest' + counter + '"></div></div></td>';
-            cols += '<td><input type="text" class="input-field" autocomplete="off" value="{{old("brand")}}" name="brand[]" /></td>';
-            cols += '<td><input type="text" class="input-field" autocomplete="off" value="{{old("qty")}}" name="qty[]" required/></td>';
+            cols += '<td><div class="input-field inline" style="width: 100% !important;"><i class="material-icons prefix" type="button" id="mic-icon' + counter + '" onclick=voice_input("#product' + counter + '","#mic-icon' + counter + '")>keyboard_voice</i><input type="text" placeholder="Product Name" id="product' + counter + '" onclick=productSugest("#product' + counter + '","#suggest' + counter + '") class="input-field" autocomplete="off" value="{{old("name")}}" name="name[]" required><div id="suggest' + counter + '"></div></div></td>';
+            cols += '<td><input type="text" placeholder="Ex: N/A, Local" class="input-field" autocomplete="off" value="{{old("brand")}}" name="brand[]" /></td>';
+            cols += '<td><input type="number" class="input-field" autocomplete="off" value="{{old("qty")}}" name="qty[]" required/></td>';
             cols += '<td><a type="button" class="ibtnDel waves-effect waves-light btn"><i class="material-icons">delete_forever</i></a></td>';
             newRow.append(cols);
             if (counter >= limit) $('#addrow').attr('disabled', true).prop('value', "You've reached the limit");

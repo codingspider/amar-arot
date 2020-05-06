@@ -5,6 +5,9 @@
     <div class="section">
         <div class="row">
             <div class="col s12">
+                <h4 class="center-align">Please add your bazar list</h4>
+            </div>
+            <div class="col s12">
                 @if(session()->has('success'))
                 <div class="alert alert-success">
                     {{ session()->get('success') }}
@@ -30,20 +33,17 @@
     </div>
     <div class="section">
         <div class="row">
-            <div class="col s12">
-                <h4>Please add your bazar list</h4>
 
-            </div>
             <div class="col s12">
                 <form action="{{route('express-orders.store')}}" method="POST">
                     @csrf
                     <table id="myTable" class="order-list striped">
                         <thead>
                             <tr>
-                                <td width="65%">Name</td>
-                                <td width="15%">Brand</td>
-                                <td width="10%">Quantity</td>
-                                <td width="10%">Action</td>
+                                <th width="65%">Name</th>
+                                <th width="15%">Brand</th>
+                                <th width="10%">Quantity</th>
+                                <th width="10%">Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -51,16 +51,16 @@
                                 <td>
                                     <div class="input-field inline" style="width: 100% !important;">
                                         <i class="material-icons prefix" type="button" id="mic-icon" onclick="voice_input('#product','#mic-icon')">keyboard_voice</i>
-                                        <input type="text" id="product" onclick="productSugest('#product','#suggest')"
+                                        <input type="text" placeholder="Product Name" id="product" onclick="productSugest('#product','#suggest')"
                                             autocomplete="off" value="{{old('name')}}" name="name[]" required>
                                         <div id="suggest"></div>
                                     </div>
                                 </td>
                                 <td>
-                                    <input type="text" value="{{old('brand')}}" name="brand[]">
+                                    <input type="text" placeholder="Ex:N/A, Local" value="{{old('brand')}}" name="brand[]">
                                 </td>
                                 <td>
-                                    <input type="text" class="input-field" autocomplete="off" value="{{old('qty')}}"
+                                    <input type="number" class="input-field" autocomplete="off" value="{{old('qty')}}"
                                         name="qty[]" required />
                                 </td>
                                 <td>
@@ -192,11 +192,11 @@
 
             var newRow = $("<tr>");
             var cols = "";
-            cols += '<td><div class="input-field inline" style="width: 100% !important;"><i class="material-icons prefix" type="button" id="mic-icon' + counter + '" onclick=voice_input("#product' + counter + '","#mic-icon' + counter + '")>keyboard_voice</i><input type="text" id="product' + counter + '" onclick=productSugest("#product' + counter + '","#suggest' + counter + '") class="input-field" autocomplete="off" value="{{old("name")}}" name="name[]" required><div id="suggest' + counter + '"></div></td></div>';
+            cols += '<td><div class="input-field inline" style="width: 100% !important;"><i class="material-icons prefix" type="button" id="mic-icon' + counter + '" onclick=voice_input("#product' + counter + '","#mic-icon' + counter + '")>keyboard_voice</i><input type="text" placeholder="Product Name" id="product' + counter + '" onclick=productSugest("#product' + counter + '","#suggest' + counter + '") class="input-field" autocomplete="off" value="{{old("name")}}" name="name[]" required><div id="suggest' + counter + '"></div></td></div>';
 
-            cols += '<td><input type="text" value="{{old("brand")}}" name="brand[]"></td>';
+            cols += '<td><input type="text" value="{{old("brand")}}" placeholder="Ex:N/A, Local" name="brand[]"></td>';
 
-            cols += '<td><input type="text" class="input-field" autocomplete="off" value="{{old("qty")}}" name="qty[]" required/></td>';
+            cols += '<td><input type="number" class="input-field" autocomplete="off" value="{{old("qty")}}" name="qty[]" required/></td>';
             cols += '<td><a type="button" class="ibtnDel waves-effect waves-light btn"><i class="material-icons">delete_forever</i></a></td>';
             newRow.append(cols);
             if (counter >= limit) $('#addrow').attr('disabled', true).prop('value', "You've reached the limit");

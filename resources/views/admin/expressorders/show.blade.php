@@ -25,7 +25,7 @@
             </div>
         </div>
         <div class="row z-depth-1">
-            <div class="col s12 m6">
+            <div class="col s12 m5">
                 <p>
                     {{__('order.Buyer Name')}} {{$user->name}} <br>
                     {{__('product.Phone')}} {{$user->phone}} <br>
@@ -39,9 +39,9 @@
                     {{__('order.Date')}}:{{$express_order->created_at}}
                 </p>
             </div>
-            <div class="col s12 m2">
+            <div class="col s12 m3">
                 <p>
-                    <a href="{{route('admin.express-orders.edit',$express_order->id)}}" class="btn"> Edit</a>
+                    <a href="{{route('admin.express-orders.edit',$express_order->id)}}" class="btn">Add Price</a>
                     <a href="{{route('admin.express-orders.index')}}" class="btn">Back</a>
                 </p>
             </div>

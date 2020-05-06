@@ -91,7 +91,7 @@
                                     <input type="button" class="btn" id="addrow" value="Add Row" />
                                 </td>
                                 <td colspan="5" style="text-align: right;">
-                                    <input type="submit" class="btn" value="Order" />
+                                    <input type="submit" class="btn" value="Confirm Order" />
                                 </td>
                             </tr>
                         </tfoot>

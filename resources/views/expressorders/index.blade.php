@@ -49,16 +49,11 @@
                                     class="btn btn-sm light-blue">{{__('order.Details')}}</a></td>
                         </tr>
                         @endforeach
-
                     </tbody>
                 </table>
             </div>
         </div>
-
     </div>
     <br><br>
 </div>
-
-
-
 @endsection

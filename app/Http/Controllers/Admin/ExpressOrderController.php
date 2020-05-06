@@ -30,7 +30,8 @@ class ExpressOrderController extends Controller
      */
     public function create()
     {
-        //
+        $users = User::all();
+        return view('admin.expressorders.create',compact('users'));
     }
 
     /**
@@ -41,7 +42,34 @@ class ExpressOrderController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        foreach ($request->name as $key => $order_detail) {
+            if(empty($request->name[$key])){
+                return back()->with('error','Name is Required');
+            }
+            else if(empty($request->qty[$key])){
+                return back()->with('error','Qty is Required');
+
+            }
+        }
+
+        $exp_order = ExpressOrder::create(
+            [
+                "status" => "Pending",
+                "read_status" => "1",
+                "user_id" => $request->user_id,
+            ]
+        );
+
+        foreach ($request->name as $key => $order_detail) {
+
+            ExpressOrderDetails::create([
+                "exporder_id" => $exp_order->id,
+                "name" => $request->name[$key],
+                "brand" => $request->brand[$key],
+                "qty" => $request->qty[$key],
+            ]);
+        }
+        return back()->with('success', ' Added Successfully');
     }
 
     /**

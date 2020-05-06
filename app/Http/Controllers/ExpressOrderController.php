@@ -6,6 +6,7 @@ use App\ExpressOrder;
 use App\ExpressOrderDetails;
 use App\Model\Products;
 use App\Model\Address;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -67,7 +68,7 @@ class ExpressOrderController extends Controller
                 "qty" => $request->qty[$key],
             ]);
         }
-        return back()->with('success', ' Added Successfully');
+        return back()->with('success', 'Order Added Successfully');
     }
 
     /**
@@ -125,7 +126,7 @@ class ExpressOrderController extends Controller
                 "qty" => $request->qty[$key],
             ]);
         }
-        return redirect()->route('express-orders.show',$id)->with('success', 'Updated Successfully');
+        return redirect()->route('express-orders.show',$id)->with('success', 'Order Updated Successfully');
     }
 
     /**
@@ -141,7 +142,7 @@ class ExpressOrderController extends Controller
         return redirect()->route('express-orders.index')->with('success', 'Deleted Successfully');
     }
 
-    
+
     public function ajaxProductListRequest(Request $request)
     {
         // return $request->product;

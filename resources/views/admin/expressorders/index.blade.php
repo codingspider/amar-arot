@@ -15,7 +15,7 @@
 
 <div class="container">
     <div class="section">
-        <h5><a href="{{route('express-orders.create')}}" class="btn">{{__('order.New Order')}}</a></h5>
+        <h5><a href="{{route('admin.express-orders.create')}}" class="btn">{{__('order.New Order')}}</a></h5>
 
         <div class="row">
             <div class="col s12 z-depth-1">

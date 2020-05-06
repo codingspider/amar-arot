@@ -1,96 +1,104 @@
-@extends('layouts.app')
-@section('pagetitle','Order-AmarBazar')
+<!DOCTYPE html>
+<html lang="en">
 
-@section('contents')
-<div class="section no-pad-bot" id="index-banner">
-    <div class="container">
-        <br><br>
-        <h1 class="header center light-blue-text">{{__('welcome.Amar Bazar')}}</h1>
-        <div class="row center">
-            <h5 class="header col s12 light">{{__('order.Your order details')}}</h5>
-        </div>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{__('order.Order no')}}- {{$express_order->id}}</title>
+    <style>
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+        td,
+        th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+        #contact{
+            font-family: arial, sans-serif;
+            width: 100%;
+            border: none;
+        }
+        #contact td{
+            border: none;
+            line-height: 5px;;
+        }
+        h1{
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body onload="window.print()">
+    <div class="div">
+        <h1>Amar Arot</h1>
+
+        <table id="contact">
+            <tr>
+                <td>{{__('order.Buyer Name')}}</td>
+                <td>{{$user->name}}</td>
+            </tr>
+            <tr>
+                <td>{{__('product.Phone')}}</td>
+                <td> {{$user->phone}}</td>
+            </tr>
+            <tr>
+                <td>{{__('order.Address')}}</td>
+                <td>@if(!empty($address->address_line_1)){{$address->address_line_1}}@endif</td>
+            </tr>
+            <tr>
+                <td>{{__('order.Date')}}:</td>
+                <td>{{$express_order->created_at}}</td>
+            </tr>
+        </table>
     </div>
-</div>
-
-<div class="container">
-    <div class="section">
-        <!--   Icon Section   -->
-        <div class="row">
-            <div class="col s12">
-                @if(session()->has('success'))
-                <div class="alert alert-success">
-                    {{ session()->get('success') }}
-                </div>
+    <br>
+    <br>
+    <br>
+    <table>
+        <thead>
+            <tr>
+                <th>{{__('product.Product Name bn')}}</th>
+                <th>{{__('cart.brand')}}</th>
+                <th>{{__('cart.Quantity')}}</th>
+                @if($express_order->status == 'Confired' || $express_order->status == 'Processing')
+                <th>{{__('cart.Unit Price')}}</th>
+                <th>{{__('cart.Sub Total')}}</th>
                 @endif
-            </div>
-        </div>
-        <div class="row z-depth-1">
-            <div class="col s12 m6">
-                <p>
-                    {{__('order.Buyer Name')}} {{$user->name}} <br>
-                    {{__('product.Phone')}} {{$user->phone}} <br>
-                    {{__('order.Address')}} @if(!empty($address->address_line_1)){{$address->address_line_1}}@endif
-                </p>
-            </div>
-            <div class="col s12 m4">
-                <p>
-                    {{__('order.Status')}}: {{$express_order->status}} <br>
-                    {{__('order.Order no')}}: {{$express_order->id}} <br>
-                    {{__('order.Date')}}:{{$express_order->created_at}}
-                </p>
-            </div>
-            <div class="col s12 m2">
-                <p>
-                    <a href="{{route('admin.express-orders.edit',$express_order->id)}}" class="btn"> Edit</a>
-                    <a href="{{route('admin.express-orders.index')}}" class="btn">Back</a>
-                </p>
-            </div>
-        </div>
+            </tr>
+        </thead>
+        <tbody>
+        <tbody>
+            @foreach($express_order_details as $item)
+            <tr>
+                <td>{{$item->name}}</td>
+                <td>{{$item->brand}}</td>
+                <td>{{$item->qty}}</td>
+                @if($item->unit_price)
+                <td>{{$item->unit_price}}</td>
+                <td>{{$item->unit_price*$item->qty}}</td>
+                @php
+                $total_price += $item->unit_price*$item->qty;
+                @endphp
+                @endif
+            </tr>
+            @endforeach
 
-        <div class="row" onload="window.print()">
-            <div class="col s12 z-depth-1">
-                <table class="responsive-table">
-                    <thead>
-                        <tr>
-                            <th>{{__('product.Product Name bn')}}</th>
-                            <th>{{__('cart.brand')}}</th>
-                            <th>{{__('cart.Quantity')}}</th>
-                            @if($express_order->status == 'Confired' || $express_order->status == 'Processing')
-                            <th>{{__('cart.Unit Price')}}</th>
-                            <th>{{__('cart.Sub Total')}}</th>
-                            @endif
-                        </tr>
-                    </thead>
 
-                    <tbody>
-                        @foreach($express_order_details as $item)
-                        <tr>
-                            <td>{{$item->name}}</td>
-                            <td>{{$item->brand}}</td>
-                            <td>{{$item->qty}}</td>
-                            @if($item->unit_price)
-                            <td>{{$item->unit_price}}</td>
-                            <td>{{$item->unit_price*$item->qty}}</td>
-                            @php
-                            $total_price += $item->unit_price*$item->qty;
-                            @endphp
-                            @endif
-                        </tr>
-                        @endforeach
-                        @if($express_order->status == 'Confired')
+        </tbody>
+        <tfoot>
+            @if($express_order->status == 'Confired'|| $express_order->status == 'Processing')
+            <tr>
+                <td colspan="4">{{__('cart.Total')}}</td>
+                <td>{{$total_price}}</td>
+            </tr>
+            @endif
+        </tfoot>
+        </tbody>
+    </table>
+</body>
 
-                        <tr>
-                            <td colspan="4">{{__('cart.Total')}}</td>
-                            <td>{{$total_price}}</td>
-                        </tr>
-                        @endif
-
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-    <br><br>
-</div>
-
-@endsection
+</html>
