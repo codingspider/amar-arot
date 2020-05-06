@@ -11,22 +11,27 @@
             border-collapse: collapse;
             width: 100%;
         }
+
         td,
         th {
             border: 1px solid #dddddd;
             text-align: left;
             padding: 8px;
         }
-        #contact{
+
+        #contact {
             font-family: arial, sans-serif;
             width: 100%;
             border: none;
         }
-        #contact td{
+
+        #contact td {
             border: none;
-            line-height: 5px;;
+            line-height: 5px;
+            ;
         }
-        h1{
+
+        h1 {
             text-align: center;
         }
     </style>
@@ -47,7 +52,8 @@
             </tr>
             <tr>
                 <td>{{__('order.Address')}}</td>
-                <td>@if(!empty($address->address_line_1)){{$address->address_line_1}}@endif @if(!empty($address->name)){{$address->name}}@endif</td>
+                <td>@if(!empty($address->address_line_1)){{$address->address_line_1}}@endif
+                    @if(!empty($address->name)){{$address->name}}@endif</td>
             </tr>
             <tr>
                 <td>{{__('order.Date')}}:</td>
@@ -64,6 +70,7 @@
                 <th>{{__('product.Product Name bn')}}</th>
                 <th>{{__('cart.brand')}}</th>
                 <th>{{__('cart.Quantity')}}</th>
+                <th>{{__('cart.Unit')}}</th>
                 @if($express_order->status == 'Confired' || $express_order->status == 'Processing')
                 <th>{{__('cart.Unit Price')}}</th>
                 <th>{{__('cart.Sub Total')}}</th>
@@ -77,6 +84,7 @@
                 <td>{{$item->name}}</td>
                 <td>{{$item->brand}}</td>
                 <td>{{$item->qty}}</td>
+                <td>{{$item->unit}}</td>
                 @if($item->unit_price)
                 <td>{{$item->unit_price}}</td>
                 <td>{{$item->unit_price*$item->qty}}</td>
@@ -87,13 +95,16 @@
             </tr>
             @endforeach
 
-
         </tbody>
         <tfoot>
+            <tr>
+                <td colspan="5">{{__('cart.Delivery')}}</td>
+                <td>100</td>
+            </tr>
             @if($express_order->status == 'Confired'|| $express_order->status == 'Processing')
             <tr>
-                <td colspan="4">{{__('cart.Total')}}</td>
-                <td>{{$total_price}}</td>
+                <td colspan="5">{{__('cart.Total')}}</td>
+                <td>{{$total_price+100}}</td>
             </tr>
             @endif
         </tfoot>

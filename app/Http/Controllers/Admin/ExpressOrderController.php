@@ -35,7 +35,7 @@ class ExpressOrderController extends Controller
         $units = MeasurmentUnit::all();
 
         $users = User::all();
-        return view('admin.expressorders.create',compact('users','units'));
+        return view('admin.expressorders.create', compact('users', 'units'));
     }
 
     /**
@@ -47,12 +47,10 @@ class ExpressOrderController extends Controller
     public function store(Request $request)
     {
         foreach ($request->name as $key => $order_detail) {
-            if(empty($request->name[$key])){
-                return back()->with('error','Name is Required');
-            }
-            else if(empty($request->qty[$key])){
-                return back()->with('error','Qty is Required');
-
+            if (empty($request->name[$key])) {
+                return back()->with('error', 'Name is Required');
+            } else if (empty($request->qty[$key])) {
+                return back()->with('error', 'Qty is Required');
             }
         }
 
@@ -92,7 +90,7 @@ class ExpressOrderController extends Controller
         $express_order_details = ExpressOrderDetails::where('exporder_id', $id)->get();
         $address = Address::join('districts', 'districts.id', 'addresses.district_id')->where('user_id', $express_order->user_id)->where('addresses.status', '1')->where('addresses.type', '1')->first();
         // dd($address);
-        return view('admin/expressorders.show', compact('express_order', 'express_order_details', 'address', 'total_price','user'));
+        return view('admin/expressorders.show', compact('express_order', 'express_order_details', 'address', 'total_price', 'user'));
     }
 
     /**
@@ -105,7 +103,7 @@ class ExpressOrderController extends Controller
     {
         $units = MeasurmentUnit::all();
         $express_order_details = ExpressOrderDetails::where('exporder_id', $id)->get();
-        return view('admin/expressorders.edit', compact('express_order_details', 'id','units'));
+        return view('admin/expressorders.edit', compact('express_order_details', 'id', 'units'));
     }
 
     /**

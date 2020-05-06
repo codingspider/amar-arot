@@ -51,15 +51,15 @@ class SalerProductController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            "name"                 => 'required|max:100',
-            "name_bn"              => 'max:100',
-            "price"                => 'required|regex:/^\d+(\.\d{1,2})?$/',
-            "sale_price"           => 'regex:/^\d+(\.\d{1,2})?$/|max:8',
-            "stock_qty"            => 'required|regex:/^\d+(\.\d{1,2})?$/',
-            "short_description"    => 'max:100',
-            "description"          => 'max:1000',
-            "short_description_bn" => 'max:100',
-            "description_bn"       => 'max:1000',
+            "name"                 => 'required|max:200',
+            "name_bn"              => 'max:200',
+            "price"                => 'required|max:8|regex:/^\d+(\.\d{1,2})?$/',
+            "sale_price"           => 'max:8|regex:/^\d+(\.\d{1,2})?$/|max:8',
+            "stock_qty"            => 'required|max:8|regex:/^\d+(\.\d{1,2})?$/',
+            "short_description"    => 'max:200',
+            "description"          => 'max:2000',
+            "short_description_bn" => 'max:200',
+            "description_bn"       => 'max:2000',
             "measurment_unit_id"   => 'required',
             "catagory_id"          => 'required',
         ]);
@@ -122,15 +122,15 @@ class SalerProductController extends Controller
     public function update(Request $request, Products $sale)
     {
         $this->validate($request, [
-            "name"                 => 'required|max:100',
-            "name_bn"              => 'max:100',
-            "price"                => 'required|regex:/^\d+(\.\d{1,2})?$/',
-            "sale_price"           => 'regex:/^\d+(\.\d{1,2})?$/|max:8',
-            "stock_qty"            => 'required|regex:/^\d+(\.\d{1,2})?$/',
-            "short_description"    => 'max:100',
-            "description"          => 'max:1000',
-            "short_description_bn" => 'max:100',
-            "description_bn"       => 'max:1000',
+            "name"                 => 'required|max:200',
+            "name_bn"              => 'max:200',
+            "price"                => 'required|max:8|regex:/^\d+(\.\d{1,2})?$/',
+            "sale_price"           => 'max:8|regex:/^\d+(\.\d{1,2})?$/|max:8',
+            "stock_qty"            => 'required|max:8|regex:/^\d+(\.\d{1,2})?$/',
+            "short_description"    => 'max:200',
+            "description"          => 'max:2000',
+            "short_description_bn" => 'max:200',
+            "description_bn"       => 'max:2000',
             "measurment_unit_id"   => 'required',
             "catagory_id"          => 'required',
         ]);

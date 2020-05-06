@@ -13,7 +13,7 @@ class ExpressOrderConfiramtionController extends Controller
 {
     public function orderConfiramtion($id)
     {
-        if(empty(Auth::user()->phone)){
+        if (empty(Auth::user()->phone)) {
             return redirect()->route('profiles.show', Auth::user()->id)->with('success', 'Please Add Your Phone Number Then Confirm Your Order');
         }
         $address = Address::where('user_id', Auth::user()->id)->get();

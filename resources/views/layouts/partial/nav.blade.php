@@ -1,10 +1,12 @@
 @php
 $exp_new_orders = \DB::table('express_orders')->where('read_status','1')->get()->count();
-$exp_new_orders_user_confirmed = \DB::table('express_orders')->where('read_status','0')->where('status','Confirmed')->where('user_status','1')->whereNull('deleted_by')->get()->count();
+$exp_new_orders_user_confirmed =
+\DB::table('express_orders')->where('read_status','0')->where('status','Confirmed')->where('user_status','1')->whereNull('deleted_by')->get()->count();
 
 
 
-$exp_new_user_order = \DB::table('express_orders')->where('user_status','0')->where('status','Confirmed')->where('user_id',Auth::user()->id)->whereNull('deleted_by')->get()->count();
+$exp_new_user_order =
+\DB::table('express_orders')->where('user_status','0')->where('status','Confirmed')->where('user_id',Auth::user()->id)->whereNull('deleted_by')->get()->count();
 @endphp
 <nav class="light-blue lighten-1" role="navigation">
     <div class="nav-wrapper container"><a id="logo-container" href="{{url('home')}}"
@@ -65,9 +67,9 @@ $exp_new_user_order = \DB::table('express_orders')->where('user_status','0')->wh
                 class="material-icons white-text">apps</i>{{__('nav.Manage_Express_order')}}@if($exp_new_orders>0)<span
                 class="new badge">{{$exp_new_orders}}</span>@endif </a>
 
-                {{--User Confired Count
+        {{--User Confired Count
                     @if($exp_new_orders_user_confirmed>0)<span class="new badge" data-badge-caption="q">{{$exp_new_orders_user_confirmed}}</span>@endif
-                --}}
+        --}}
     </li>
 
     <li id="butRefresh"><a href="{{ route('roles.index') }}" class="waves-effect white-text"><i

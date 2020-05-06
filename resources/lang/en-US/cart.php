@@ -31,6 +31,5 @@ return [
     'Confirm Order'=>'Confirm Order',
     'Order'=>'Order',
     'Unit'=>'একক',
-
+    'Delivery'=>'Delivery Charge'
 ];
-?>
