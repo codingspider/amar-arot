@@ -27,8 +27,8 @@
         <div class="row z-depth-1">
             <div class="col s12 m6">
                 <p>
-                    {{__('order.Buyer Name')}} {{Auth::user()->name}} <br>
-                    {{__('product.Phone')}} {{Auth::user()->phone}} <br>
+                    {{__('order.Buyer Name')}} {{$user->name}} <br>
+                    {{__('product.Phone')}} {{$user->phone}} <br>
                     {{__('order.Address')}} @if(!empty($address->address_line_1)){{$address->address_line_1}}@endif
                 </p>
             </div>
@@ -41,38 +41,24 @@
             </div>
             <div class="col s12 m2">
                 <p>
-                    @if($express_order->status == "Confired")
-                    <a href="{{route('orderconfiramtion',$express_order->id)}}" class="btn">Confirm Your Order</a>
-
-                    @elseif($express_order->status == "Processing")
-                    <a href="{{route('orderconfiramtion',$express_order->id)}}" class="btn disabled">
-                        Confired</a>
-                    @else
-                    <a href="{{route('express-orders.edit',$express_order->id)}}" class="btn">Edit</a>
-                    @endif
-                    <form action="{{route('express-orders.destroy',$express_order->id)}}" method="POST">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-red disabled">Cancel</button>
-                    </form>
+                    <a href="{{route('admin.express-orders.edit',$express_order->id)}}" class="btn"> Edit</a>
+                    <a href="{{route('admin.express-orders.index')}}" class="btn">Back</a>
                 </p>
             </div>
         </div>
 
-        <div class="row">
+        <div class="row" onload="window.print()">
             <div class="col s12 z-depth-1">
                 <table class="responsive-table">
                     <thead>
                         <tr>
-                        <tr>
                             <th>{{__('product.Product Name bn')}}</th>
                             <th>{{__('cart.brand')}}</th>
                             <th>{{__('cart.Quantity')}}</th>
-                            @if($express_order->status == 'Confired')
+                            @if($express_order->status == 'Confired' || $express_order->status == 'Processing')
                             <th>{{__('cart.Unit Price')}}</th>
                             <th>{{__('cart.Sub Total')}}</th>
                             @endif
-                        </tr>
                         </tr>
                     </thead>
 
@@ -98,6 +84,7 @@
                             <td>{{$total_price}}</td>
                         </tr>
                         @endif
+
                     </tbody>
                 </table>
             </div>

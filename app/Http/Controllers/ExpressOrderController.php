@@ -19,7 +19,7 @@ class ExpressOrderController extends Controller
     public function index()
     {
         $exp_orders = ExpressOrder::where('user_id', Auth::user()->id)->get();
-        return view('admin/expressorders.index', compact('exp_orders'));
+        return view('expressorders.index', compact('exp_orders'));
     }
 
     /**
@@ -53,6 +53,7 @@ class ExpressOrderController extends Controller
         $exp_order = ExpressOrder::create(
             [
                 "status" => "Pending",
+                "read_status" => "1",
                 "user_id" => Auth::user()->id,
             ]
         );
@@ -77,11 +78,12 @@ class ExpressOrderController extends Controller
      */
     public function show($id)
     {
+        $total_price=0;
         $express_order  = ExpressOrder::find($id);
         $express_order_details = ExpressOrderDetails::where('exporder_id', $id)->get();
         $address = Address::join('districts','districts.id','addresses.district_id')->where('user_id',$express_order->user_id)->where('addresses.status','1')->where('addresses.type','1')->first();
         // dd($address);
-        return view('expressorders.show', compact('express_order','express_order_details','address'));
+        return view('expressorders.show', compact('express_order','express_order_details','address','total_price'));
     }
 
     /**
@@ -138,6 +140,8 @@ class ExpressOrderController extends Controller
         ExpressOrder::find($id)->delete();
         return redirect()->route('express-orders.index')->with('success', 'Deleted Successfully');
     }
+
+    
     public function ajaxProductListRequest(Request $request)
     {
         // return $request->product;

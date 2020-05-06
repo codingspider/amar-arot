@@ -63,14 +63,8 @@
                                     </div>
                                 </td>
                                 <td>
-                                    <select class="input-field" autocomplete="off" value="{{old('brand')}}"
-                                        name="brand[]">
-                                        <option value="N/A" @if($item->brand == "N/A") selected @endif>N/A</option>
-                                        <option value="Local" @if($item->brand == "Local") selected @endif>Local
-                                        </option>
-                                        <option value="ACI" @if($item->brand == "ACI") selected @endif>ACI</option>
-                                        <option value="PRAN" @if($item->brand == "PRAN") selected @endif>PRAN</option>
-                                    </select>
+                                    <input class="input-field" autocomplete="off" value="{{$item->brand}}"
+                                    name="brand[]">
                                 </td>
                                 <td>
                                     <input type="text" class="input-field" autocomplete="off" value="{{ $item->qty}}"

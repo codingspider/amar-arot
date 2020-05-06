@@ -65,14 +65,7 @@
                                     </div>
                                 </td>
                                 <td>
-                                    <select class="input-field" autocomplete="off" value="{{old('brand')}}"
-                                        name="brand[]">
-                                        <option value="N/A" @if($item->brand == "N/A") selected @endif>N/A</option>
-                                        <option value="Local" @if($item->brand == "Local") selected @endif>Local
-                                        </option>
-                                        <option value="ACI" @if($item->brand == "ACI") selected @endif>ACI</option>
-                                        <option value="PRAN" @if($item->brand == "PRAN") selected @endif>PRAN</option>
-                                    </select>
+                                    <input type="text" name="brand[]" value="{{ $item->brand}}">
                                 </td>
                                 <td>
                                     <input type="text" class="input-field" autocomplete="off" id="qty{{$key}}"
@@ -80,13 +73,13 @@
                                 </td>
                                 <td>
                                     <input type="text" class="input-field" autocomplete="off" name="unit_price[]" id="unit_price{{$key}}" value="{{ $item->unit_price}}"
-                                        onchange="totalPrice('#qty{{$key}}', '#unit_price{{$key}}', '#total_price{{$key}}')">
+                                        onchange="totalPrice('#qty{{$key}}', '#unit_price{{$key}}', '#total_price{{$key}}')" required>
                                 </td>
                                 <td>
                                     <p id="total_price{{$key}}">{{$item->qty*$item->unit_price}}</p>
                                 </td>
                                 <td>
-                                    <a type="button" class="ibtnDel waves-effect waves-light btn"><i
+                                    <a type="button" class="ibtnDel waves-effect waves-light btn disabled"><i
                                             class="material-icons">delete_forever</i></a>
                                 </td>
                             </tr>
@@ -97,7 +90,7 @@
                                 <td colspan="" style="text-align: left;">
                                     <input type="button" class="btn" id="addrow" value="Add Row" />
                                 </td>
-                                <td colspan="4" style="text-align: right;">
+                                <td colspan="5" style="text-align: right;">
                                     <input type="submit" class="btn" value="Order" />
                                 </td>
                             </tr>
@@ -214,11 +207,11 @@
             var cols = "";
             cols += '<td><div class="input-field inline" style="width: 100% !important;"><i class="material-icons prefix" type="button" id="mic-icon' + counter + '" onclick=voice_input("#product' + counter + '","#mic-icon' + counter + '")>keyboard_voice</i><input type="text" id="product' + counter + '" onclick=productSugest("#product' + counter + '","#suggest' + counter + '") class="input-field" autocomplete="off" value="{{old("name")}}" name="name[]" required><div id="suggest' + counter + '"></div></div></td>';
 
-            cols += '<td><select class="input-field" autocomplete="off" name="brand[]"><option value="N/A">N/A</option><option value="Local">Local</option><option value="ACI">ACI</option><option value="PRAN">PRAN</option></select></td>';
+            cols += '<td><input type="text" name="brand[]" ></td>';
 
             cols += '<td><input type="text" class="input-field" autocomplete="off" id="qty'+counter+'" name="qty[]" required /></td>';
 
-            cols += '<td><input type="text" name="unit_price[]" id="unit_price'+counter+'" onchange="totalPrice(`#qty'+counter+'`, `#unit_price'+counter+'`, `#total_price'+counter+'`)"></td>';
+            cols += '<td><input type="text" name="unit_price[]" id="unit_price'+counter+'" onchange="totalPrice(`#qty'+counter+'`, `#unit_price'+counter+'`, `#total_price'+counter+'`)" required></td>';
 
             cols += '<td><p id="total_price'+counter+'"></p></td>';
 

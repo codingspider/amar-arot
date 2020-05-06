@@ -13,6 +13,6 @@ return [
     'logout' => 'লগআউট',
     'login' => 'লগইন',
     'Manage_order' => 'অর্ডার পরিচালনা করুন',
-    'Express Order' => 'দূর্ত অর্ডার'
+    'Express Order' => 'ফর্দ'
 ];
 ?>

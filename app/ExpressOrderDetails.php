@@ -7,6 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class ExpressOrderDetails extends Model
 {
     //
-    protected $fillable=['exporder_id','name','brand','qty'];
+    protected $fillable=['exporder_id','name','brand','unit_price','qty'];
 
 }

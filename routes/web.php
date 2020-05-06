@@ -35,6 +35,8 @@ Route::get('details/{id}', 'HomeController@show')->name('details');
 // Admin Route
 Route::group(['prefix' => 'admin','as'=>'admin.',  'middleware' => 'auth'],function(){
     route::resource('express-orders','Admin\ExpressOrderController');
+    route::get('print-express-order/{id}','ExpressOrderConfiramtionController@printExpressOrder')->name('print_express_order');
+
 });
 
 // Authenticate User Route
@@ -70,6 +72,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('change/order/status/form', 'OrderController@status_change_done');
     Route::get('order/status/change/{id}', 'OrderController@order_status_change');
     Route::get('re-order/{id}', 'OrderController@re_order');
+    Route::get('expess-order-confiramtion/{id}', 'ExpressOrderConfiramtionController@orderConfiramtion')->name('orderconfiramtion');
+
 
 });
 

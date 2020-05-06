@@ -27,8 +27,8 @@
         <div class="row z-depth-1">
             <div class="col s12 m6">
                 <p>
-                    {{__('order.Buyer Name')}} {{Auth::user()->name}} <br>
-                    {{__('product.Phone')}} {{Auth::user()->phone}} <br>
+                    {{__('order.Buyer Name')}} {{$user->name}} <br>
+                    {{__('product.Phone')}} {{$user->phone}} <br>
                     {{__('order.Address')}} @if(!empty($address->address_line_1)){{$address->address_line_1}}@endif
                 </p>
             </div>
@@ -42,11 +42,7 @@
             <div class="col s12 m2">
                 <p>
                     <a href="{{route('admin.express-orders.edit',$express_order->id)}}" class="btn"> Edit</a>
-                    <form action="{{route('admin.express-orders.destroy',$express_order->id)}}" method="POST">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-red"> Cancel</button>
-                    </form>
+                    <a href="{{route('admin.express-orders.index')}}" class="btn">Back</a>
                 </p>
             </div>
         </div>
@@ -59,6 +55,10 @@
                             <th>{{__('product.Product Name bn')}}</th>
                             <th>{{__('cart.brand')}}</th>
                             <th>{{__('cart.Quantity')}}</th>
+                            @if($express_order->status == 'Confired'|| $express_order->status == 'Processing')
+                            <th>{{__('cart.Unit Price')}}</th>
+                            <th>{{__('cart.Sub Total')}}</th>
+                            @endif
                         </tr>
                     </thead>
 
@@ -68,8 +68,23 @@
                             <td>{{$item->name}}</td>
                             <td>{{$item->brand}}</td>
                             <td>{{$item->qty}}</td>
+                            @if($item->unit_price)
+                            <td>{{$item->unit_price}}</td>
+                            <td>{{$item->unit_price*$item->qty}}</td>
+                            @php
+                            $total_price += $item->unit_price*$item->qty;
+                            @endphp
+                            @endif
                         </tr>
                         @endforeach
+                        @if($express_order->status == 'Confired')
+
+                        <tr>
+                            <td colspan="4">{{__('cart.Total')}}</td>
+                            <td>{{$total_price}}</td>
+                        </tr>
+                        @endif
+
                     </tbody>
                 </table>
             </div>

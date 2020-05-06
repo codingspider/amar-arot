@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\ExpressOrder;
 use App\ExpressOrderDetails;
 use App\Model\Address;
+use App\User;
 use Illuminate\Support\Facades\DB;
 
 class ExpressOrderController extends Controller
@@ -51,11 +52,14 @@ class ExpressOrderController extends Controller
      */
     public function show($id)
     {
+
         $express_order  = ExpressOrder::find($id);
+        $user = User::find($express_order->user_id);
+        $total_price = 0;
         $express_order_details = ExpressOrderDetails::where('exporder_id', $id)->get();
-        $address = Address::join('districts','districts.id','addresses.district_id')->where('user_id',$express_order->user_id)->where('addresses.status','1')->where('addresses.type','1')->first();
+        $address = Address::join('districts', 'districts.id', 'addresses.district_id')->where('user_id', $express_order->user_id)->where('addresses.status', '1')->where('addresses.type', '1')->first();
         // dd($address);
-        return view('admin/expressorders.show', compact('express_order','express_order_details','address'));
+        return view('admin/expressorders.show', compact('express_order', 'express_order_details', 'address', 'total_price','user'));
     }
 
     /**
@@ -67,7 +71,7 @@ class ExpressOrderController extends Controller
     public function edit($id)
     {
         $express_order_details = ExpressOrderDetails::where('exporder_id', $id)->get();
-        return view('admin/expressorders.edit',compact('express_order_details','id'));
+        return view('admin/expressorders.edit', compact('express_order_details', 'id'));
     }
 
     /**
@@ -81,15 +85,14 @@ class ExpressOrderController extends Controller
     {
         // return $request->unit_price;
         foreach ($request->name as $key => $order_detail) {
-            if(empty($request->name[$key])){
-                return back()->with('error','Name is Required');
-            }
-            else if(empty($request->qty[$key])){
-                return back()->with('error','Qty is Required');
+            if (empty($request->name[$key])) {
+                return back()->with('error', 'Name is Required');
+            } else if (empty($request->qty[$key])) {
+                return back()->with('error', 'Qty is Required');
             }
         }
 
-        ExpressOrderDetails::where('exporder_id',$id)->delete();
+        ExpressOrderDetails::where('exporder_id', $id)->delete();
 
         foreach ($request->name as $key => $order_detail) {
             $products = DB::table('express_order_details')->insert([
@@ -100,7 +103,14 @@ class ExpressOrderController extends Controller
                 "qty" => $request->qty[$key],
             ]);
         }
-        return back();
+        ExpressOrder::where('id', $id)->update(
+            [
+                'status' => 'Confired',
+                'read_status' => '0',
+                'user_status' => '0',
+            ]
+        );
+        return redirect()->route('admin.express-orders.show', $id)->with('success', 'Product Price Added Successfully');
     }
 
     /**

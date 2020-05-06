@@ -25,6 +25,7 @@
                             <th>{{__('order.Order no')}}</th>
                             <th>{{__('order.Date')}}</th>
                             <th>{{__('order.Status')}}</th>
+                            <th>{{__('order.User Confirmation')}}</th>
                             <th class="center">{{__('order.Details')}}</th>
                         </tr>
                     </thead>
@@ -34,9 +35,19 @@
                         <tr>
                             <td>{{$exp_order->id}}</td>
                             <td>{{$exp_order->created_at}}</td>
-                            <td>{{$exp_order->status}}@if($exp_order->status == "Pending")<span class="new badge"></span>@endif</td>
+                            <td>{{$exp_order->status}}@if($exp_order->read_status == '1')<span
+                                    class="new badge"></span>@endif</td>
+                            <td>
+                                @if($exp_order->user_status == '0') Pending @endif
+                                @if($exp_order->user_status == '1') User Confired @endif
+                            </td>
                             <td class="center"><a href="{{url('admin/express-orders/'.$exp_order->id)}}"
-                                    class="btn btn-sm light-blue">{{__('order.Details')}}</a></td>
+                                    class="btn btn-sm light-blue">{{__('order.Details')}}</a>
+                                @if($exp_order->user_status == '1')
+                                <a href="{{route('admin.print_express_order',$exp_order->id)}}" class="btn">Print</a>
+                                @endif
+                            </td>
+
                         </tr>
                         @endforeach
                     </tbody>
@@ -53,7 +64,6 @@
     $(document).ready(function () {
         $('#myTable').DataTable();
         $('select').formSelect();
-
     });
 </script>
 @endsection

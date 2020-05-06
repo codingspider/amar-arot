@@ -57,13 +57,7 @@
                                     </div>
                                 </td>
                                 <td>
-                                    <select class="input-field" autocomplete="off" value="{{old('brand')}}"
-                                        name="brand[]">
-                                        <option value="N/A">N/A</option>
-                                        <option value="Local">Local</option>
-                                        <option value="ACI">ACI</option>
-                                        <option value="PRAN">PRAN</option>
-                                    </select>
+                                    <input type="text" value="{{old('brand')}}" name="brand[]">
                                 </td>
                                 <td>
                                     <input type="text" class="input-field" autocomplete="off" value="{{old('qty')}}"
@@ -200,7 +194,7 @@
             var cols = "";
             cols += '<td><div class="input-field inline" style="width: 100% !important;"><i class="material-icons prefix" type="button" id="mic-icon' + counter + '" onclick=voice_input("#product' + counter + '","#mic-icon' + counter + '")>keyboard_voice</i><input type="text" id="product' + counter + '" onclick=productSugest("#product' + counter + '","#suggest' + counter + '") class="input-field" autocomplete="off" value="{{old("name")}}" name="name[]" required><div id="suggest' + counter + '"></div></td></div>';
 
-            cols += '<td><select class="input-field" autocomplete="off" value="{{old("brand")}}" name="brand[]"><option value="N/A">N/A</option><option value="Local">Local</option><option value="ACI">ACI</option><option value="PRAN">PRAN</option></select></td>';
+            cols += '<td><input type="text" value="{{old("brand")}}" name="brand[]"></td>';
 
             cols += '<td><input type="text" class="input-field" autocomplete="off" value="{{old("qty")}}" name="qty[]" required/></td>';
             cols += '<td><a type="button" class="ibtnDel waves-effect waves-light btn"><i class="material-icons">delete_forever</i></a></td>';
