@@ -1,13 +1,13 @@
+@if(Auth::check())
 @php
 $exp_new_orders = \DB::table('express_orders')->where('read_status','1')->get()->count();
 $exp_new_orders_user_confirmed =
 \DB::table('express_orders')->where('read_status','0')->where('status','Confirmed')->where('user_status','1')->whereNull('deleted_by')->get()->count();
 
-
-
 $exp_new_user_order =
 \DB::table('express_orders')->where('user_status','0')->where('status','Confirmed')->where('user_id',Auth::user()->id)->whereNull('deleted_by')->get()->count();
 @endphp
+@endif
 <nav class="light-blue lighten-1" role="navigation">
     <div class="nav-wrapper container"><a id="logo-container" href="{{url('home')}}"
             class="brand-logo">{{__('welcome.Amar Bazar')}}</a>
@@ -42,10 +42,12 @@ $exp_new_user_order =
     <li><a class="waves-effect white-text" href="{{url('orders')}}"><i
                 class="material-icons white-text">add_box</i>{{__('nav.Orders')}}</a></li>
     <li>
+        @if(Auth::check())
     <li><a class="waves-effect white-text" href="{{url('express-orders')}}"><i
                 class="material-icons white-text">add_box</i>{{__('nav.Express Order')}}@if($exp_new_user_order>0)<span
                 class="new badge">{{$exp_new_user_order}}</span>@endif</a></li>
     <li>
+        @endif
         <div class="divider"></div>
     </li>
     <li id="butInstall" hidden><a class="waves-effect white-text"><i
@@ -54,6 +56,7 @@ $exp_new_user_order =
     <li id="butRefresh"><a class="waves-effect white-text"><i
                 class="material-icons white-text">refresh</i>{{__('nav.Refresh')}}</a>
     </li>
+    @if(Auth::check())
     @can('user-list')
 
     <li id="butRefresh"><a href="{{ route('users.index') }}" class="waves-effect white-text"><i
@@ -97,6 +100,7 @@ $exp_new_user_order =
                 class="material-icons white-text">local_offer</i>{{__('cart.coupons')}}</a>
     </li>
     @endcan
+    @endif
     <li>
         <div class="divider"></div>
     </li>

@@ -36,14 +36,12 @@
             @if(count($products)>0)
             @foreach($products as $product)
             <div class="col s6 m3">
-                <div class="card">
+                <div class="card hoverable">
                     <div class="card-image waves-effect waves-block waves-light">
                         <img class="activator" src="{{asset('uploads/'.$product->image)}}">
                     </div>
                     <div class="card-content">
-                        <span class="card-title activator grey-text text-darken-4"><a
-                                href="{{route('details',$product->id)}}"
-                                title="Product Details">{{$product->name}}</a><i
+                        <span class="card-title activator grey-text text-darken-4"><a href="{{route('details',$product->id)}}" title="Product Details">{{$product->name}}</a><i
                                 class="material-icons right">more_vert</i></span>
                         {{-- <p><a href="#" class="btn light-blue">{{__('product.Add to Bag')}}</a></p> --}}
                         <form action="{{ route('cart.store')}}" method="POST">
@@ -51,6 +49,7 @@
                             <input type="hidden" name="id" value="{{ $product->id }}">
                             <input type="hidden" name="name" value="{{ $product->name }}">
                             <input type="hidden" name="price" value="{{ $product->price }}">
+                            <input type="hidden" name="seller_id" value="{{ $product->seller_id }}">
                             @if(Cart::content()->where('id', $product->id)->count() >0)
                             <button class="btn light-blue disabled" type="submit">Already Added </button>
                             @else
@@ -65,7 +64,7 @@
                                 class="material-icons right">close</i></span>
                         <ul>
                             <li>{{__('product.Price')}} {{$product->price}}{{__('cart.Taka')}} {{__('cart.Kg')}}</li>
-                            <li>{{__('product.Minimum Order')}} {{$product->stock_qty}}{{__('cart.Kg')}} </li>
+                            <li>{{__('product.Minimum Order')}} {{$product->stock_qty}}{{$product->unit}} </li>
                             <li>{{__('product.Place')}} {{$product->location}}</li>
                             <li>{{__('product.Seller')}} {{$product->seller_name}}</li>
                             <li>{{__('product.Phone')}} {{$product->phone}}</li>
@@ -74,6 +73,7 @@
                     </div>
                 </div>
             </div>
+
             @endforeach
             @else
             <div class="col s12 m12">
