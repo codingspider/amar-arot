@@ -1,6 +1,6 @@
 <?php
 
 return [
-    'Bio' => 'We are a team of fresh graduates and young entrepreneurs who are seriously affected by Covid 19 facing a situation of stopping our income. Your every purchase shall help us to live and work for the society for good. We also ensure you the fresh and green products to reach your door step at the best price.',
+    'Bio' => 'We are a team of fresh graduates and young entrepreneurs who have their dream implemented in starting of amararot.com. Our promise is to deliver the fresh and green products to reach your door step at the best price. Our vision is to build amararot.com family soaked with love and care. We welcome you to be part of the family. Thank you.',
 ];
 ?>

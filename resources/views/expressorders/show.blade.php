@@ -20,7 +20,22 @@
                 @if(session()->has('success'))
                 <div class="alert alert-success">
                     {{ session()->get('success') }}
+
                 </div>
+                @endif
+            </div>
+            <div class="col s12">
+                @if($express_order->status == "Confired")
+                    @if(empty(Auth::user()->phone))
+                    <p class="btn red">Please Add Your Phone Number To Confirm The Order</p><br>
+                    @endif
+
+                    @if(count($billing)!=1)
+                    <p class="btn red">Please Add Your billing To Confirm The Order</p><br>
+                    @endif
+                    @if(count($shipping)!=1)
+                    <p class="btn red">Please Add Your Shipping To Confirm The Order</p>
+                    @endif
                 @endif
             </div>
         </div>
@@ -29,7 +44,7 @@
                 <p>
                     {{__('order.Buyer Name')}} {{Auth::user()->name}} <br>
                     {{__('product.Phone')}} {{Auth::user()->phone}} <br>
-                    {{__('order.Address')}} @if(!empty($address->address_line_1)){{$address->address_line_1}}@endif
+                    {{__('order.Address')}} @if(!empty($address->address_line_1)){{$address->address_line_1}}@endif @if(!empty($address->name)){{$address->name}}@endif
                 </p>
             </div>
             <div class="col s12 m4">
@@ -42,7 +57,8 @@
             <div class="col s12 m2">
                 <p>
                     @if($express_order->status == "Confired")
-                    <a href="{{route('orderconfiramtion',$express_order->id)}}" class="btn @if($express_order->user_status =='1')disabled @endif">{{__('cart.Confirm')}}</a>
+                    <a href="{{route('orderconfiramtion',$express_order->id)}}"
+                        class="btn @if($express_order->user_status =='1')disabled @endif">{{__('cart.Confirm')}}</a>
 
                     @elseif($express_order->status == "Processing")
                     <a href="{{route('orderconfiramtion',$express_order->id)}}" class="btn disabled">

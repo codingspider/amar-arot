@@ -47,7 +47,7 @@
             </tr>
             <tr>
                 <td>{{__('order.Address')}}</td>
-                <td>@if(!empty($address->address_line_1)){{$address->address_line_1}}@endif</td>
+                <td>@if(!empty($address->address_line_1)){{$address->address_line_1}}@endif @if(!empty($address->name)){{$address->name}}@endif</td>
             </tr>
             <tr>
                 <td>{{__('order.Date')}}:</td>

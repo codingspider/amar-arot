@@ -57,9 +57,9 @@ class SalerProductController extends Controller
             "sale_price"           => 'regex:/^\d+(\.\d{1,2})?$/|max:8',
             "stock_qty"            => 'required|regex:/^\d+(\.\d{1,2})?$/',
             "short_description"    => 'max:100',
-            "description"          => 'max:255',
+            "description"          => 'max:1000',
             "short_description_bn" => 'max:100',
-            "description_bn"       => 'max:255',
+            "description_bn"       => 'max:1000',
             "measurment_unit_id"   => 'required',
             "catagory_id"          => 'required',
         ]);
@@ -70,19 +70,20 @@ class SalerProductController extends Controller
             $originalImage  = $request->file('image');
             // dd($originalImage->getClientOriginalExtension());
             if (
-                $originalImage->getClientOriginalExtension() != 'jpg' || $originalImage->getClientOriginalExtension() != 'JPG' || $originalImage->getClientOriginalExtension() != 'png' ||
-                $originalImage->getClientOriginalExtension() != 'gif' || $originalImage->getClientOriginalExtension() != 'jpeg' || $originalImage->getClientOriginalExtension() != 'JPEG' || $originalImage->getClientOriginalExtension() != 'PNG' || $originalImage->getClientOriginalExtension() != 'GIF' || $originalImage->getClientOriginalExtension() != 'WebP'
+                $originalImage->getClientOriginalExtension() == 'jpg' || $originalImage->getClientOriginalExtension() == 'JPG' || $originalImage->getClientOriginalExtension() == 'png' ||
+                $originalImage->getClientOriginalExtension() == 'gif' || $originalImage->getClientOriginalExtension() == 'jpeg' || $originalImage->getClientOriginalExtension() == 'JPEG' || $originalImage->getClientOriginalExtension() == 'PNG' || $originalImage->getClientOriginalExtension() == 'GIF' || $originalImage->getClientOriginalExtension() == 'WebP'
             ) {
+                $thumbnailImage = Image::make($originalImage);
+                $thumbnailPath  = public_path() . '/uploads/';
+                $originalPath   = public_path() . '/images/';
+                $image_name     = time() . $originalImage->getClientOriginalName();
+                $thumbnailImage->save($originalPath . $image_name);
+                $thumbnailImage->resize(400, 400)->save($thumbnailPath . $image_name);
+                $produt->image = $image_name;
+                $produt->save();
+            } else {
                 return back()->with('success', 'Image extention Must be \'JPG\' \'JPEG\' \'GIF\'');
             }
-            $thumbnailImage = Image::make($originalImage);
-            $thumbnailPath  = public_path() . '/uploads/';
-            $originalPath   = public_path() . '/images/';
-            $image_name     = time() . $originalImage->getClientOriginalName();
-            $thumbnailImage->save($originalPath . $image_name);
-            $thumbnailImage->resize(400, 400)->save($thumbnailPath . $image_name);
-            $produt->image = $image_name;
-            $produt->save();
         }
         return back();
     }
@@ -127,9 +128,9 @@ class SalerProductController extends Controller
             "sale_price"           => 'regex:/^\d+(\.\d{1,2})?$/|max:8',
             "stock_qty"            => 'required|regex:/^\d+(\.\d{1,2})?$/',
             "short_description"    => 'max:100',
-            "description"          => 'max:255',
+            "description"          => 'max:1000',
             "short_description_bn" => 'max:100',
-            "description_bn"       => 'max:255',
+            "description_bn"       => 'max:1000',
             "measurment_unit_id"   => 'required',
             "catagory_id"          => 'required',
         ]);

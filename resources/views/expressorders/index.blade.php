@@ -41,7 +41,7 @@
                             <td><a href="{{route('express-orders.show',$exp_order->id)}}"
                                     class="btn btn-sm light-blue">{{__('cart.Confirm')}}</a></td>
                             @elseif($exp_order->user_status == '1')
-                            <td>Confired</td>
+                            <td>Confirmed</td>
                             @else
                             <td>Pending Price Confiramtion</td>
                             @endif

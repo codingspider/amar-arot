@@ -79,12 +79,15 @@ class ExpressOrderController extends Controller
      */
     public function show($id)
     {
+        $billing = Address::where('user_id', Auth::user()->id)->where('type','0')->where('status','1')->get();
+        $shipping = Address::where('user_id', Auth::user()->id)->where('type','1')->where('status','1')->get();
+
         $total_price=0;
         $express_order  = ExpressOrder::find($id);
         $express_order_details = ExpressOrderDetails::where('exporder_id', $id)->get();
         $address = Address::join('districts','districts.id','addresses.district_id')->where('user_id',$express_order->user_id)->where('addresses.status','1')->where('addresses.type','1')->first();
         // dd($address);
-        return view('expressorders.show', compact('express_order','express_order_details','address','total_price'));
+        return view('expressorders.show', compact('express_order','express_order_details','address','total_price','billing','shipping'));
     }
 
     /**
