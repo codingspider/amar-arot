@@ -137,16 +137,18 @@ class CartController extends Controller
      */
     public function update(Request $request, $id)
     {
+        // dd($request->id); 
         $validator = Validator::make($request->all(), [
-            'quantity' => 'required|numeric|between:1,5'
+            'quantity' => 'required|numeric|between:1,100'
         ]);
 
-        if ($validator->fails()) {
-            session()->flash('errors', collect(['Quantity must be between 1 and 5.']));
-            return response()->json(['success' => false], 400);
-        }
+        // if ($validator->fails()) {
+        //     session()->flash('errors', collect(['Quantity must be between 1 and 100.']));
+        //     return response()->json(['warning' => false], 400);
+        // }
+        $productQuantity = DB::table('products')->where('id', $id)->first();
 
-        if ($request->quantity > $request->productQuantity) {
+        if ($request->quantity > $productQuantity->stock_qty) {
             // session()->flash('errors', collect(['We currently do not have enough items in stock.']));
             return back()->with('success', 'We currently do not have enough items in stock');
         }
@@ -189,15 +191,11 @@ class CartController extends Controller
     }
 
     public function checkout (){
-<<<<<<< HEAD
         
-=======
->>>>>>> 5e349efea309a18243a44d8648fd12319ae3e5e5
         $address = DB::table('addresses')
         ->join('users', 'users.id', 'addresses.user_id')
         ->select('users.*', 'addresses.*')
         ->where('user_id', Auth::id())->orderBy('addresses.id','desc')->first();
-<<<<<<< HEAD
         if (!$address) {
             $profile  = DB::table('users')->where('id', Auth::id())->first();
             $billing = Address::join('districts', 'districts.id', 'addresses.district_id')->where('user_id', Auth::user()->id)->where('type', "0")->where('status', "1")->select('addresses.id', 'addresses.address_line_1', 'addresses.address_line_2', 'addresses.type', 'districts.name')->first();
@@ -209,8 +207,6 @@ class CartController extends Controller
             $shipping_histories = Address::join('districts', 'districts.id', 'addresses.district_id')->where('user_id', Auth::user()->id)->where('type', "1")->where('status', "0")->select('addresses.id', 'addresses.address_line_1', 'addresses.address_line_2', 'addresses.type', 'districts.name')->get();
           return view('profile.index', compact('profile', 'billing', 'shipping', 'billing_histories', 'shipping_histories'));
         }
-=======
->>>>>>> 5e349efea309a18243a44d8648fd12319ae3e5e5
         // dd($address);
         $discount = session()->get('coupon')['discount'];
         $total = Cart::total();
