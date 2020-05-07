@@ -24,7 +24,7 @@ return [
     'category_id' => 'Category Id',
     'measurement_id' =>'Mesurement Id',
     'Selling Price'=>'Selling Price',
-    'Stock'=>'Stock Amount',
+    'Stock'=>'Minimum Order',
     'Photo'=>'Photo',
     'Transportation Cost'=>'Transportation Cost',
     'Minimum Sales amount'=>'Minimum Sales amount',

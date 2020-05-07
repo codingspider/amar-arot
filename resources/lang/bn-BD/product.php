@@ -24,7 +24,7 @@ return [
     'category_id' => 'ক্যাটেগরি নাম',
     'measurement_id' =>'পরিমাপের একক',
     'Selling Price'=>'বিক্রয় মুল্য',
-    'Stock'=>'স্টক পরিমাণ',
+    'Stock'=>'সর্বনিম্ন ক্রয়',
     'Photo'=>'ছবি',
     'Transportation Cost'=>'পরিবহণ খরচ',
     'Minimum Sales amount'=>'সর্বনিম্ন বিক্রয় পরিমাণ',
