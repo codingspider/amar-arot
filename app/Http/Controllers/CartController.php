@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Session;
+use App\Model\Address;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -188,10 +189,22 @@ class CartController extends Controller
     }
 
     public function checkout (){
+        
         $address = DB::table('addresses')
         ->join('users', 'users.id', 'addresses.user_id')
         ->select('users.*', 'addresses.*')
         ->where('user_id', Auth::id())->orderBy('addresses.id','desc')->first();
+        if (!$address) {
+            $profile  = DB::table('users')->where('id', Auth::id())->first();
+            $billing = Address::join('districts', 'districts.id', 'addresses.district_id')->where('user_id', Auth::user()->id)->where('type', "0")->where('status', "1")->select('addresses.id', 'addresses.address_line_1', 'addresses.address_line_2', 'addresses.type', 'districts.name')->first();
+
+            $shipping = Address::join('districts', 'districts.id', 'addresses.district_id')->where('user_id', Auth::user()->id)->where('type', "1")->where('status', "1")->select('addresses.id', 'addresses.address_line_1', 'addresses.address_line_2', 'addresses.type', 'districts.name')->first();
+
+            $billing_histories = Address::join('districts', 'districts.id', 'addresses.district_id')->where('user_id', Auth::user()->id)->where('type', "0")->where('status', "0")->select('addresses.id', 'addresses.address_line_1', 'addresses.address_line_2', 'addresses.type', 'districts.name')->get();
+
+            $shipping_histories = Address::join('districts', 'districts.id', 'addresses.district_id')->where('user_id', Auth::user()->id)->where('type', "1")->where('status', "0")->select('addresses.id', 'addresses.address_line_1', 'addresses.address_line_2', 'addresses.type', 'districts.name')->get();
+          return view('profile.index', compact('profile', 'billing', 'shipping', 'billing_histories', 'shipping_histories'));
+        }
         // dd($address);
         $discount = session()->get('coupon')['discount'];
         $total = Cart::total();
