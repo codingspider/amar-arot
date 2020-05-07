@@ -76,7 +76,7 @@
           <p class="center">{{__('cart.Total')}} {{ $sum + $vat->vat }} {{__('cart.Taka')}} {{__('cart.vat')}}</p>
           @if ($status->status == 'placed')
               
-          <p><a href="{{url('order/status/change/'.$item->status_id )}}" class="btn btn-sm light-blue">{{__('product.Edit')}}</a></p>
+          <p><a href="{{url('order/status/change/'.$item->status_id )}}" class="btn btn-sm light-blue">{{__('product.Cancel')}}</a></p>
           @endif
 
         </div>

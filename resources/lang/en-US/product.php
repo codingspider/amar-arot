@@ -32,6 +32,7 @@ return [
     'Your Products'=>'Your Products',
     'Add New Products'=>'Add New Product',
     'Edit'=>'Edit',
+    'Cancel'=>'Cancel',
     'Catagory'=>'Catagories',
     'Catagory_create'=>'Create New Catagory',
     'catagory_name_en'=>'Catagory Name (English)',

@@ -41,6 +41,7 @@ return [
     'measurment_create'=>'নতুন পরিমাপক',
     'measurment_name_en'=>'পরিমাপক নাম (ইংরেজি)',
     'measurment_name_bn'=>'পরিমাপক নাম (বাংলা)',
+    'Cancel' => 'বাতিল',
 
 ];
 ?>
