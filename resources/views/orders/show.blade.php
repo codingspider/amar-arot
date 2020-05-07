@@ -29,15 +29,9 @@
         </div>
         <div class="col s12 m4">
           <p>
-<<<<<<< HEAD
           {{__('order.Saler Name')}} {{ $seller->name }}<br>
             {{__('product.Phone')}} {{ $seller->phone }} <br>
             {{__('order.Address')}} {{ $seller_address->address_line_1 }}
-=======
-            {{__('order.Saler Name')}} রহিম উদ্দিন <br>
-            {{__('product.Phone')}} ০১৭৩৩৩৩৩৩৩৩৩৩ <br>
-            {{__('order.Address')}} ঠাকুর গাঁও
->>>>>>> 5e349efea309a18243a44d8648fd12319ae3e5e5
           </p>
           </td>
         </div>
@@ -82,11 +76,7 @@
           <p class="center">{{__('cart.Total')}} {{ $sum + $vat->vat }} {{__('cart.Taka')}} {{__('cart.vat')}}</p>
           @if ($status->status == 'placed')
               
-<<<<<<< HEAD
           <p><a href="{{url('order/status/change/'.$item->status_id )}}" class="btn btn-sm light-blue">{{__('product.Cancel')}}</a></p>
-=======
-          <p><a href="{{url('order/status/change/'.$item->status_id )}}" class="btn btn-sm light-blue">{{__('product.Edit')}}</a></p>
->>>>>>> 5e349efea309a18243a44d8648fd12319ae3e5e5
           @endif
 
         </div>
