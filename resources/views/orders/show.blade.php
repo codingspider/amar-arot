@@ -29,9 +29,9 @@
         </div>
         <div class="col s12 m4">
           <p>
-            {{__('order.Saler Name')}} রহিম উদ্দিন <br>
-            {{__('product.Phone')}} ০১৭৩৩৩৩৩৩৩৩৩৩ <br>
-            {{__('order.Address')}} ঠাকুর গাঁও
+          {{__('order.Saler Name')}} {{ $seller->name }}<br>
+            {{__('product.Phone')}} {{ $seller->phone }} <br>
+            {{__('order.Address')}} {{ $seller_address->address_line_1 }}
           </p>
           </td>
         </div>

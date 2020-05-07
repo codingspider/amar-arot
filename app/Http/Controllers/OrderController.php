@@ -55,8 +55,16 @@ class OrderController extends Controller
             ->where('orders.id', $id)
             ->first();
 
-            // dd($status);
-        
+        $seller_id = DB::table('order_details')
+            ->leftjoin('products', 'products.id', '=', 'order_details.product_id')
+            ->leftjoin('orders', 'orders.id', '=', 'order_details.order_id')
+            ->select('products.seller_id as seller_id')
+            ->where('orders.id', $id)
+            ->orderBy('products.id', 'desc')
+            ->first();
+
+        $seller = DB::table('users')->where('id', $seller_id->seller_id)->first();
+        $seller_address = DB::table('addresses')->where('user_id', $seller_id->seller_id)->orderBy('addresses.id', 'desc')->first();
 
 
         $auth_user = DB::table('addresses')
@@ -66,7 +74,7 @@ class OrderController extends Controller
                     ->first();
 
 
-        return view('orders.show', compact('order','auth_user','status', 'vat'));
+        return view('orders.show', compact('order','auth_user','status', 'vat', 'seller', 'seller_address'));
     }
 
 
