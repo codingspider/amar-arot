@@ -1,6 +1,7 @@
 (function ($) {
   $(function () {
     $('select').formSelect();
+    $("select[required]").css({display: "block", height: 0, padding: 0, width: 0, position: 'absolute'});
     $('.sidenav').sidenav();
     $('.fixed-action-btn').floatingActionButton();
     const forms = document.querySelectorAll('.side_add_product');

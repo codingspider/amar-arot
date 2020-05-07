@@ -6,6 +6,7 @@ use App\ExpressOrder;
 use App\ExpressOrderDetails;
 use App\Model\Products;
 use App\Model\Address;
+use App\Model\District;
 use App\Model\MeasurmentUnit;
 use App\User;
 use Illuminate\Http\Request;
@@ -31,8 +32,14 @@ class ExpressOrderController extends Controller
      */
     public function create()
     {
+
+        $billing = Address::join('districts', 'districts.id', 'addresses.district_id')->where('user_id', Auth::user()->id)->where('type', "0")->where('status', "1")->select('addresses.id', 'addresses.address_line_1', 'addresses.address_line_2', 'addresses.type', 'districts.name')->first();
+
+        $shipping = Address::join('districts', 'districts.id', 'addresses.district_id')->where('user_id', Auth::user()->id)->where('type', "1")->where('status', "1")->select('addresses.id', 'addresses.address_line_1', 'addresses.address_line_2', 'addresses.type', 'districts.name')->first();
+
+        $districts = District::all();
         $units = MeasurmentUnit::all();
-        return view('expressorders.create',compact('units'));
+        return view('expressorders.create', compact('units', 'districts', 'billing', 'shipping'));
     }
 
     /**
@@ -43,13 +50,12 @@ class ExpressOrderController extends Controller
      */
     public function store(Request $request)
     {
+        // return $request;
         foreach ($request->name as $key => $order_detail) {
-            if(empty($request->name[$key])){
-                return back()->with('error','Name is Required');
-            }
-            else if(empty($request->qty[$key])){
-                return back()->with('error','Qty is Required');
-
+            if (empty($request->name[$key])) {
+                return back()->with('error', 'Name is Required');
+            } else if (empty($request->qty[$key])) {
+                return back()->with('error', 'Qty is Required');
             }
         }
 
@@ -71,7 +77,59 @@ class ExpressOrderController extends Controller
                 "unit" => $request->unit[$key],
             ]);
         }
-        return redirect()->route('express-orders.show',$exp_order->id)->with('success', 'Order Added Successfully');
+        // billing
+        Address::updateOrCreate(
+            [
+                "id" => $request->billing_id,
+                "status" => "1",
+                "type" => '0',
+                "user_id" => Auth::user()->id,
+
+            ],
+            [
+                "address_line_1" => $request->billing_address,
+                "district_id" => $request->billing_district,
+                "status" => "1",
+                "type" => '0',
+                "user_id" => Auth::user()->id,
+            ]
+        );
+        // Shipping same as Billing
+        if ($request->shipping == 'billing') {
+            Address::updateOrCreate(
+                [
+                    "id" => $request->billing_id,
+                    "status" => "1",
+                    "type" => '1',
+                    "user_id" => Auth::user()->id,
+                ],
+                [
+                    "address_line_1" => $request->billing_address,
+                    "district_id" => $request->billing_district,
+                    "status" => "1",
+                    "type" => '1',
+                    "user_id" => Auth::user()->id,
+                ]
+            );
+        } else {
+            Address::updateOrCreate(
+                [
+                    "id" => $request->shipping_id,
+                    "status" => "1",
+                    "type" => '1',
+                    "user_id" => Auth::user()->id,
+                ],
+                [
+                    "address_line_1" => $request->shipping_address,
+                    "district_id" => $request->shiping_district,
+                    "status" => "1",
+                    "type" => '1',
+                    "user_id" => Auth::user()->id,
+                ]
+            );
+        }
+
+        return redirect()->route('express-orders.show', $exp_order->id)->with('success', 'Order Added Successfully');
     }
 
     /**
@@ -82,15 +140,15 @@ class ExpressOrderController extends Controller
      */
     public function show($id)
     {
-        $billing = Address::where('user_id', Auth::user()->id)->where('type','0')->where('status','1')->get();
-        $shipping = Address::where('user_id', Auth::user()->id)->where('type','1')->where('status','1')->get();
+        $billing = Address::where('user_id', Auth::user()->id)->where('type', '0')->where('status', '1')->get();
+        $shipping = Address::where('user_id', Auth::user()->id)->where('type', '1')->where('status', '1')->get();
 
-        $total_price=0;
+        $total_price = 0;
         $express_order  = ExpressOrder::find($id);
         $express_order_details = ExpressOrderDetails::where('exporder_id', $id)->get();
-        $address = Address::join('districts','districts.id','addresses.district_id')->where('user_id',$express_order->user_id)->where('addresses.status','1')->where('addresses.type','1')->first();
+        $address = Address::join('districts', 'districts.id', 'addresses.district_id')->where('user_id', $express_order->user_id)->where('addresses.status', '1')->where('addresses.type', '1')->first();
         // dd($address);
-        return view('expressorders.show', compact('express_order','express_order_details','address','total_price','billing','shipping'));
+        return view('expressorders.show', compact('express_order', 'express_order_details', 'address', 'total_price', 'billing', 'shipping'));
     }
 
     /**
@@ -103,7 +161,7 @@ class ExpressOrderController extends Controller
     {
         $units = MeasurmentUnit::all();
         $express_order_details = ExpressOrderDetails::where('exporder_id', $id)->get();
-        return view('expressorders.edit',compact('express_order_details','id','units'));
+        return view('expressorders.edit', compact('express_order_details', 'id', 'units'));
     }
 
     /**
@@ -116,15 +174,14 @@ class ExpressOrderController extends Controller
     public function update(Request $request, $id)
     {
         foreach ($request->name as $key => $order_detail) {
-            if(empty($request->name[$key])){
-                return back()->with('error','Name is Required');
-            }
-            else if(empty($request->qty[$key])){
-                return back()->with('error','Qty is Required');
+            if (empty($request->name[$key])) {
+                return back()->with('error', 'Name is Required');
+            } else if (empty($request->qty[$key])) {
+                return back()->with('error', 'Qty is Required');
             }
         }
 
-        ExpressOrderDetails::where('exporder_id',$id)->delete();
+        ExpressOrderDetails::where('exporder_id', $id)->delete();
         foreach ($request->name as $key => $order_detail) {
             ExpressOrderDetails::updateOrCreate([
                 "exporder_id" => $id,
@@ -134,7 +191,7 @@ class ExpressOrderController extends Controller
                 "unit" => $request->unit[$key],
             ]);
         }
-        return redirect()->route('express-orders.show',$id)->with('success', 'Order Updated Successfully');
+        return redirect()->route('express-orders.show', $id)->with('success', 'Order Updated Successfully');
     }
 
     /**
@@ -147,7 +204,7 @@ class ExpressOrderController extends Controller
     {
         ExpressOrder::find($id)->update(
             [
-                "deleted_by"=>Auth::user()->id
+                "deleted_by" => Auth::user()->id
             ]
         );
         return redirect()->route('express-orders.index')->with('success', 'Deleted Successfully');

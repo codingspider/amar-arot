@@ -49,6 +49,15 @@
                                         @enderror
                                     </div>
                                     <div class="input-field col s12">
+                                        <input id="phone" type="text" class="validate" value="{{ old('phone') }}" name="phone">
+                                        <label for="phone">{{ __('profile.phone') }}</label>
+                                        @error('phone')
+                                        <span class="helper-text">
+                                            {{ $message }}
+                                        </span>
+                                        @enderror
+                                    </div>
+                                    <div class="input-field col s12">
                                         <input id="password" type="password" class="validate" value="{{ old('password') }}" name="password">
                                         <label for="password">{{ __('login.Password') }}</label>
                                         @error('password')

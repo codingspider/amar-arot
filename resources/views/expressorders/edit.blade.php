@@ -57,7 +57,7 @@
                                         <i class="material-icons prefix" type="button" id="mic-icon{{$key}}"
                                             onclick="voice_input('#product{{$key}}','#mic-icon{{$key}}')">keyboard_voice</i>
                                         <input type="text" placeholder="Product Name" id="product{{$key}}"
-                                            onclick="productSugest('#product{{$key}}','#suggest{{$key}}')"
+                                        onkeyup="productSugest('#product{{$key}}','#suggest{{$key}}')"
                                             class="input-field" autocomplete="off" value="{{ $item->name}}"
                                             name="name[]" required>
                                         <div id="suggest"></div>
@@ -210,7 +210,7 @@
             console.log(counter);
             var newRow = $("<tr>");
             var cols = "";
-            cols += '<td><div class="input-field inline" style="width: 100% !important;"><i class="material-icons prefix" type="button" id="mic-icon' + counter + '" onclick=voice_input("#product' + counter + '","#mic-icon' + counter + '")>keyboard_voice</i><input type="text" placeholder="Product Name" id="product' + counter + '" onclick=productSugest("#product' + counter + '","#suggest' + counter + '") class="input-field" autocomplete="off" value="{{old("name")}}" name="name[]" required><div id="suggest' + counter + '"></div></div></td>';
+            cols += '<td><div class="input-field inline" style="width: 100% !important;"><i class="material-icons prefix" type="button" id="mic-icon' + counter + '" onclick=voice_input("#product' + counter + '","#mic-icon' + counter + '")>keyboard_voice</i><input type="text" placeholder="Product Name" id="product' + counter + '" onkeyup=productSugest("#product' + counter + '","#suggest' + counter + '") class="input-field" autocomplete="off" value="{{old("name")}}" name="name[]" required><div id="suggest' + counter + '"></div></div></td>';
 
             cols += '<td><div class="input-field inline" style="width: 100% !important;"><i class="material-icons prefix" type="button" id="mic-icon-brand' + counter + '" onclick=voice_input("#brand' + counter + '","#mic-icon-brand' + counter + '")>keyboard_voice</i><input type="text" id="brand' + counter + '" placeholder="Ex:N/A, Local"  name="brand[]"></div></td>';
 

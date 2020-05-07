@@ -31,12 +31,13 @@
             </div>
         </div>
     </div>
-    <div class="section">
-        <div class="row">
+    <form action="{{route('express-orders.store')}}" method="POST">
+        @csrf
+        <div class="section">
+            <div class="row">
 
-            <div class="col s12">
-                <form action="{{route('express-orders.store')}}" method="POST">
-                    @csrf
+                <div class="col s12">
+
                     <table id="myTable" class="order-list striped">
                         <thead>
                             <tr>
@@ -54,7 +55,7 @@
                                         <i class="material-icons prefix" type="button" id="mic-icon"
                                             onclick="voice_input('#product','#mic-icon')">keyboard_voice</i>
                                         <input type="text" placeholder="Product Name" id="product"
-                                            onclick="productSugest('#product','#suggest')" autocomplete="off"
+                                            onkeyup="productSugest('#product','#suggest')" autocomplete="off"
                                             value="{{old('name')}}" name="name[]" required>
                                         <div id="suggest"></div>
                                     </div>
@@ -89,21 +90,78 @@
                                 <td colspan="" style="text-align: left;">
                                     <input type="button" class="btn" id="addrow" value="{{__('cart.Add Row')}}" />
                                 </td>
-                                <td colspan="4" style="text-align: right;">
-                                    <input type="submit" class="btn" value="{{__('cart.Order')}}" />
-                                </td>
+
                             </tr>
                         </tfoot>
                     </table>
-                </form>
+
+                </div>
 
             </div>
-
         </div>
-    </div>
+        <div class="section">
+            <div class="row">
+                <div class="col s12">
+                    <div class="card">
+                        <div class="card-content">
+                            <span class="card-title">Billing Address</span>
+                            <div class="row">
+                                <input type="hidden" name="billing_id" value="@if(!empty($billing->id)){{$billing->id}}@endif">
+                                <div class="input-field col s12 m8">
+                                    <input id="billing_address" value="@if(!empty($billing->address_line_1)){{$billing->address_line_1}}@endif" name="billing_address" type="text" class="validate" required=""
+                                    aria-required="true">
+                                    <label for="billing_address">Billing Address</label>
+                                </div>
+                                <div class="input-field col s12 m4">
+                                    <select name="billing_district" id="billing_district" class="validate" required=""
+                                    aria-required="true">
+                                        <option value="">Your District</option>
+                                        @foreach($districts as $district)
+                                        <option value="{{$district->id}}"@if(!empty($billing->name)) @if($billing->name == $district->name) selected  @endif @endif>{{$district->name}}</option>
+                                        @endforeach
+                                    </select>
+                                    <label for="billing_district">District</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <label>
+                        <input type="checkbox" name="shipping" value="shipping" id="checkbox" />
+                        <span>Same as Billing Address</span>
+                    </label>
+                    <div class="card" id="shiping">
+                        <div class="card-content">
+                            <span class="card-title">Shipping Address</span>
+                            <div class="row">
+                                <input type="hidden" name="shipping_id" value="@if(!empty($shipping->id)){{$shipping->id}}@endif">
+                                <div class="input-field col s12 m8">
+                                    <input id="shipping_address" name="shipping_address" value="@if(!empty($shipping->address_line_1)){{$shipping->address_line_1}}@endif" type="text" class="validate" required=""
+                                        aria-required="true">
+                                    <label for="shipping_address">Shipping Address</label>
+                                </div>
+                                <div class="input-field col s12 m4">
+                                    <select name="shiping_district" id="shiping_district" class="validate" required=""
+                                        aria-required="true">
+                                        <option value="">Your District</option>
+                                        @foreach($districts as $district)
+                                        <option value="{{$district->id}}" @if(!empty($shipping->name)) @if($shipping->name == $district->name) selected @endif @endif>{{$district->name}}</option>
+                                        @endforeach
+                                    </select>
+                                    <label for="shiping_district">District</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col s12">
+                            <input type="submit" class="btn" value="{{__('cart.Order')}}" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
 </div>
-
-
 @endsection
 
 @section('script')
@@ -161,9 +219,6 @@
     }
 </script>
 <script>
-
-
-
     function productSugest(product, suggest) {
         $(document).ready(function () {
             $(product).keypress(function () {
@@ -208,7 +263,7 @@
 
             var newRow = $("<tr>");
             var cols = "";
-            cols += '<td><div class="input-field inline" style="width: 100% !important;"><i class="material-icons prefix" type="button" id="mic-icon' + counter + '" onclick=voice_input("#product' + counter + '","#mic-icon' + counter + '")>keyboard_voice</i><input type="text" placeholder="Product Name" id="product' + counter + '" onclick=productSugest("#product' + counter + '","#suggest' + counter + '") class="input-field" autocomplete="off" value="{{old("name")}}" name="name[]" required><div id="suggest' + counter + '"></div></td></div>';
+            cols += '<td><div class="input-field inline" style="width: 100% !important;"><i class="material-icons prefix" type="button" id="mic-icon' + counter + '" onclick=voice_input("#product' + counter + '","#mic-icon' + counter + '")>keyboard_voice</i><input type="text" placeholder="Product Name" id="product' + counter + '" onkeyup=productSugest("#product' + counter + '","#suggest' + counter + '") class="input-field" autocomplete="off" value="{{old("name")}}" name="name[]" required><div id="suggest' + counter + '"></div></td></div>';
 
             cols += '<td><div class="input-field inline" style="width: 100% !important;"><i class="material-icons prefix" type="button" id="mic-icon-brand' + counter + '" onclick=voice_input("#brand' + counter + '","#mic-icon-brand' + counter + '")>keyboard_voice</i><input type="text" id="brand' + counter + '" placeholder="Ex:N/A, Local"  name="brand[]"></div></td>';
 
@@ -229,6 +284,27 @@
             counter -= 1
             $('#addrow').attr('disabled', false).prop('value', "Add Row");
         });
+    });
+
+    $(document).ready(function () {
+        $('#checkbox').on("click", function () {
+            if ($('#shiping').css("display") === "none") {
+                $('#shiping').css("display", "block");
+                $('#checkbox').val("shipping");
+                $('#shiping_district').attr('required', "");
+                $('#shiping_district').attr('aria-required', "true");
+                $('#shipping_address').attr('required', "");
+                $('#shipping_address').attr('aria-required', "true");
+
+            } else {
+                $('#shiping').css("display", "none");
+                $('#checkbox').val("billing");
+                $('#shiping_district').removeAttr('required');
+                $('#shiping_district').removeAttr('aria-required');
+                $('#shipping_address').removeAttr('required');
+                $('#shipping_address').removeAttr('aria-required');
+            }
+        })
     });
 </script>
 @endsection
