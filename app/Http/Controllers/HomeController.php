@@ -56,7 +56,7 @@ class HomeController extends Controller
             $products = Products::leftjoin('users', 'users.id', 'products.seller_id')
                 ->leftjoin('addresses', 'addresses.user_id', 'products.seller_id')
                 ->leftjoin('districts', 'districts.id', 'addresses.district_id')
-                ->leftjoin('measurment_units','measurment_units.id','products.measurment_unit_id');;
+                ->leftjoin('measurment_units','measurment_units.id','products.measurment_unit_id');
             if (Address::where('addresses.status', '1')->where('addresses.type', '1')->count() > 0) {
                 $products = $products->where('addresses.status', '1')->where('addresses.type', '1');
             }
