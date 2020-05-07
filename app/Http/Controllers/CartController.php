@@ -133,18 +133,21 @@ class CartController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // dd($request->id); 
+       
         $validator = Validator::make($request->all(), [
             'quantity' => 'required|numeric|between:1,100'
         ]);
+
 
         // if ($validator->fails()) {
         //     session()->flash('errors', collect(['Quantity must be between 1 and 100.']));
         //     return response()->json(['warning' => false], 400);
         // }
-        $productQuantity = DB::table('products')->where('id', $id)->first();
+        $productQuantity = DB::table('products')->where('id', $request->p_id)->first();
 
-        if ($request->quantity > $productQuantity->stock_qty) {
+        $total = $productQuantity->stock_qty;
+
+        if ($request->quantity > $total ) {
             // session()->flash('errors', collect(['We currently do not have enough items in stock.']));
             return back()->with('success', 'We currently do not have enough items in stock');
         }

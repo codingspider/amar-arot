@@ -40,7 +40,9 @@ class HomeController extends Controller
         if (Address::where('addresses.status', '1')->where('addresses.type', '1')->count() > 0) {
             $products = $products->where('addresses.status', '1')->where('addresses.type', '1');
         }
-        $products = $products->select('products.*', 'users.name as seller_name', 'users.phone', 'districts.name as location','measurment_units.name as unit')->latest()->get();
+        $products = $products->select('products.*', 'products.id as p_id', 'users.name as seller_name', 'users.phone', 'districts.name as location','measurment_units.name as unit')->latest()->get();
+
+        // dd($products);
         return view('home', compact('categories', 'products'));
     }
     public function search(Request $request)

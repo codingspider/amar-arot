@@ -63,6 +63,7 @@
                                  @csrf
                                  @method('PATCH')
                                <input type="text" name="quantity" value="{{ $item->qty }}">
+                               <input type="hidden" name="p_id" value="{{ $item->id }}">
                                <button>+</button>
                                </form>
                             </td>
