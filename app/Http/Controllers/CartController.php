@@ -66,9 +66,7 @@ class CartController extends Controller
 
         if ($duplicates->isNotEmpty()) {
             return redirect()->route('home')->with('success', 'Item is already in your cart!');
-        }
-
-        else if(Session::get('seller_id') == $request->seller_id && count(Cart::content()) > 0){
+        } else if (Session::get('seller_id') == $request->seller_id && count(Cart::content()) > 0) {
 
             Cart::add([
                 'id' => $request->id,
@@ -81,8 +79,7 @@ class CartController extends Controller
                 ]
             ])->associate('App\Model\Products');
             return redirect()->route('home')->with('success', 'Item has been added');
-        }
-        else if(count(Cart::content()) < 1) {
+        } else if (count(Cart::content()) < 1) {
 
             Cart::add([
                 'id' => $request->id,
@@ -98,7 +95,6 @@ class CartController extends Controller
             Session::put('seller_id', $request->seller_id);
 
             return redirect()->route('home')->with('success', 'Item has been added in your cart!');
-
         } else {
             return redirect()->route('home')->with('warning', 'please buy from same seller');
         }
@@ -188,16 +184,13 @@ class CartController extends Controller
         return redirect()->route('cart.index')->with('success_message', 'Item has been Saved For Later!');
     }
 
-    public function checkout (){
-<<<<<<< HEAD
-        
-=======
->>>>>>> 5e349efea309a18243a44d8648fd12319ae3e5e5
+    public function checkout()
+    {
+
         $address = DB::table('addresses')
-        ->join('users', 'users.id', 'addresses.user_id')
-        ->select('users.*', 'addresses.*')
-        ->where('user_id', Auth::id())->orderBy('addresses.id','desc')->first();
-<<<<<<< HEAD
+            ->join('users', 'users.id', 'addresses.user_id')
+            ->select('users.*', 'addresses.*')
+            ->where('user_id', Auth::id())->orderBy('addresses.id', 'desc')->first();
         if (!$address) {
             $profile  = DB::table('users')->where('id', Auth::id())->first();
             $billing = Address::join('districts', 'districts.id', 'addresses.district_id')->where('user_id', Auth::user()->id)->where('type', "0")->where('status', "1")->select('addresses.id', 'addresses.address_line_1', 'addresses.address_line_2', 'addresses.type', 'districts.name')->first();
@@ -207,10 +200,8 @@ class CartController extends Controller
             $billing_histories = Address::join('districts', 'districts.id', 'addresses.district_id')->where('user_id', Auth::user()->id)->where('type', "0")->where('status', "0")->select('addresses.id', 'addresses.address_line_1', 'addresses.address_line_2', 'addresses.type', 'districts.name')->get();
 
             $shipping_histories = Address::join('districts', 'districts.id', 'addresses.district_id')->where('user_id', Auth::user()->id)->where('type', "1")->where('status', "0")->select('addresses.id', 'addresses.address_line_1', 'addresses.address_line_2', 'addresses.type', 'districts.name')->get();
-          return view('profile.index', compact('profile', 'billing', 'shipping', 'billing_histories', 'shipping_histories'));
+            return view('profile.index', compact('profile', 'billing', 'shipping', 'billing_histories', 'shipping_histories'));
         }
-=======
->>>>>>> 5e349efea309a18243a44d8648fd12319ae3e5e5
         // dd($address);
         $discount = session()->get('coupon')['discount'];
         $total = Cart::total();
