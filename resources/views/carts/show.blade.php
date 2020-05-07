@@ -59,13 +59,16 @@
                                 <a href="{{ url('details/'.$item->id )}}">{{ $item->name }}</a>
                             </td>
                             <td>
-                               <form id="FormQty" action="{{ route('cart.update', $item->rowId) }}" method="POST">
-                                 @csrf
-                                 @method('PATCH')
-                               <input type="text" name="quantity" value="{{ $item->qty }}">
-                               <input type="hidden" name="p_id" value="{{ $item->id }}">
-                               <button>+</button>
-                               </form>
+                                <form id="FormQty" action="{{ route('cart.update', $item->rowId) }}" method="POST">
+                                    @csrf
+                                    @method('PATCH')
+                                    <div class="input-field">
+                                        <input type="text" name="quantity" value="{{ $item->qty }}">
+                                        <input type="hidden" name="p_id" value="{{ $item->id }}">
+                                        <button class="btn red">Update</button>
+                                    </div>
+
+                                </form>
                             </td>
                             <td>
                                 {{ $item->price  }}{{__('cart.Taka')}}
@@ -79,7 +82,7 @@
                                         <form action="{{ route('cart.destroy', $item->rowId) }}" method="POST">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="btn btn-danger"><i
+                                            <button type="submit" class="btn red"><i
                                                     class="material-icons ">delete_forever
                                                 </i></button>
                                         </form>
@@ -89,7 +92,8 @@
                                         <form action="{{ route('cart.switchToSaveForLater', $item->rowId) }}"
                                             method="POST">
                                             {{ csrf_field() }}
-                                            <button type="submit" class="waves-effect waves-light btn">{{__('cart.Save for Later')}}</button>
+                                            <button type="submit"
+                                                class="waves-effect waves-light btn">{{__('cart.Save for Later')}}</button>
                                         </form>
                                     </div>
                                 </div>
@@ -109,8 +113,8 @@
                                     @csrf
                                     {{ method_field('delete') }}
                                     <button class="btn btn-danger" type="submit"><i
-                                        class="material-icons ">delete_forever
-                                    </i> </button>
+                                            class="material-icons ">delete_forever
+                                        </i> </button>
                                 </form>
                             </td>
                         </tr>
@@ -127,11 +131,13 @@
                         <tr>
                             <td colspan="3">
                                 <a type="button" class="btn btn-default" href="{{url('/home')}}">
-                                    <span class="glyphicon glyphicon-shopping-cart"></span> {{__('cart.Continue Shopping')}}
+                                    <span class="glyphicon glyphicon-shopping-cart"></span>
+                                    {{__('cart.Continue Shopping')}}
                                 </a>
                             </td>
                             <td colspan="2" class="right-align">
-                            <a href="{{ url('/checkout') }}" class="btn light-blue right waves-effect waves-light">{{__('cart.Confirm')}}</a>
+                                <a href="{{ url('/checkout') }}"
+                                    class="btn light-blue right waves-effect waves-light">{{__('cart.Confirm')}}</a>
                             </td>
                         </tr>
                         <tr>
@@ -148,7 +154,8 @@
                                                     id="coupon_code">
                                             </div>
                                             <div class="col s6">
-                                                <button type="submit" class="btn btn form-input">{{__('cart.Apply')}}</button>
+                                                <button type="submit"
+                                                    class="btn btn form-input">{{__('cart.Apply')}}</button>
                                             </div>
                                         </div>
                                     </form>
@@ -175,7 +182,8 @@
         @if (Cart::instance('saveForLater')->count() > 0)
         <div class="row">
             <div class="col s12">
-                <h3 class="center-align">{{ Cart::instance('saveForLater')->count() }} {{__('cart.item(s)')}} {{__('cart.Saved For Later')}}</h3>
+                <h3 class="center-align">{{ Cart::instance('saveForLater')->count() }} {{__('cart.item(s)')}}
+                    {{__('cart.Saved For Later')}}</h3>
             </div>
         </div>
         <div class="row">
@@ -224,7 +232,8 @@
                                         <form action="{{ route('saveForLater.switchToCart', $item->rowId) }}"
                                             method="POST">
                                             {{ csrf_field() }}
-                                            <button type="submit" class="waves-effect waves-light btn">{{__('cart.Move to Cart')}}</button>
+                                            <button type="submit"
+                                                class="waves-effect waves-light btn">{{__('cart.Move to Cart')}}</button>
                                         </form>
                                     </div>
                                 </div>

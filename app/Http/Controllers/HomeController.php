@@ -12,6 +12,7 @@ use App\Model\MeasurmentUnit;
 use App\User;
 use Dotenv\Validator;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
@@ -32,18 +33,20 @@ class HomeController extends Controller
      */
     public function index()
     {
+        $exp_new_user_order = DB::table('express_orders')->where('user_status', '0')->where('status', 'Confirmed')->where('user_id', Auth::user()->id)->whereNull('deleted_by')->get()->count();
+
         $categories = Catagory::all();
         $products = Products::leftjoin('users', 'users.id', 'products.seller_id')
             ->leftjoin('addresses', 'addresses.user_id', 'products.seller_id')
             ->leftjoin('districts', 'districts.id', 'addresses.district_id')
-            ->leftjoin('measurment_units','measurment_units.id','products.measurment_unit_id');
+            ->leftjoin('measurment_units', 'measurment_units.id', 'products.measurment_unit_id');
         if (Address::where('addresses.status', '1')->where('addresses.type', '1')->count() > 0) {
             $products = $products->where('addresses.status', '1')->where('addresses.type', '1');
         }
-        $products = $products->select('products.*', 'products.id as p_id', 'users.name as seller_name', 'users.phone', 'districts.name as location','measurment_units.name as unit')->latest()->get();
+        $products = $products->select('products.*', 'products.id as p_id', 'users.name as seller_name', 'users.phone', 'districts.name as location', 'measurment_units.name as unit')->latest()->get();
 
         // dd($products);
-        return view('home', compact('categories', 'products'));
+        return view('home', compact('categories', 'products','exp_new_user_order'));
     }
     public function search(Request $request)
     {
@@ -58,11 +61,11 @@ class HomeController extends Controller
             $products = Products::leftjoin('users', 'users.id', 'products.seller_id')
                 ->leftjoin('addresses', 'addresses.user_id', 'products.seller_id')
                 ->leftjoin('districts', 'districts.id', 'addresses.district_id')
-                ->leftjoin('measurment_units','measurment_units.id','products.measurment_unit_id');;
+                ->leftjoin('measurment_units', 'measurment_units.id', 'products.measurment_unit_id');;
             if (Address::where('addresses.status', '1')->where('addresses.type', '1')->count() > 0) {
                 $products = $products->where('addresses.status', '1')->where('addresses.type', '1');
             }
-            $products = $products->join('catagories', 'catagories.id', 'products.catagory_id')->select('products.*', 'users.name as seller_name', 'users.phone', 'districts.name as location', 'catagories.name as cat_name','measurment_units.name as unit')
+            $products = $products->join('catagories', 'catagories.id', 'products.catagory_id')->select('products.*', 'users.name as seller_name', 'users.phone', 'districts.name as location', 'catagories.name as cat_name', 'measurment_units.name as unit')
                 ->orWhere('products.name', 'like', '%' . $request->search . '%')
                 ->orWhere('products.name_bn', 'like', '%' . $request->search . '%')
                 ->orWhere('products.price', 'like', '%' . $request->search . '%')
@@ -100,5 +103,4 @@ class HomeController extends Controller
         $products = Products::where('catagory_id', $product_details->catagory_id)->latest()->take(4)->get();
         return view('show', compact('products', 'product_details', 'categories', 'measurmentUnit', 'user', 'address'));
     }
-
 }

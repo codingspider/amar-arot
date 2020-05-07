@@ -70,7 +70,9 @@
                             <img class="activator" src="{{asset('uploads/'.$product->image)}}">
                         </div>
                         <div class="card-content">
-                            <span class="card-title activator grey-text text-darken-4"><a href="{{route('details',$product->id)}}" title="Product Details">{{$product->name}}</a><i
+                            <span class="card-title activator grey-text text-darken-4"><a
+                                    href="{{route('details',$product->id)}}"
+                                    title="Product Details">{{$product->name}}</a><i
                                     class="material-icons right">more_vert</i></span>
                             {{-- <p><a href="#" class="btn light-blue">{{__('product.Add to Bag')}}</a></p> --}}
                             <form action="{{ route('cart.store')}}" method="POST">
@@ -113,6 +115,24 @@
     </div>
     <br><br>
 </div>
+
+<div class="fixed-action-btn" style="top: 50px;">
+
+    @if(Auth::check())
+    @if($exp_new_user_order>0)
+    <a class="btn-floating btn-large waves-effect waves-light pink darken-4" href="{{url('express-orders')}}"
+        title="{{__('nav.Express Order')}}">{{$exp_new_user_order}}
+    </a>
+
+    @else
+    <a class="btn-floating btn-large waves-effect waves-light pink darken-4" href="{{url('express-orders')}}"
+        title="{{__('nav.Express Order')}}"><i class="material-icons">directions_run</i>
+
+    </a>
+    @endif
+    @endif
+</div>
+
 <div class="fixed-action-btn">
     @if(Cart::count() > 0)
     <a class="btn-floating btn-large red" href="{{url('cart')}}">{{ Cart::instance('default')->count() }}
