@@ -64,6 +64,7 @@
                                 class="material-icons right">close</i></span>
                         <ul>
                             <li>{{__('product.Price')}} {{$product->price}}{{__('cart.Taka')}} {{__('cart.Kg')}}</li>
+                            <li>{{__('product.Price')}} {{$product->price}}{{__('cart.Taka')}}</li>
                             <li>{{__('product.Minimum Order')}} {{$product->stock_qty}}{{$product->unit}} </li>
                             <li>{{__('product.Place')}} {{$product->location}}</li>
                             <li>{{__('product.Seller')}} {{$product->seller_name}}</li>

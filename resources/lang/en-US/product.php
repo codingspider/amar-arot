@@ -24,7 +24,11 @@ return [
     'category_id' => 'Category Id',
     'measurement_id' =>'Mesurement Id',
     'Selling Price'=>'Selling Price',
+<<<<<<< HEAD
     'Stock'=>'Stock Amount',
+=======
+    'Stock'=>'Minimum Order',
+>>>>>>> 5e349efea309a18243a44d8648fd12319ae3e5e5
     'Photo'=>'Photo',
     'Transportation Cost'=>'Transportation Cost',
     'Minimum Sales amount'=>'Minimum Sales amount',
@@ -32,7 +36,10 @@ return [
     'Your Products'=>'Your Products',
     'Add New Products'=>'Add New Product',
     'Edit'=>'Edit',
+<<<<<<< HEAD
     'Cancel'=>'Cancel',
+=======
+>>>>>>> 5e349efea309a18243a44d8648fd12319ae3e5e5
     'Catagory'=>'Catagories',
     'Catagory_create'=>'Create New Catagory',
     'catagory_name_en'=>'Catagory Name (English)',

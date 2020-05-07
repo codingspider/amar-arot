@@ -34,7 +34,7 @@
                     <select class="input-field col s12" name="district">
                         <option value=""> Select your district </option>
                         @foreach ($district as $item)
-                        <option value="{{ $item->id}}">{{ $item->name_bn}}</option>
+                       
                         <option value="{{ $item->id }}" {{ ( $item->id == $address->district_id) ? 'selected' : '' }}> {{ $item->name_bn }} </option>
                         @endforeach
 
