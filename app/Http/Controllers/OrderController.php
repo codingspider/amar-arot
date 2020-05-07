@@ -82,13 +82,15 @@ class OrderController extends Controller
 
         return view('orders.order_list_admin');
     }
+
     public function get_order_list (Request $request){
 
         if ($request->ajax()) {
+
             $data = DB::table('order_statuses')
             ->join('orders', 'orders.id', '=', 'order_statuses.order_id')
             ->orderBy('order_statuses.id', 'desc')
-            ->select('order_statuses.id as oid', 'order_statuses.name as oname' )
+            ->select('order_statuses.order_id as oid', 'order_statuses.name as oname' )
             ->get();
 
             return Datatables::of($data)
