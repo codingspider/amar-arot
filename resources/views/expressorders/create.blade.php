@@ -38,7 +38,7 @@
 
                 <div class="col s12">
 
-                    <table id="myTable" class="order-list striped">
+                    <table id="myTable" class="order-list responsive-table">
                         <thead>
                             <tr>
                                 <th width="40%">{{__('product.Product Name bn')}}</th>

@@ -118,7 +118,6 @@
 
 <div class="fixed-action-btn" style="top: 50px;">
 
-    @if(Auth::check())
     @if($exp_new_user_order>0)
     <a class="btn-floating btn-large waves-effect waves-light pink darken-4" href="{{url('express-orders')}}"
         title="{{__('nav.Express Order')}}">{{$exp_new_user_order}}
@@ -127,9 +126,7 @@
     @else
     <a class="btn-floating btn-large waves-effect waves-light pink darken-4" href="{{url('express-orders')}}"
         title="{{__('nav.Express Order')}}"><i class="material-icons">directions_run</i>
-
     </a>
-    @endif
     @endif
 </div>
 

@@ -33,7 +33,11 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $exp_new_user_order = DB::table('express_orders')->where('user_status', '0')->where('status', 'Confirmed')->where('user_id', Auth::user()->id)->whereNull('deleted_by')->get()->count();
+        if (Auth::check()) {
+            $exp_new_user_order = DB::table('express_orders')->where('user_status', '0')->where('status', 'Confirmed')->where('user_id', Auth::user()->id)->whereNull('deleted_by')->get()->count();
+        } else {
+            $exp_new_user_order = 0;
+        }
 
         $categories = Catagory::all();
         $products = Products::leftjoin('users', 'users.id', 'products.seller_id')
@@ -46,7 +50,7 @@ class HomeController extends Controller
         $products = $products->select('products.*', 'products.id as p_id', 'users.name as seller_name', 'users.phone', 'districts.name as location', 'measurment_units.name as unit')->latest()->get();
 
         // dd($products);
-        return view('home', compact('categories', 'products','exp_new_user_order'));
+        return view('home', compact('categories', 'products', 'exp_new_user_order'));
     }
     public function search(Request $request)
     {
