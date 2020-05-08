@@ -18,7 +18,7 @@
                 <h5 class="white-text">Connect</h5>
                 <ul>
                     <li><a class="white-text" href="mailto:info@amararot.com" >info@amararot.com</a></li>
-                    <li><a class="white-text" href="tel:01886878708" >Helpline:01886878708</a></li>
+                    <li><a class="white-text" href="tel:01886878708" > <h4> Helpline:01886878708 </h4></a></li>
                 </ul>
             </div>
         </div>
