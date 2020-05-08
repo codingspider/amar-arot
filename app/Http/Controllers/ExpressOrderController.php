@@ -37,7 +37,7 @@ class ExpressOrderController extends Controller
 
         $shipping = Address::join('districts', 'districts.id', 'addresses.district_id')->where('user_id', Auth::user()->id)->where('type', "1")->where('status', "1")->select('addresses.id', 'addresses.address_line_1', 'addresses.address_line_2', 'addresses.type', 'districts.name')->first();
 
-        $districts = District::all();
+        $districts = District::orderby('name', 'asc')->get();
         $units = MeasurmentUnit::all();
         return view('expressorders.create', compact('units', 'districts', 'billing', 'shipping'));
     }
