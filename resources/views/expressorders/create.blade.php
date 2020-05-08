@@ -46,6 +46,12 @@
                                 <th width="10%"></th>
                             </tr>
                         </thead>
+                        <style>
+                            .suggest{
+                                position: absolute;
+                                z-index: 5;
+                            }
+                        </style>
                         <tbody>
                             <tr>
                                 <td>
@@ -54,7 +60,7 @@
                                             onclick="voice_input('#product','#mic-icon')">keyboard_voice</i>
                                         <input type="text" id="product" onkeyup="productSugest('#product','#suggest')"
                                             autocomplete="off" value="{{old('name')}}" name="name[]" required>
-                                        <div id="suggest"></div>
+                                        <div id="suggest" class="suggest"></div>
                                     </div>
                                 </td>
                                 <td>
@@ -275,7 +281,7 @@
 
             var newRow = $("<tr>");
             var cols = "";
-            cols += '<td><div class="input-field inline" style="width: 100% !important;"><i class="material-icons" type="button" id="mic-icon' + counter + '" onclick=voice_input("#product' + counter + '","#mic-icon' + counter + '")>keyboard_voice</i><input type="text" id="product' + counter + '" onkeyup=productSugest("#product' + counter + '","#suggest' + counter + '") class="input-field" autocomplete="off" value="{{old("name")}}" name="name[]" required><div id="suggest' + counter + '"></div></td></div>';
+            cols += '<td><div class="input-field inline" style="width: 100% !important;"><i class="material-icons" type="button" id="mic-icon' + counter + '" onclick=voice_input("#product' + counter + '","#mic-icon' + counter + '")>keyboard_voice</i><input type="text" id="product' + counter + '" onkeyup=productSugest("#product' + counter + '","#suggest' + counter + '") class="input-field" autocomplete="off" value="{{old("name")}}" name="name[]" required><div id="suggest' + counter + '" class="suggest"></div></td></div>';
 
             cols += '<td><div class="input-field inline" style="width: 100% !important;"><i class="material-icons" type="button" id="mic-icon-brand' + counter + '" onclick=voice_input("#brand' + counter + '","#mic-icon-brand' + counter + '")>keyboard_voice</i><input type="text" id="brand' + counter + '"  name="brand[]"></div></td>';
 

@@ -214,7 +214,7 @@ class ExpressOrderController extends Controller
     public function ajaxProductListRequest(Request $request)
     {
         // return $request->product;
-        $products = Products::where('name', 'LIKE', "%$request->product_name%")->get();
+        $products = Products::where('name', 'LIKE', "$request->product_name%")->take(5)->get();
         if (count($products) > 0) {
             $output =  '<ul class="collection">';
 
