@@ -78,7 +78,7 @@
                                     </select>
                                 </td>
                                 <td>
-                                    <i class="material-icons ibtnDel">delete_forever</i>
+                                    <i class="material-icons ibtnDel" style="cursor: pointer;">delete_forever</i>
                                 </td>
                             </tr>
                         </tbody>
@@ -283,7 +283,7 @@
 
             cols += '<td><select name="unit[]" required class="validated browser-default unit">@foreach($units as $unit) <option value="{{$unit->name}}">{{$unit->name}}</option>@endforeach</select></td>';
 
-            cols += '<td><i class="ibtnDel material-icons">delete_forever</i></td>';
+            cols += '<td><i class="ibtnDel material-icons" style="cursor: pointer;">delete_forever</i></td>';
             newRow.append(cols);
             if (counter >= limit) $('#addrow').attr('disabled', true).prop('value', "You've reached the limit");
             $("table.order-list").append(newRow);
