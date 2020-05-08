@@ -10,7 +10,7 @@ return [
     'Seller'=>'Seller:',
     'Phone'=>'Phone:',
     'Product Name en'=>'Product Name (English)',
-    'Product Name bn'=> 'Product Name (English)',
+    'Product Name bn'=> 'Product',
     'rating'=>'Rating',
     'rating_by'=>'Rating By',
     'product_code'=> 'Product Code',

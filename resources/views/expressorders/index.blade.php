@@ -20,7 +20,7 @@
         <div class="row">
             <div class="col s12 z-depth-1">
                 <h5><a href="{{route('express-orders.create')}}" class="btn">{{__('order.New Order')}}</a></h5>
-                <table class="responsive-table">
+                <table class="striped">
                     <thead>
                         <tr>
                             <th>{{__('order.Order no')}}</th>

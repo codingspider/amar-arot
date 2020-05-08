@@ -38,14 +38,14 @@
                 <form action="{{route('express-orders.update',$id)}}" method="POST">
                     @csrf
                     @method('PUT')
-                    <table id="myTable" class="order-list striped responsive-table">
+                    <table id="myTable" class="order-list striped">
                         <thead>
                             <tr>
-                                <th width="40%">{{__('product.Product Name bn')}}</th>
+                                <th width="30%">{{__('product.Product Name bn')}}</th>
                                 <th width="30%">{{__('cart.brand')}}</th>
                                 <th width="10%">{{__('cart.Quantity')}}</th>
-                                <th width="10%">{{__('cart.Unit')}}</th>
-                                <th width="10%">{{__('Action')}}</th>
+                                <th width="20%">{{__('cart.Unit')}}</th>
+                                <th width="10%">}</th>
                             </tr>
                         </thead>
 
@@ -54,9 +54,9 @@
                             <tr>
                                 <td>
                                     <div class="input-field inline" style="width: 100% !important;">
-                                        <i class="material-icons prefix" type="button" id="mic-icon{{$key}}"
+                                        <i class="material-icons" type="button" id="mic-icon{{$key}}"
                                             onclick="voice_input('#product{{$key}}','#mic-icon{{$key}}')">keyboard_voice</i>
-                                        <input type="text" placeholder="Product Name" id="product{{$key}}"
+                                        <input type="text" id="product{{$key}}"
                                         onkeyup="productSugest('#product{{$key}}','#suggest{{$key}}')"
                                             class="input-field" autocomplete="off" value="{{ $item->name}}"
                                             name="name[]" required>
@@ -65,9 +65,9 @@
                                 </td>
                                 <td>
                                     <div class="input-field inline" style="width: 100% !important;">
-                                        <i class="material-icons prefix" type="button" id="mic-icon-brand{{$key}}"
+                                        <i class="material-icons" type="button" id="mic-icon-brand{{$key}}"
                                             onclick="voice_input('#brand{{$key}}','#mic-icon-brand{{$key}}')">keyboard_voice</i><input
-                                            type="text" id="brand{{$key}}" placeholder="Ex:N/A, Local"
+                                            type="text" id="brand{{$key}}"
                                             value="{{$item->brand}}" name="brand[]">
                                     </div>
                                 </td>
@@ -76,7 +76,7 @@
                                         name="qty[]" required />
                                 </td>
                                 <td>
-                                    <select name="unit[]" required class="validated">
+                                    <select name="unit[]" required class="validated browser-default unit">
                                         @foreach($units as $unit)
                                         <option value="{{$unit->name}}" @if($unit->name ==$item->unit) selected
                                             @endif>{{$unit->name}}</option>
@@ -84,8 +84,7 @@
                                     </select>
                                 </td>
                                 <td>
-                                    <a type="button" class="ibtnDel waves-effect waves-light btn disabled"><i
-                                            class="material-icons">delete_forever</i></a>
+                                    <i class="material-icons ibtnDel">delete_forever</i>
                                 </td>
                             </tr>
                             @endforeach
@@ -102,7 +101,12 @@
                         </tfoot>
                     </table>
                 </form>
-
+                <style>
+                    .unit {
+                        height: 30px !important;
+                        width: 50px !important;
+                    }
+                </style>
             </div>
 
         </div>
@@ -215,9 +219,9 @@
             cols += '<td><div class="input-field inline" style="width: 100% !important;"><i class="material-icons prefix" type="button" id="mic-icon-brand' + counter + '" onclick=voice_input("#brand' + counter + '","#mic-icon-brand' + counter + '")>keyboard_voice</i><input type="text" id="brand' + counter + '" placeholder="Ex:N/A, Local"  name="brand[]"></div></td>';
 
             cols += '<td><input type="number" class="input-field" autocomplete="off" value="{{old("qty")}}" name="qty[]" required/></td>';
-            cols += '<td><select name="unit[]" required class="validated">@foreach($units as $unit)<option value="{{$unit->name}}">{{$unit->name}}</option>@endforeach</select></td>';
+            cols += '<td><select name="unit[]" required class="validated browser-default unit">@foreach($units as $unit)<option value="{{$unit->name}}">{{$unit->name}}</option>@endforeach</select></td>';
 
-            cols += '<td><a type="button" class="ibtnDel waves-effect waves-light btn"><i class="material-icons">delete_forever</i></a></td>';
+            cols += '<td><i class="material-icons ibtnDel">delete_forever</i></td>';
             newRow.append(cols);
             if (counter >= limit) $('#addrow').attr('disabled', true).prop('value', "You've reached the limit");
             $("table.order-list").append(newRow);

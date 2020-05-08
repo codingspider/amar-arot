@@ -84,7 +84,7 @@
 
         <div class="row">
             <div class="col s12 z-depth-1">
-                <table class="responsive-table">
+                <table class="striped">
                     <thead>
                         <tr>
                         <tr>

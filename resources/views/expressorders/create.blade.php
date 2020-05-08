@@ -5,7 +5,7 @@
     <div class="section">
         <div class="row">
             <div class="col s12">
-                <h4 class="center-align">Please add your bazar list</h4>
+                <h4 class="center-align">Please add your product list</h4>
             </div>
             <div class="col s12">
                 @if(session()->has('success'))
@@ -35,53 +35,50 @@
         @csrf
         <div class="section">
             <div class="row">
-
                 <div class="col s12">
-
-                    <table id="myTable" class="order-list responsive-table">
+                    <table id="myTable" class="order-list">
                         <thead>
                             <tr>
-                                <th width="40%">{{__('product.Product Name bn')}}</th>
+                                <th width="30%">{{__('product.Product Name bn')}}</th>
                                 <th width="30%">{{__('cart.brand')}}</th>
                                 <th width="10%">{{__('cart.Quantity')}}</th>
-                                <th width="10%">{{__('cart.Unit')}}</th>
-                                <th width="10%">{{__('Action')}}</th>
+                                <th width="20%">{{__('cart.Unit')}}</th>
+                                <th width="10%"></th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
                                 <td>
                                     <div class="input-field inline" style="width: 100% !important;">
-                                        <i class="material-icons prefix" type="button" id="mic-icon"
+                                        <i class="material-icons" type="button" id="mic-icon"
                                             onclick="voice_input('#product','#mic-icon')">keyboard_voice</i>
-                                        <input type="text" placeholder="Product Name" id="product"
-                                            onkeyup="productSugest('#product','#suggest')" autocomplete="off"
-                                            value="{{old('name')}}" name="name[]" required>
+                                        <input type="text" id="product" onkeyup="productSugest('#product','#suggest')"
+                                            autocomplete="off" value="{{old('name')}}" name="name[]" required>
                                         <div id="suggest"></div>
                                     </div>
                                 </td>
                                 <td>
                                     <div class="input-field inline" style="width: 100% !important;">
-                                        <i class="material-icons prefix" type="button" id="mic-icon-brand"
-                                            onclick="voice_input('#brand','#mic-icon-brand')">keyboard_voice</i><input
-                                            type="text" id="brand" placeholder="Ex:N/A, Local" value="{{old('brand')}}"
-                                            name="brand[]">
+                                        <i class="material-icons" type="button" id="mic-icon-brand"
+                                            onclick="voice_input('#brand','#mic-icon-brand')">keyboard_voice</i>
+                                        <input type="text" id="brand" value="{{old('brand')}}" name="brand[]">
                                     </div>
                                 </td>
                                 <td>
-                                    <input type="number" class="input-field" autocomplete="off" value="{{old('qty')}}"
-                                        name="qty[]" value="0" class="validated" required />
+                                    <i class="material-icons"></i>
+                                    <input type="number" class="input-field" autocomplete="off"
+                                        value="{{old('qty') ? old('qty') : 1 }}" name="qty[]" value="0" step="0.01"
+                                        class="validated" required />
                                 </td>
                                 <td>
-                                    <select name="unit[]" required class="validated">
+                                    <select name="unit[]" class="browser-default unit" required>
                                         @foreach($units as $unit)
                                         <option value="{{$unit->name}}">{{$unit->name}}</option>
                                         @endforeach
                                     </select>
                                 </td>
                                 <td>
-                                    <a type="button" class="ibtnDel waves-effect waves-light btn disabled"><i
-                                            class="material-icons">delete_forever</i></a>
+                                    <i class="material-icons ibtnDel">delete_forever</i>
                                 </td>
                             </tr>
                         </tbody>
@@ -91,12 +88,17 @@
                                     <input type="button" class="btn" id="addrow" value="{{__('cart.Add Row')}}" />
                                 </td>
                                 <td colspan="4" style="text-align: right;">
-                                    <p class="show-on-small hide-on-med-and-up red-text">**Please scroll Right for more Columns</p>
+
                                 </td>
                             </tr>
                         </tfoot>
                     </table>
-
+                    <style>
+                        .unit {
+                            height: 30px !important;
+                            width: 50px !important;
+                        }
+                    </style>
                 </div>
 
             </div>
@@ -273,15 +275,15 @@
 
             var newRow = $("<tr>");
             var cols = "";
-            cols += '<td><div class="input-field inline" style="width: 100% !important;"><i class="material-icons prefix" type="button" id="mic-icon' + counter + '" onclick=voice_input("#product' + counter + '","#mic-icon' + counter + '")>keyboard_voice</i><input type="text" placeholder="Product Name" id="product' + counter + '" onkeyup=productSugest("#product' + counter + '","#suggest' + counter + '") class="input-field" autocomplete="off" value="{{old("name")}}" name="name[]" required><div id="suggest' + counter + '"></div></td></div>';
+            cols += '<td><div class="input-field inline" style="width: 100% !important;"><i class="material-icons" type="button" id="mic-icon' + counter + '" onclick=voice_input("#product' + counter + '","#mic-icon' + counter + '")>keyboard_voice</i><input type="text" id="product' + counter + '" onkeyup=productSugest("#product' + counter + '","#suggest' + counter + '") class="input-field" autocomplete="off" value="{{old("name")}}" name="name[]" required><div id="suggest' + counter + '"></div></td></div>';
 
-            cols += '<td><div class="input-field inline" style="width: 100% !important;"><i class="material-icons prefix" type="button" id="mic-icon-brand' + counter + '" onclick=voice_input("#brand' + counter + '","#mic-icon-brand' + counter + '")>keyboard_voice</i><input type="text" id="brand' + counter + '" placeholder="Ex:N/A, Local"  name="brand[]"></div></td>';
+            cols += '<td><div class="input-field inline" style="width: 100% !important;"><i class="material-icons" type="button" id="mic-icon-brand' + counter + '" onclick=voice_input("#brand' + counter + '","#mic-icon-brand' + counter + '")>keyboard_voice</i><input type="text" id="brand' + counter + '"  name="brand[]"></div></td>';
 
-            cols += '<td><input type="number" class="input-field" autocomplete="off" value="{{old("qty")}}" name="qty[]" value="0" class="validated" required/></td>';
+            cols += '<td><i class="material-icons"></i><input type="number" class="input-field" autocomplete="off" value="1" style="margin-bottom: 8px;" name="qty[]" value="0" step="0.01" class="validated" required/></td>';
 
-            cols += '<td><select name="unit[]" required class="validated">@foreach($units as $unit) <option value="{{$unit->name}}">{{$unit->name}}</option>@endforeach</select></td>';
+            cols += '<td><select name="unit[]" required class="validated browser-default unit">@foreach($units as $unit) <option value="{{$unit->name}}">{{$unit->name}}</option>@endforeach</select></td>';
 
-            cols += '<td><a type="button" class="ibtnDel waves-effect waves-light btn"><i class="material-icons">delete_forever</i></a></td>';
+            cols += '<td><i class="ibtnDel material-icons">delete_forever</i></td>';
             newRow.append(cols);
             if (counter >= limit) $('#addrow').attr('disabled', true).prop('value', "You've reached the limit");
             $("table.order-list").append(newRow);

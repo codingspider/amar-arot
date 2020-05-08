@@ -10,7 +10,7 @@ return [
     'Seller'=>'বিক্রেতাঃ',
     'Phone'=>'ফোনঃ',
     'Product Name en'=>'পণ্যের নাম ',
-    'Product Name bn'=>'পণ্যের নাম ',
+    'Product Name bn'=>'পণ্য',
     'rating'=>'রেটিং',
     'rating_by'=>'রেটিং বাই',
     'product_code'=> 'পন্যের কোড',

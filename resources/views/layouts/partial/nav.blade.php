@@ -10,7 +10,7 @@ $exp_new_user_order =
 @endif
 <nav class="light-blue lighten-1" role="navigation">
     <div class="nav-wrapper container"><a id="logo-container" href="{{url('home')}}"
-            class="brand-logo">{{__('welcome.Amar Bazar')}}</a>
+            class="brand-logo center">{{__('welcome.Amar Bazar')}}</a>
         <a href="#" data-target="slide-out" class="sidenav-trigger show-on-medium-and-up left"><i
                 class="material-icons">menu</i></a>
     </div>

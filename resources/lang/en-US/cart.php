@@ -25,7 +25,7 @@ return [
     'type'=>'Coupons Type ',
     'value'=>'Coupons Value',
     'percent_off'=>'Percent Off',
-    'brand' => 'Brand',
+    'brand' => 'Description',
     'vat' => '(With Vat)',
     'Add Row'=>'Add Row',
     'Confirm Order'=>'Confirm Order',
