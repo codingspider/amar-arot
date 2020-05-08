@@ -90,7 +90,9 @@
                                 <td colspan="" style="text-align: left;">
                                     <input type="button" class="btn" id="addrow" value="{{__('cart.Add Row')}}" />
                                 </td>
-
+                                <td colspan="4" style="text-align: right;">
+                                    <p class="show-on-small hide-on-med-and-up red-text">**Please scroll Right for more Columns</p>
+                                </td>
                             </tr>
                         </tfoot>
                     </table>
@@ -106,18 +108,22 @@
                         <div class="card-content">
                             <span class="card-title">Billing Address</span>
                             <div class="row">
-                                <input type="hidden" name="billing_id" value="@if(!empty($billing->id)){{$billing->id}}@endif">
+                                <input type="hidden" name="billing_id"
+                                    value="@if(!empty($billing->id)){{$billing->id}}@endif">
                                 <div class="input-field col s12 m8">
-                                    <input id="billing_address" value="@if(!empty($billing->address_line_1)){{$billing->address_line_1}}@endif" name="billing_address" type="text" class="validate" required=""
-                                    aria-required="true">
+                                    <input id="billing_address"
+                                        value="@if(!empty($billing->address_line_1)){{$billing->address_line_1}}@endif"
+                                        name="billing_address" type="text" class="validate" required=""
+                                        aria-required="true">
                                     <label for="billing_address">Billing Address</label>
                                 </div>
                                 <div class="input-field col s12 m4">
                                     <select name="billing_district" id="billing_district" class="validate" required=""
-                                    aria-required="true">
+                                        aria-required="true">
                                         <option value="">Your District</option>
                                         @foreach($districts as $district)
-                                        <option value="{{$district->id}}"@if(!empty($billing->name)) @if($billing->name == $district->name) selected  @endif @endif>{{$district->name}}</option>
+                                        <option value="{{$district->id}}" @if(!empty($billing->name)) @if($billing->name
+                                            == $district->name) selected @endif @endif>{{$district->name}}</option>
                                         @endforeach
                                     </select>
                                     <label for="billing_district">District</label>
@@ -133,10 +139,12 @@
                         <div class="card-content">
                             <span class="card-title">Shipping Address</span>
                             <div class="row">
-                                <input type="hidden" name="shipping_id" value="@if(!empty($shipping->id)){{$shipping->id}}@endif">
+                                <input type="hidden" name="shipping_id"
+                                    value="@if(!empty($shipping->id)){{$shipping->id}}@endif">
                                 <div class="input-field col s12 m8">
-                                    <input id="shipping_address" name="shipping_address" value="@if(!empty($shipping->address_line_1)){{$shipping->address_line_1}}@endif" type="text" class="validate" required=""
-                                        aria-required="true">
+                                    <input id="shipping_address" name="shipping_address"
+                                        value="@if(!empty($shipping->address_line_1)){{$shipping->address_line_1}}@endif"
+                                        type="text" class="validate" required="" aria-required="true">
                                     <label for="shipping_address">Shipping Address</label>
                                 </div>
                                 <div class="input-field col s12 m4">
@@ -144,7 +152,9 @@
                                         aria-required="true">
                                         <option value="">Your District</option>
                                         @foreach($districts as $district)
-                                        <option value="{{$district->id}}" @if(!empty($shipping->name)) @if($shipping->name == $district->name) selected @endif @endif>{{$district->name}}</option>
+                                        <option value="{{$district->id}}" @if(!empty($shipping->name))
+                                            @if($shipping->name == $district->name) selected @endif
+                                            @endif>{{$district->name}}</option>
                                         @endforeach
                                     </select>
                                     <label for="shiping_district">District</label>

@@ -17,10 +17,8 @@
             <div class="col l3 s12">
                 <h5 class="white-text">Connect</h5>
                 <ul>
-                    <li><a class="white-text" href="#!">Link 1</a></li>
-                    <li><a class="white-text" href="#!">Link 2</a></li>
-                    <li><a class="white-text" href="#!">Link 3</a></li>
-                    <li><a class="white-text" href="#!">Link 4</a></li>
+                    <li><a class="white-text" href="#!" onclick="window.location.href = 'mailto:info@amararot.com'">info@amararot.com</a></li>
+                    <li><a class="white-text" href="#!" onclick="document.location.href = 'tel:01886878708';">Helpline:01886878708</a></li>
                 </ul>
             </div>
         </div>
