@@ -18,9 +18,9 @@
         <div class="row">
             <div class="col s12">
                 @if(session()->has('success'))
-                <div class="alert alert-success">
-                    {{ session()->get('success') }}
-
+                <div class="card s12 blue" id="aler_box">
+                    <p class="white-text"> {{ session()->get('success') }}
+                    </p>
                 </div>
                 @endif
             </div>
@@ -72,12 +72,12 @@
                     @else
                     <a href="{{route('express-orders.edit',$express_order->id)}}" class="btn">{{__('order.Edit')}}</a>
                     @endif
-                    <form action="{{route('express-orders.destroy',$express_order->id)}}" method="POST">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-red ">{{__('order.Cancel')}}</button>
-                    </form>
-                    @endif
+                <form action="{{route('express-orders.destroy',$express_order->id)}}" method="POST">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-red ">{{__('order.Cancel')}}</button>
+                </form>
+                @endif
                 </p>
             </div>
         </div>
@@ -131,4 +131,11 @@
     <br><br>
 </div>
 
+@endsection
+@section('script')
+<script>
+    // $("#aler_box").delay(4000).hide();
+    setTimeout('$("#aler_box").hide()',4500);
+
+</script>
 @endsection

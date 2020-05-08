@@ -129,7 +129,7 @@ class ExpressOrderController extends Controller
             );
         }
 
-        return redirect()->route('express-orders.show', $exp_order->id)->with('success', 'Order Added Successfully');
+        return redirect()->route('express-orders.show', $exp_order->id)->with('success', 'Order Added Successfully our customer care representative shall contact you soon. For further information please call at 01886878708');
     }
 
     /**
