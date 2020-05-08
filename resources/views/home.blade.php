@@ -4,67 +4,67 @@
 
 <div class="section no-pad-bot" id="index-banner">
     <div class="container">
-        <br><br>
-        <h1 class="header center light-blue-text">{{__('welcome.Amar Bazar')}}</h1>
-        <div class="row center">
-            <h5 class="header col s12 light">{{__('welcome.Everything together')}}</h5>
-            <form action="{{route('search')}}" method="GET" id="search-form">
+        <div class="row">
+            <div class="col m6 s12">
+                <img class="responsive-img" src="{{ asset('content/img/fav.png') }}">
+            </div>
+            <div class="col m6 s12" style="padding: 0px;">
+                <h1 class="header center light-blue-text">{{__('welcome.Amar Bazar')}}</h1>
+                <div class="row center">
+                    <h5 class="header col s12 light">{{__('welcome.Everything together')}}</h5>
+                    <form action="{{route('search')}}" method="GET" id="search-form">
 
-                <div class="input-field inline">
-                    <i class="material-icons prefix" type="button" id="mic-icon">keyboard_voice</i>
-                    <input id="search" name="search" type="text" class="validate">
-                    <label for="search">{{__('product.Search Box')}}</label>
-                    <p class="info"></p>
+                        <div class="input-field inline">
+                            <i class="material-icons prefix" type="button" id="mic-icon">keyboard_voice</i>
+                            <input id="search" name="search" type="text" class="validate">
+                            <label for="search">{{__('product.Search Box')}}</label>
+                            <p class="info"></p>
 
+                        </div>
+                        <div class="input-field inline">
+                            <button class="btn btn-sm light-blue" type="submit">{{__('product.Search')}}</button>
+                        </div>
+                    </form>
                 </div>
-                <div class="input-field inline">
-                    <button class="btn btn-sm light-blue" type="submit">{{__('product.Search')}}</button>
-                </div>
-            </form>
+            </div>
         </div>
+
     </div>
 </div>
 
 
 <div class="container">
-    <div class="section">
-        <div class="row">
-            <div class="col s12">
-                @if(session()->has('success'))
-                <div class="alert alert-success">
-                    {{ session()->get('success') }}
-                </div>
-                @endif
-                @if(session()->has('warning'))
-                <div class="alert alert-warning">
-                    {{ session()->get('warning') }}
-                </div>
-                @endif
-
-                @if (count($errors) > 0)
-                <div class="alert alert-danger">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                        <li>{{$error}}</li>
-                        @endforeach
-                    </ul>
-                </div>
-                @endif
-            </div>
+    <div class="section" style="margin-top: -20px;">
+        @if(session()->has('success'))
+        <div class="alert alert-success">
+            {{ session()->get('success') }}
         </div>
-    </div>
-    <div class="section">
+        @endif
+        @if(session()->has('warning'))
+        <div class="alert alert-warning">
+            {{ session()->get('warning') }}
+        </div>
+        @endif
 
+        @if (count($errors) > 0)
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                <li>{{$error}}</li>
+                @endforeach
+            </ul>
+        </div>
+        @endif
         <div class="row">
             @foreach($categories as $category)
             <div class="col s12 m12">
-                <h2 class="center-align">{{ $category->name}}</h2>
+                <h4 class="center-align" style="margin-top: 0px;">{{ $category->name}}</h4>
             </div>
             <div class="row">
                 @foreach($products as $product)
                 @if($product->catagory_id == $category->id)
 
-                <div class="col s6 m3">
+                <div class="col s6 m2">
                     <div class="card hoverable">
                         <div class="card-image waves-effect waves-block waves-light">
                             <img class="activator" src="{{asset('uploads/'.$product->image)}}">
@@ -72,8 +72,7 @@
                         <div class="card-content">
                             <span class="card-title activator grey-text text-darken-4"><a
                                     href="{{route('details',$product->id)}}"
-                                    title="Product Details">{{$product->name}}</a><i
-                                    class="material-icons right">more_vert</i></span>
+                                    title="Product Details" style="font-size: medium;">{{$product->name}}</a></span>
                             {{-- <p><a href="#" class="btn light-blue">{{__('product.Add to Bag')}}</a></p> --}}
                             <form action="{{ route('cart.store')}}" method="POST">
                                 @csrf
@@ -82,17 +81,16 @@
                                 <input type="hidden" name="price" value="{{ $product->price }}">
                                 <input type="hidden" name="seller_id" value="{{ $product->seller_id }}">
                                 @if(Cart::content()->where('id', $product->id)->count() >0)
-                                <button class="btn light-blue disabled" type="submit">Already Added </button>
+                                <button class="btn light-blue disabled" style="font-size: 10px;" type="button">Already Added </button>
                                 @else
-                                <button class="btn light-blue " type="submit">Add to cart </button>
+                                <button class="btn light-blue" style="font-size: 10px;" type="submit">Add to cart </button>
                                 @endif
 
                             </form>
 
                         </div>
                         <div class="card-reveal">
-                            <span class="card-title grey-text text-darken-4">{{$product->name}}<i
-                                    class="material-icons right">close</i></span>
+                            <span class="card-title grey-text text-darken-4">{{$product->name}}</span>
                             <ul>
                                 <li>{{__('product.Price')}} {{$product->price}}{{__('cart.Taka')}}</li>
                                 <li>{{__('product.Minimum Order')}} {{$product->stock_qty}}{{$product->unit}} </li>
