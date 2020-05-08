@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('pagetitle','Cart-AmarBazar')
+@section('pagetitle','Cart-AmarArot')
 
 @section('contents')
 <div class="section no-pad-bot" id="index-banner">

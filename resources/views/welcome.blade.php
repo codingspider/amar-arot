@@ -1,5 +1,5 @@
 @extends('layouts.auth')
-@section('title','Welcome-AmarBazar')
+@section('title','Welcome-AmarArot')
 @section('auth')
 <div class="section no-pad-bot" id="index-banner">
     <div class="container">
