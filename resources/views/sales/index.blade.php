@@ -237,7 +237,7 @@
                 <div class="file-field col s12 input-field">
                     <div class="btn light-blue">
                         <span>{{__('product.Photo')}}</span>
-                        <input value="{{old('image')}}" type="file" name="image">
+                        <input value="{{old('image')}}" type="file" name="image" accept="image/x-png,image/jpeg">
                     </div>
                     <div class="file-path-wrapper">
                         <input class="file-path validate" type="text">

@@ -67,10 +67,10 @@
                 <div class="col s6 m2">
                     <div class="card hoverable">
                         <div class="card-image waves-effect waves-block waves-light">
-                            <img class="activator" src="{{asset('uploads/'.$product->image)}}">
+                            <img class="activator" height="150" src="{{asset('uploads/'.$product->image)}}">
                         </div>
                         <div class="card-content">
-                            <span class="card-title activator grey-text text-darken-4"><a
+                            <span class="card-title activator grey-text text-darken-4 truncate"><a
                                     href="{{route('details',$product->id)}}"
                                     title="Product Details" style="font-size: medium;">{{$product->name}}</a></span>
                             {{-- <p><a href="#" class="btn light-blue">{{__('product.Add to Bag')}}</a></p> --}}
