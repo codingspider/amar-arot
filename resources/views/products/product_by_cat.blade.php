@@ -56,21 +56,15 @@
         </div>
         @endif
         <div class="row">
-            @foreach($categories as $category)
-            <div class="col s12 m12">
-            <h4 class="center-align" style="margin-top: 0px;"><a href="{{ url('products/by/this/category', $category->id ) }}">{{ $category->name}} </a></h4>
-            </div>
-            <div class="row">
+  <div class="row">
                 @foreach($products as $product)
-                @if($product->catagory_id == $category->id)
-
-                <div class="col s6 m2" >
+                 <div class="col s6 m2">
                     <div class="card hoverable" style="height:300px;">
                         <div class="card-image waves-effect waves-block waves-light">
-                            <img class="activator" height="150" src="{{asset('uploads/'.$product->image)}}">
+                            <img class="activator" src="{{asset('uploads/'.$product->image)}}">
                         </div>
                         <div class="card-content">
-                            <span class="card-title activator grey-text text-darken-4 truncate"><a
+                            <span class="card-title activator grey-text text-darken-4"><a
                                     href="{{route('details',$product->id)}}"
                                     title="Product Details" style="font-size: medium;">{{$product->name}}</a></span>
                             {{-- <p><a href="#" class="btn light-blue">{{__('product.Add to Bag')}}</a></p> --}}
@@ -103,11 +97,9 @@
                     </div>
                 </div>
 
-                @endif
                 @endforeach
             </div>
 
-            @endforeach
         </div>
 
     </div>

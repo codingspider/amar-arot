@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Model\Catagory;
-use App\Model\MeasurmentUnit;
 use App\Model\Products;
 use Illuminate\Http\Request;
+use App\Model\MeasurmentUnit;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
@@ -217,9 +219,18 @@ class ProductController extends Controller
     public function destroy(Products $product)
     {
         $product->delete();
-
-
         return redirect()->route('products.index')
             ->with('success', 'Product deleted successfully');
+    }
+    public function product_by_cat ($id)
+    {
+      $products= Products::where('catagory_id', $id)->get();
+        if (Auth::check()) {
+            $exp_new_user_order = DB::table('express_orders')->where('user_status', '0')->where('status', 'Confirmed')->where('user_id', Auth::user()->id)->whereNull('deleted_by')->get()->count();
+        } else {
+            $exp_new_user_order = 0;
+        }
+
+        return view('products.product_by_cat', compact('products', 'exp_new_user_order'));
     }
 }
