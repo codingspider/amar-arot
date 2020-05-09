@@ -70,16 +70,16 @@ class HomeController extends Controller
                 $products = $products->where('addresses.status', '1')->where('addresses.type', '1');
             }
             $products = $products->join('catagories', 'catagories.id', 'products.catagory_id')->select('products.*', 'users.name as seller_name', 'users.phone', 'districts.name as location', 'catagories.name as cat_name', 'measurment_units.name as unit')
-                ->orWhere('products.name', 'like', '%' . $request->search . '%')
-                ->orWhere('products.name_bn', 'like', '%' . $request->search . '%')
-                ->orWhere('products.price', 'like', '%' . $request->search . '%')
-                ->orWhere('products.product_code', 'like', '%' . $request->search . '%')
-                ->orWhere('products.description', 'like', '%' . $request->search . '%')
-                ->orWhere('products.description_bn', 'like', '%' . $request->search . '%')
-                ->orWhere('products.short_description', 'like', '%' . $request->search . '%')
-                ->orWhere('products.short_description_bn', 'like', '%' . $request->search . '%')
-                ->orWhere('users.name', 'like', '%' . $request->search . '%')
-                ->orWhere('districts.name', 'like', '%' . $request->search . '%')
+                ->where('products.name', 'like', $request->search . '%')
+                ->orWhere('products.name_bn', 'like', $request->search . '%')
+                // ->orWhere('products.price', 'like', '%' . $request->search . '%') //Sir Abar pore bolbe eigula add korte tokhon kore dibo
+                // ->orWhere('products.product_code', 'like', '%' . $request->search . '%')
+                // ->orWhere('products.description', 'like', '%' . $request->search . '%')
+                // ->orWhere('products.description_bn', 'like', '%' . $request->search . '%')
+                // ->orWhere('products.short_description', 'like', '%' . $request->search . '%')
+                // ->orWhere('products.short_description_bn', 'like', '%' . $request->search . '%')
+                // ->orWhere('users.name', 'like', '%' . $request->search . '%')
+                // ->orWhere('districts.name', 'like', '%' . $request->search . '%')
                 ->orWhere('catagories.name', 'like', '%' . $request->search . '%')
                 ->get();
 
