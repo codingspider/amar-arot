@@ -6,6 +6,7 @@ use App\Model\Catagory;
 use App\Model\Products;
 use Illuminate\Http\Request;
 use App\Model\MeasurmentUnit;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Session;
@@ -218,8 +219,6 @@ class ProductController extends Controller
     public function destroy(Products $product)
     {
         $product->delete();
-
-
         return redirect()->route('products.index')
             ->with('success', 'Product deleted successfully');
     }

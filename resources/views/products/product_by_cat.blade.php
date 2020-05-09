@@ -59,7 +59,7 @@
   <div class="row">
                 @foreach($products as $product)
                  <div class="col s6 m2">
-                    <div class="card hoverable">
+                    <div class="card hoverable" style="height:300px;">
                         <div class="card-image waves-effect waves-block waves-light">
                             <img class="activator" src="{{asset('uploads/'.$product->image)}}">
                         </div>
