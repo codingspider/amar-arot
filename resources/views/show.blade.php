@@ -25,7 +25,7 @@
                                 <h6><b>Price:</b>{{$product_details->price}}</h6>
                             </div>
                             <div class="col s12 m12">
-                                <h6><b>Minimum Order: </b> {{$product_details->stock_qty}} <b>{{$measurmentUnit->name}}</b></h6>
+                                <h6><b>Minimum Order: </b> {{$product_details->minimum_sale}} <b>{{$measurmentUnit->name}}</b></h6>
                             </div>
                             <div class="col s12 m12">
                                 <h6><b>Product Code:</b>{{$product_details->product_code}}</h6>
@@ -102,7 +102,7 @@
                         <span class="card-title grey-text text-darken-4">{{$product->name}}</span>
                         <ul style="font-size: 12px;">
                             <li>{{__('product.Price')}} {{$product->price}}{{__('cart.Taka')}}</li>
-                            <li>{{__('product.Minimum Order')}} {{$product->stock_qty}} {{$product->unit}} </li>
+                            <li>{{__('product.Minimum Order')}} {{$product->minimum_sale}} {{$product->unit}} </li>
                             <li>{{__('product.Place')}} {{$product->location}}</li>
                             <li>{{__('product.Seller')}} {{$product->seller_name}}</li>
                             <li>{{__('product.Phone')}} {{$product->phone}}</li>
