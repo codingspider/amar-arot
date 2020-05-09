@@ -137,10 +137,20 @@
 
             </div>
             <div class="row">
-                <div class="input-field col s12">
+                <div class="input-field col s6">
                     <input id="stock_qty" name="stock_qty" value="{{old('stock_qty')}}" type="text" class="validate">
                     <label for="stock_qty">{{__('product.Stock')}}</label>
                     @error('stock_qty')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
+                </div>
+                <div class="input-field col s6">
+                    <input id="minimum_sale" name="minimum_sale" type="text"
+                        class="validate">
+                    <label for="minimum_sale">{{__('product.Minimum Sales amount')}}</label>
+                    @error('minimum_sale')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
                     </span>

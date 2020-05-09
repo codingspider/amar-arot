@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col l6 s12">
                 <h5 class="white-text">Company Bio</h5>
-                <p class="grey-text text-lighten-4">{{__('footer.Bio')}}</p>
+                <p class="grey-text text-lighten-4" style="text-align: justify;">{{__('footer.Bio')}}</p>
             </div>
             <div class="col l3 s12">
                 <h5 class="white-text">Settings</h5>

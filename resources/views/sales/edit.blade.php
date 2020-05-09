@@ -3,11 +3,9 @@
 <div class="section no-pad-bot" id="index-banner">
     <div class="container">
         <br><br>
-        <h1 class="header center light-blue-text">আমার বাজার</h1>
+        <h1 class="header center light-blue-text">{{__('welcome.Amar Bazar')}}</h1>
         <div class="row center">
-            <h5 class="header col s12 light">আপনার পন্য সমূহ</h5>
-            <a data-target="add_product" class="waves-effect waves-light btn right light-blue sidenav-trigger"><i
-                    class="material-icons left">add_box</i>নতুন পণ্য যোগ করুন</a>
+            <h5 class="header col s12 light">{{__('product.Your Products')}}</h5>
         </div>
     </div>
 </div>
@@ -89,11 +87,21 @@
 
                 </div>
                 <div class="row">
-                    <div class="input-field col s12">
+                    <div class="input-field col s6">
                         <input id="stock_qty" name="stock_qty" value="{{$sale->stock_qty}}" type="text"
                             class="validate">
                         <label for="stock_qty">{{__('product.Stock')}}</label>
                         @error('stock_qty')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
+                    </div>
+                    <div class="input-field col s6">
+                        <input id="minimum_sale" name="minimum_sale" value="{{$sale->minimum_sale}}" type="text"
+                            class="validate">
+                        <label for="minimum_sale">{{__('product.Minimum Sales amount')}}</label>
+                        @error('minimum_sale')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
@@ -193,7 +201,7 @@
                             <input value="{{old('image')}}" type="file" name="image">
                         </div>
                         <div class="file-path-wrapper">
-                            <input class="file-path validate" id="imgae" type="text" >
+                            <input class="file-path validate" id="imgae" type="text">
                         </div>
                         @if(session()->has('error'))
                         <span class="invalid-feedback" role="alert">

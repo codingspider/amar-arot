@@ -19,6 +19,7 @@ class CreateProductsTable extends Migration
             $table->string('name_bn')->nullable();
             $table->float('price');
             $table->float('stock_qty');
+            $table->float('minimum_sale')->nullable();
             $table->float('rating')->nullable();
             $table->bigInteger('rating_by')->nullable();
             $table->float('sale_price')->nullable();

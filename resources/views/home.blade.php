@@ -93,7 +93,7 @@
                             <span class="card-title grey-text text-darken-4">{{$product->name}}</span>
                             <ul style="font-size: 12px;">
                                 <li>{{__('product.Price')}} {{$product->price}}{{__('cart.Taka')}}</li>
-                                <li>{{__('product.Minimum Order')}} {{$product->stock_qty}}{{$product->unit}} </li>
+                                <li>{{__('product.Minimum Order')}} {{$product->minimum_sale}}{{$product->unit}} </li>
                                 <li>{{__('product.Place')}} {{$product->location}}</li>
                                 <li>{{__('product.Seller')}} {{$product->seller_name}}</li>
                                 <li>{{__('product.Phone')}} {{$product->phone}}</li>
