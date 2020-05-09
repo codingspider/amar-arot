@@ -56,15 +56,9 @@
         </div>
         @endif
         <div class="row">
-            @foreach($categories as $category)
-            <div class="col s12 m12">
-            <h4 class="center-align" style="margin-top: 0px;"><a href="{{ url('products/by/this/category', $category->id ) }}">{{ $category->name}} </a></h4>
-            </div>
-            <div class="row">
+  <div class="row">
                 @foreach($products as $product)
-                @if($product->catagory_id == $category->id)
-
-                <div class="col s6 m2">
+                 <div class="col s6 m2">
                     <div class="card hoverable">
                         <div class="card-image waves-effect waves-block waves-light">
                             <img class="activator" src="{{asset('uploads/'.$product->image)}}">
@@ -103,11 +97,9 @@
                     </div>
                 </div>
 
-                @endif
                 @endforeach
             </div>
 
-            @endforeach
         </div>
 
     </div>

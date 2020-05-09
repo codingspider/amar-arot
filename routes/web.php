@@ -94,3 +94,4 @@ Route::post('/saveForLater/switchToCart/{product}', 'SaveForLaterController@swit
 
 Route::post('/coupon', 'CouponsController@store')->name('coupon.store');
 Route::delete('/coupon', 'CouponsController@destroy')->name('coupon.destroy');
+ROute::get('products/by/this/category/{id}', 'ProductController@product_by_cat');
