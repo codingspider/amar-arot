@@ -35,8 +35,8 @@
         @csrf
         <div class="section">
             <div class="row">
-                <div class="col s12">
-                    <table id="myTable" class="order-list">
+                <div class="col s12" style="overflow-x:scroll;">
+                    <table id="myTable" class="order-list" style="min-width: 500px;">
                         <thead>
                             <tr>
                                 <th width="30%">{{__('product.Product Name bn')}}</th>
@@ -77,7 +77,7 @@
                                         class="validated" required />
                                 </td>
                                 <td>
-                                    <select name="unit[]" class="browser-default unit" required>
+                                    <select name="unit[]" required>
                                         @foreach($units as $unit)
                                         <option value="{{$unit->name}}">{{$unit->name}}</option>
                                         @endforeach
@@ -99,12 +99,6 @@
                             </tr>
                         </tfoot>
                     </table>
-                    <style>
-                        .unit {
-                            height: 30px !important;
-                            width: 50px !important;
-                        }
-                    </style>
                 </div>
 
             </div>
@@ -287,7 +281,7 @@
 
             cols += '<td><i class="material-icons"></i><input type="number" class="input-field" autocomplete="off" value="1" style="margin-bottom: 8px;" name="qty[]" value="0" step="0.01" class="validated" required/></td>';
 
-            cols += '<td><select name="unit[]" required class="validated browser-default unit">@foreach($units as $unit) <option value="{{$unit->name}}">{{$unit->name}}</option>@endforeach</select></td>';
+            cols += '<td><select name="unit[]" required class="validated">@foreach($units as $unit) <option value="{{$unit->name}}">{{$unit->name}}</option>@endforeach</select></td>';
 
             cols += '<td><i class="ibtnDel material-icons" style="cursor: pointer;">delete_forever</i></td>';
             newRow.append(cols);

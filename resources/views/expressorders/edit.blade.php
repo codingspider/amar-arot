@@ -34,11 +34,11 @@
                 <h4>Please add your bazar list</h4>
 
             </div>
-            <div class="col s12">
+            <div class="col s12" style="overflow-x:scroll;">
                 <form action="{{route('express-orders.update',$id)}}" method="POST">
                     @csrf
                     @method('PUT')
-                    <table id="myTable" class="order-list striped">
+                    <table id="myTable" class="order-list striped" style="min-width: 500px;">
                         <thead>
                             <tr>
                                 <th width="30%">{{__('product.Product Name bn')}}</th>
@@ -81,7 +81,7 @@
                                         name="qty[]" required />
                                 </td>
                                 <td>
-                                    <select name="unit[]" required class="validated browser-default unit">
+                                    <select name="unit[]" required class="validated">
                                         @foreach($units as $unit)
                                         <option value="{{$unit->name}}" @if($unit->name ==$item->unit) selected
                                             @endif>{{$unit->name}}</option>
@@ -106,12 +106,6 @@
                         </tfoot>
                     </table>
                 </form>
-                <style>
-                    .unit {
-                        height: 30px !important;
-                        width: 50px !important;
-                    }
-                </style>
             </div>
 
         </div>
@@ -224,7 +218,7 @@
             cols += '<td><div class="input-field inline" style="width: 100% !important;"><i class="material-icons prefix" type="button" id="mic-icon-brand' + counter + '" onclick=voice_input("#brand' + counter + '","#mic-icon-brand' + counter + '")>keyboard_voice</i><input type="text" id="brand' + counter + '" placeholder="Ex:N/A, Local"  name="brand[]"></div></td>';
 
             cols += '<td><input type="number" class="input-field" autocomplete="off" value="{{old("qty")}}" name="qty[]" required/></td>';
-            cols += '<td><select name="unit[]" required class="validated browser-default unit">@foreach($units as $unit)<option value="{{$unit->name}}">{{$unit->name}}</option>@endforeach</select></td>';
+            cols += '<td><select name="unit[]" required class="validated">@foreach($units as $unit)<option value="{{$unit->name}}">{{$unit->name}}</option>@endforeach</select></td>';
 
             cols += '<td><i class="material-icons ibtnDel" style="cursor: pointer;">delete_forever</i></td>';
             newRow.append(cols);

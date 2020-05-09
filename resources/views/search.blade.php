@@ -35,14 +35,15 @@
         <div class="row">
             @if(count($products)>0)
             @foreach($products as $product)
-            <div class="col s6 m3">
+            <div class="col s6 m2">
                 <div class="card hoverable">
                     <div class="card-image waves-effect waves-block waves-light">
-                        <img class="activator" src="{{asset('uploads/'.$product->image)}}">
+                        <img class="activator" height="150" src="{{asset('uploads/'.$product->image)}}">
                     </div>
                     <div class="card-content">
-                        <span class="card-title activator grey-text text-darken-4"><a href="{{route('details',$product->id)}}" title="Product Details">{{$product->name}}</a><i
-                                class="material-icons right">more_vert</i></span>
+                        <span class="card-title activator grey-text text-darken-4 truncate" style="font-size: medium;">
+                            <a href="{{route('details',$product->id)}}" title="Product Details">{{$product->name}}</a>
+                        </span>
                         {{-- <p><a href="#" class="btn light-blue">{{__('product.Add to Bag')}}</a></p> --}}
                         <form action="{{ route('cart.store')}}" method="POST">
                             @csrf
@@ -51,18 +52,17 @@
                             <input type="hidden" name="price" value="{{ $product->price }}">
                             <input type="hidden" name="seller_id" value="{{ $product->seller_id }}">
                             @if(Cart::content()->where('id', $product->id)->count() >0)
-                            <button class="btn light-blue disabled" type="submit">Already Added </button>
+                            <button class="btn light-blue disabled" style="font-size: 10px;" type="submit">Already Added </button>
                             @else
-                            <button class="btn light-blue " type="submit">Add to cart </button>
+                            <button class="btn light-blue " style="font-size: 10px;" type="submit">Add to cart </button>
                             @endif
 
                         </form>
 
                     </div>
                     <div class="card-reveal">
-                        <span class="card-title grey-text text-darken-4">{{$product->name}}<i
-                                class="material-icons right">close</i></span>
-                        <ul>
+                        <span class="card-title grey-text text-darken-4">{{$product->name}}</span>
+                        <ul style="font-size: 12px;">
                             <li>{{__('product.Price')}} {{$product->price}}{{__('cart.Taka')}} {{__('cart.Kg')}}</li>
                             <li>{{__('product.Price')}} {{$product->price}}{{__('cart.Taka')}}</li>
                             <li>{{__('product.Minimum Order')}} {{$product->stock_qty}}{{$product->unit}} </li>
