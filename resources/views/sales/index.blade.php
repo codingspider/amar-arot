@@ -45,38 +45,28 @@
         <!--   Icon Section   -->
         <div class="row">
             @foreach($products as $product)
-            <div class="col s12 m3">
+            <div class="col s6 m2">
                 <div class="card">
                     <div class="card-image waves-effect waves-block waves-light">
-                        <img class="activator" src="{{asset('uploads/'.$product->image)}}">
+                        <img class="activator" height="150" src="{{asset('uploads/'.$product->image)}}">
                     </div>
                     <div class="card-content">
                         <div class="row">
                             <div class="col s12">
-                                <span class="card-title activator grey-text text-darken-4">{{$product->name}}<i
-                                        class="material-icons right">more_vert</i></span>
+                                <span class="card-title activator grey-text text-darken-4 truncate" style="font-size: medium;">{{$product->name}}</span>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col s8 ">
-                                <span><a href="{{route('sales.edit',$product->id)}}"
+                            <div class="col s12 ">
+                                <span><a href="{{route('sales.edit',$product->id)}}" style="font-size: medium;"
                                         class="btn light-blue left-align">{{__('product.Edit')}}</a> </span>
 
-                            </div>
-                            <div class="col s2 left-align">
-                                <form action="{{route('sales.destroy',$product->id)}}" method="POST">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn red"><i
-                                            class="material-icons">delete_forever</i></button>
-                                </form>
                             </div>
                         </div>
 
                     </div>
                     <div class="card-reveal">
-                        <span class="card-title grey-text text-darken-4">{{$product->name}}<i
-                                class="material-icons right">close</i></span>
+                        <span class="card-title grey-text text-darken-4">{{$product->name}}</span>
                         <ul>
                             <li>{{__('product.Price')}} {{$product->price}}{{__('cart.Taka')}}</li>
                             <li>{{__('product.Minimum Order')}} {{$product->stock_qty}}{{$product->unit}} </li>
@@ -84,6 +74,12 @@
                             <li>{{__('product.Seller')}} {{$product->seller_name}}</li>
                             <li>{{__('product.Phone')}} {{$product->phone}}</li>
                         </ul>
+                        <form action="{{route('sales.destroy',$product->id)}}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn red right"><i
+                                    class="material-icons">delete_forever</i></button>
+                        </form>
                     </div>
                 </div>
             </div>

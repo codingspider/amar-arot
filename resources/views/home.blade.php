@@ -65,7 +65,7 @@
                 @if($product->catagory_id == $category->id)
 
                 <div class="col s6 m2" >
-                    <div class="card hoverable" style="height:300px;">
+                    <div class="card hoverable">
                         <div class="card-image waves-effect waves-block waves-light">
                             <img class="activator" height="150" src="{{asset('uploads/'.$product->image)}}">
                         </div>
@@ -91,7 +91,7 @@
                         </div>
                         <div class="card-reveal">
                             <span class="card-title grey-text text-darken-4">{{$product->name}}</span>
-                            <ul>
+                            <ul style="font-size: 12px;">
                                 <li>{{__('product.Price')}} {{$product->price}}{{__('cart.Taka')}}</li>
                                 <li>{{__('product.Minimum Order')}} {{$product->stock_qty}}{{$product->unit}} </li>
                                 <li>{{__('product.Place')}} {{$product->location}}</li>

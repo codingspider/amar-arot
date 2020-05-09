@@ -104,7 +104,9 @@ class HomeController extends Controller
         }
 
 
-        $products = Products::where('catagory_id', $product_details->catagory_id)->latest()->take(4)->get();
+        $products = Products::where('catagory_id', $product_details->catagory_id)->leftjoin('users', 'users.id', 'products.seller_id')
+        ->leftjoin('addresses', 'addresses.user_id', 'products.seller_id')
+        ->leftjoin('districts', 'districts.id', 'addresses.district_id')->leftjoin('measurment_units', 'measurment_units.id', 'products.measurment_unit_id')->select('products.*', 'products.id as p_id', 'users.name as seller_name', 'users.phone', 'districts.name as location', 'measurment_units.name as unit')->latest()->take(4)->get();
         return view('show', compact('products', 'product_details', 'categories', 'measurmentUnit', 'user', 'address'));
     }
 }
