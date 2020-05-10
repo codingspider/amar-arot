@@ -23,18 +23,18 @@
           <input id="name_bn" name="name_bn" type="text" class="validate">
           <label for="name_bn">{{__('product.Product Name bn')}}</label>
         </div>
-      </div>
-      <div class="row">
         <div class="input-field col s6">
           <input id="price" name="price" type="text" class="validate">
-          <label for="price">{{__('product.Selling Price')}}</label>
+          <label for="price">{{__('product.Price')}}</label>
+        </div>
+        <div class="input-field col s6">
+          <input id="sale_price" type="text" name="sale_price" class="validate">
+          <label for="sale_price">{{__('product.Selling Price')}} </label>
         </div>
         <div class="input-field col s6">
           <input id="stock_qty" name="stock_qty" type="text" class="validate">
           <label for="stock_qty">{{__('product.Stock')}}</label>
         </div>
-      </div>
-      <div class="row">
         <div class="input-field col s6">
           <input id="rating" name="rating" type="text" class="validate">
           <label for="rating">{{__('product.rating')}} </label>
@@ -43,18 +43,10 @@
           <input id="rating_by" name="rating_by" type="text" class="validate">
           <label for="rating_by">{{__('product.rating_by')}} </label>
         </div>
-      </div>
-      <div class="row">
         <div class="input-field col s6">
           <input id="product_code" type="text" name="product_code" class="validate">
           <label for="product_code">{{__('product.product_code')}}</label>
         </div>
-        <div class="input-field col s6">
-          <input id="sale_price" type="text" name="sale_price" class="validate">
-          <label for="sale_price">{{__('product.sale_price')}} </label>
-        </div>
-      </div>
-      <div class="row">
         <div class="input-field col s6">
           <input id="variation_type" type="text" name="variation_type" class="validate">
           <label for="variation_type">{{__('product.product_variation')}} </label>
@@ -68,8 +60,6 @@
             <input class="file-path validate" type="text">
           </div>
         </div>
-      </div>
-      <div class="row">
         <div class="input-field col s6">
           <textarea id="short_description" class="materialize-textarea" name="short_description"></textarea>
           <label for="short_description">{{__('product.short_description')}}</label>
@@ -78,8 +68,6 @@
           <textarea id="description" class="materialize-textarea" name="description"></textarea>
           <label for="description">{{__('product.description')}} </label>
         </div>
-      </div>
-      <div class="row">
         <div class="input-field col s6">
           <textarea id="short_description_bn" class="materialize-textarea" name="short_description_bn"></textarea>
           <label for="short_description_bn">{{__('product.short_description_bn')}} </label>
@@ -88,8 +76,6 @@
           <textarea id="description_bn" class="materialize-textarea" name="description_bn"></textarea>
           <label for="description_bn">{{__('product.description_bn')}}</label>
         </div>
-      </div>
-      <div class="row">
         <div class="input-field col s4">
           <select name="mesurment_id" name="measurment_unit_id">
             <option value="" selected>Choose your option</option>

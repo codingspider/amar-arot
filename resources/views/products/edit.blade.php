@@ -28,31 +28,20 @@
       <div class="row">
         <div class="input-field col s6">
           <input value="{{ $product->price }}" id="first_name" name="price" type="text" class="validate">
+          <label for="first_name">{{__('product.Price')}} </label>
+        </div>
+        
+        <div class="input-field col s6">
+          <input value="{{ $product->sale_price }}" id="first_name" type="text" name="sale_price" class="validate">
           <label for="first_name">{{__('product.Selling Price')}} </label>
         </div>
         <div class="input-field col s6">
           <input value="{{ $product->stock_qty }}" id="first_name" name="stock_qty" type="text" class="validate">
           <label for="first_name">{{__('product.Stock')}}</label>
         </div>
-      </div>
-      <div class="row">
-        <div class="input-field col s6">
-          <input value="{{ $product->rating }} " id="first_name" name="rating" type="text" class="validate">
-          <label for="first_name">{{__('product.rating')}} </label>
-        </div>
-        <div class="input-field col s6">
-          <input value="{{ $product->rating_by }}" id="first_name" name="rating_by" type="text" class="validate">
-          <label for="first_name">{{__('product.rating_by')}} </label>
-        </div>
-      </div>
-      <div class="row">
         <div class="input-field col s6">
           <input value="{{ $product->product_code }} " id="first_name" type="text" name="product_code" class="validate">
           <label for="first_name">{{__('product.product_code')}}</label>
-        </div>
-        <div class="input-field col s6">
-          <input value="{{ $product->sale_price }}" id="first_name" type="text" name="sale_price" class="validate">
-          <label for="first_name">{{__('product.sale_price')}} </label>
         </div>
       </div>
       <div class="row">
@@ -114,10 +103,15 @@
             </div>
             <div class="input-field col s4">
                 <select name="seller_id" name="seller_id">
+                  @php 
+                  
+                  $users = App\User::all();
+                  
+                  @endphp
                     <option value="" selected>Choose your option</option>
-                    <option value="1">Option 1</option>
-                    <option value="2">Option 2</option>
-                    <option value="3">Option 3</option>
+                    @foreach($users as $user)
+                    <option value="{{$user->id}}">{{$user->name}}</option>
+                    @endforeach
                 </select>
                 <label>{{__('product.seller_id')}}</label>
             </div>
